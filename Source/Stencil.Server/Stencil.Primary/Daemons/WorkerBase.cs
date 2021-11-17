@@ -63,6 +63,7 @@ namespace Stencil.Primary.Daemons
                             IntervalMilliSeconds = millisecondInterval,
                             StartDelayMilliSeconds = 0,
                             TaskConfiguration = string.Empty
+                         
                         };
                         TWorker worker = (TWorker)foundation.Container.Resolve(typeof(TWorker), null);
                         daemonManager.RegisterDaemon(config, worker, true);

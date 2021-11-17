@@ -14,6 +14,12 @@ namespace Stencil.Data.Sql
     
     public partial class dbAsset
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public dbAsset()
+        {
+            this.Invoices = new HashSet<dbInvoice>();
+        }
+    
         public System.Guid asset_id { get; set; }
         public int type { get; set; }
         public bool available { get; set; }
@@ -42,5 +48,8 @@ namespace Stencil.Data.Sql
         public string resize_mode { get; set; }
         public System.DateTimeOffset created_utc { get; set; }
         public System.DateTimeOffset updated_utc { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<dbInvoice> Invoices { get; set; }
     }
 }

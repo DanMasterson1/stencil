@@ -1,0 +1,7 @@
+﻿AssemblyFileName: Stencil.Plugins.MasterCard.dll
+SystemName: MasterCard
+FriendlyName: Stencil - MasterCard
+Description: Sends mastercard payment request
+Version: 1.0 
+Author: daniel.masterson@suzy.com
+Feature: Unknown

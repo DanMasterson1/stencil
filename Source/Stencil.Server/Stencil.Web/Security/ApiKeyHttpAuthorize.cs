@@ -42,7 +42,9 @@ namespace Stencil.Web.Security
 
         public bool AuthorizedRequest(HttpActionContext actionContext)
         {
+            
             IFoundation iFoundation = CoreFoundation.Current; //weak usage of CoreFoundation.Current
+            
             Account account = null;
             bool isPreAuthorized = base.IsAuthorized(actionContext);
 
@@ -135,6 +137,8 @@ namespace Stencil.Web.Security
                     platform = platform,
                     login_utc = DateTime.UtcNow
                 });
+
+                
                 return true;
             }
 

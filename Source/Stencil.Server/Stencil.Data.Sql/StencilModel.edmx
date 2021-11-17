@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Stencil.Data.Sql.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Stencil.Data.Sql.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="account_id" />
@@ -69,6 +69,22 @@
           <Property Name="created_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
           <Property Name="updated_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
         </EntityType>
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="brand_id" />
+          </Key>
+          <Property Name="brand_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="brand_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="created_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="updated_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="deleted_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_agent" Type="nvarchar" MaxLength="50" />
+          <Property Name="sync_log" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="GlobalSetting">
           <Key>
             <PropertyRef Name="global_setting_id" />
@@ -77,6 +93,416 @@
           <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="value" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="invoice_id" />
+          </Key>
+          <Property Name="invoice_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="order_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="asset_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="created_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="updated_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="deleted_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_agent" Type="nvarchar" MaxLength="50" />
+          <Property Name="sync_log" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="LineItem">
+          <Key>
+            <PropertyRef Name="lineitem_id" />
+          </Key>
+          <Property Name="lineitem_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="order_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="listing_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="lineitem_quantity" Type="int" Nullable="false" />
+          <Property Name="created_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="updated_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="deleted_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_agent" Type="nvarchar" MaxLength="50" />
+          <Property Name="sync_log" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Listing">
+          <Key>
+            <PropertyRef Name="listing_id" />
+          </Key>
+          <Property Name="listing_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="brand_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="product_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="promotion_id" Type="uniqueidentifier" />
+          <Property Name="listing_description" Type="nvarchar" MaxLength="500" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="expire_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="created_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="updated_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="deleted_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_agent" Type="nvarchar" MaxLength="50" />
+          <Property Name="sync_log" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="account_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="invoice_id" Type="uniqueidentifier" />
+          <Property Name="payment_id" Type="uniqueidentifier" />
+          <Property Name="shipment_id" Type="uniqueidentifier" />
+          <Property Name="order_paid" Type="bit" Nullable="false" />
+          <Property Name="order_shipped" Type="bit" Nullable="false" />
+          <Property Name="order_status" Type="int" Nullable="false" />
+          <Property Name="created_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="updated_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="deleted_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_agent" Type="nvarchar" MaxLength="50" />
+          <Property Name="sync_log" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="payment_id" />
+          </Key>
+          <Property Name="payment_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="order_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="payment_processed_successful" Type="bit" Nullable="false" />
+          <Property Name="card_type" Type="int" Nullable="false" />
+          <Property Name="card_number" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="expire_date" Type="datetime" Nullable="false" />
+          <Property Name="cvv" Type="int" Nullable="false" />
+          <Property Name="save_paymentdetails" Type="bit" Nullable="false" />
+          <Property Name="created_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="updated_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="deleted_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_agent" Type="nvarchar" MaxLength="50" />
+          <Property Name="sync_log" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="PaymentDetail">
+          <Key>
+            <PropertyRef Name="paymentdetail_id" />
+          </Key>
+          <Property Name="paymentdetail_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="account_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="card_type" Type="int" Nullable="false" />
+          <Property Name="card_number" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="expire_date" Type="datetime" Nullable="false" />
+          <Property Name="cvv" Type="int" Nullable="false" />
+          <Property Name="created_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="updated_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="deleted_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_agent" Type="nvarchar" MaxLength="50" />
+          <Property Name="sync_log" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="PaymentTransaction">
+          <Key>
+            <PropertyRef Name="paymenttransaction_id" />
+          </Key>
+          <Property Name="paymenttransaction_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="order_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="payment_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="transaction_outcome" Type="int" Nullable="false" />
+          <Property Name="created_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="updated_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="deleted_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_agent" Type="nvarchar" MaxLength="50" />
+          <Property Name="sync_log" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="product_id" />
+          </Key>
+          <Property Name="product_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="brand_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="product_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="product_description" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="baseprice" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="created_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="updated_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="deleted_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_agent" Type="nvarchar" MaxLength="50" />
+          <Property Name="sync_log" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Promotion">
+          <Key>
+            <PropertyRef Name="promotion_id" />
+          </Key>
+          <Property Name="promotion_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="promotion_description" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="percent" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="created_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="updated_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="deleted_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_agent" Type="nvarchar" MaxLength="50" />
+          <Property Name="sync_log" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Shipment">
+          <Key>
+            <PropertyRef Name="shipment_id" />
+          </Key>
+          <Property Name="shipment_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="order_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="shipment_carriertype" Type="int" Nullable="false" />
+          <Property Name="shipment_processed_successful" Type="bit" Nullable="false" />
+          <Property Name="shipment_street" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="shipment_city" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="shipment_state" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="shipment_country" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="shipment_zip" Type="int" Nullable="false" />
+          <Property Name="created_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="updated_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
+          <Property Name="deleted_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="datetimeoffset" Precision="0" />
+          <Property Name="sync_agent" Type="nvarchar" MaxLength="50" />
+          <Property Name="sync_log" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Subscription">
+          <Key>
+            <PropertyRef Name="subscription_id" />
+          </Key>
+          <Property Name="subscription_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="brand_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="product_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Invoice_Asset_asset_id">
+          <End Role="Asset" Type="Self.Asset" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asset">
+              <PropertyRef Name="asset_id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="asset_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_Order_order_id">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LineItem_Listing_listing_id">
+          <End Role="Listing" Type="Self.Listing" Multiplicity="1" />
+          <End Role="LineItem" Type="Self.LineItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Listing">
+              <PropertyRef Name="listing_id" />
+            </Principal>
+            <Dependent Role="LineItem">
+              <PropertyRef Name="listing_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LineItem_Order_order_id">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="LineItem" Type="Self.LineItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="LineItem">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Listing_Brand_brand_id">
+          <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
+          <End Role="Listing" Type="Self.Listing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="brand_id" />
+            </Principal>
+            <Dependent Role="Listing">
+              <PropertyRef Name="brand_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Listing_Product_product_id">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Listing" Type="Self.Listing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="Listing">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Listing_Promotion_promotion_id">
+          <End Role="Promotion" Type="Self.Promotion" Multiplicity="0..1" />
+          <End Role="Listing" Type="Self.Listing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promotion">
+              <PropertyRef Name="promotion_id" />
+            </Principal>
+            <Dependent Role="Listing">
+              <PropertyRef Name="promotion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Account_account_id">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="account_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="account_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Invoice_invoice_id">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="invoice_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="invoice_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Payment_payment_id">
+          <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment">
+              <PropertyRef Name="payment_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="payment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Shipment_shipment_id">
+          <End Role="Shipment" Type="Self.Shipment" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shipment">
+              <PropertyRef Name="shipment_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="shipment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_Order_order_id">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentDetail_Account_account_id">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="PaymentDetail" Type="Self.PaymentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="account_id" />
+            </Principal>
+            <Dependent Role="PaymentDetail">
+              <PropertyRef Name="account_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentTransaction_Order_order_id">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="PaymentTransaction" Type="Self.PaymentTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="PaymentTransaction">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentTransaction_Payment_payment_id">
+          <End Role="Payment" Type="Self.Payment" Multiplicity="1" />
+          <End Role="PaymentTransaction" Type="Self.PaymentTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment">
+              <PropertyRef Name="payment_id" />
+            </Principal>
+            <Dependent Role="PaymentTransaction">
+              <PropertyRef Name="payment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Brand_brand_id">
+          <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="brand_id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="brand_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shipment_Order_order_id">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Shipment" Type="Self.Shipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="Shipment">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="spAccount_HydrateSyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
           <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
@@ -97,16 +523,320 @@
           <Parameter Name="sync_success_utc" Type="datetimeoffset" Mode="In" />
           <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
         </Function>
+        <Function Name="spBrand_HydrateSyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spBrand_HydrateSyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="brand_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_hydrate_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spBrand_SyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spBrand_SyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="brand_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_success_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
         <Function Name="spIndex_InvalidateAggregates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spIndex_InvalidateAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spIndex_Status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spIndexHydrate_InvalidateAggregates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spIndexHydrate_InvalidateAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spIndexHydrate_Status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spInvoice_HydrateSyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spInvoice_HydrateSyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="invoice_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_hydrate_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spInvoice_SyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spInvoice_SyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="invoice_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_success_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spLineItem_HydrateSyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spLineItem_HydrateSyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="lineitem_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_hydrate_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spLineItem_SyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spLineItem_SyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="lineitem_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_success_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spListing_HydrateSyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spListing_HydrateSyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="listing_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_hydrate_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spListing_InvalidateExpired" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spListing_SyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spListing_SyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="listing_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_success_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spOrder_GetCloseableOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spOrder_GetNonInvoiced" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spOrder_GetPayableOrderPayments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spOrder_HydrateSyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spOrder_HydrateSyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="order_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_hydrate_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spOrder_SyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spOrder_SyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="order_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_success_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spPayment_HydrateSyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spPayment_HydrateSyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="payment_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_hydrate_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spPayment_SyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spPayment_SyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="payment_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_success_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spPaymentDetail_HydrateSyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spPaymentDetail_HydrateSyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="paymentdetail_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_hydrate_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spPaymentDetail_SyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spPaymentDetail_SyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="paymentdetail_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_success_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spPaymentTransaction_HydrateSyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spPaymentTransaction_HydrateSyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="paymenttransaction_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_hydrate_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spPaymentTransaction_SyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spPaymentTransaction_SyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="paymenttransaction_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_success_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spProduct_HydrateSyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spProduct_HydrateSyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="product_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_hydrate_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spProduct_SyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spProduct_SyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="product_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_success_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spPromotion_HydrateSyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spPromotion_HydrateSyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="promotion_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_hydrate_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spPromotion_SyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spPromotion_SyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="promotion_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_success_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spShipment_HydrateSyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spShipment_HydrateSyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="shipment_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_hydrate_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spShipment_SyncGetInvalid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="allowableSecondsToProcessIndex" Type="int" Mode="In" />
+          <Parameter Name="sync_agent" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spShipment_SyncUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="shipment_id" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sync_success" Type="bit" Mode="In" />
+          <Parameter Name="sync_success_utc" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="sync_log" Type="nvarchar(max)" Mode="In" />
+        </Function>
         <EntityContainer Name="StencilDataSqlStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Asset" EntityType="Self.Asset" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GlobalSetting" EntityType="Self.GlobalSetting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LineItem" EntityType="Self.LineItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Listing" EntityType="Self.Listing" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentDetail" EntityType="Self.PaymentDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentTransaction" EntityType="Self.PaymentTransaction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Promotion" EntityType="Self.Promotion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shipment" EntityType="Self.Shipment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subscription" EntityType="Self.Subscription" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Invoice_Asset_asset_id" Association="Self.FK_Invoice_Asset_asset_id">
+            <End Role="Asset" EntitySet="Asset" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Order_order_id" Association="Self.FK_Invoice_Order_order_id">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LineItem_Listing_listing_id" Association="Self.FK_LineItem_Listing_listing_id">
+            <End Role="Listing" EntitySet="Listing" />
+            <End Role="LineItem" EntitySet="LineItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LineItem_Order_order_id" Association="Self.FK_LineItem_Order_order_id">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="LineItem" EntitySet="LineItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Listing_Brand_brand_id" Association="Self.FK_Listing_Brand_brand_id">
+            <End Role="Brand" EntitySet="Brand" />
+            <End Role="Listing" EntitySet="Listing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Listing_Product_product_id" Association="Self.FK_Listing_Product_product_id">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Listing" EntitySet="Listing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Listing_Promotion_promotion_id" Association="Self.FK_Listing_Promotion_promotion_id">
+            <End Role="Promotion" EntitySet="Promotion" />
+            <End Role="Listing" EntitySet="Listing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Account_account_id" Association="Self.FK_Order_Account_account_id">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Invoice_invoice_id" Association="Self.FK_Order_Invoice_invoice_id">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Payment_payment_id" Association="Self.FK_Order_Payment_payment_id">
+            <End Role="Payment" EntitySet="Payment" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Shipment_shipment_id" Association="Self.FK_Order_Shipment_shipment_id">
+            <End Role="Shipment" EntitySet="Shipment" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_Order_order_id" Association="Self.FK_Payment_Order_order_id">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentDetail_Account_account_id" Association="Self.FK_PaymentDetail_Account_account_id">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="PaymentDetail" EntitySet="PaymentDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentTransaction_Order_order_id" Association="Self.FK_PaymentTransaction_Order_order_id">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="PaymentTransaction" EntitySet="PaymentTransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentTransaction_Payment_payment_id" Association="Self.FK_PaymentTransaction_Payment_payment_id">
+            <End Role="Payment" EntitySet="Payment" />
+            <End Role="PaymentTransaction" EntitySet="PaymentTransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Brand_brand_id" Association="Self.FK_Product_Brand_brand_id">
+            <End Role="Brand" EntitySet="Brand" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shipment_Order_order_id" Association="Self.FK_Shipment_Order_order_id">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Shipment" EntitySet="Shipment" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -142,7 +872,311 @@
           <FunctionImport Name="spIndexHydrate_InvalidateAll" />
           <FunctionImport Name="spIndexHydrate_Status" ReturnType="Collection(Stencil.Data.Sql.spIndexHydrate_Status_Result)" />
           <EntitySet Name="dbAssets" EntityType="Stencil.Data.Sql.dbAsset" />
-        </EntityContainer>
+          <FunctionImport Name="spBrand_HydrateSyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spBrand_HydrateSyncUpdate">
+            <Parameter Name="brand_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_hydrate_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spBrand_SyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spBrand_SyncUpdate">
+            <Parameter Name="brand_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_success_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spListing_HydrateSyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spListing_HydrateSyncUpdate">
+            <Parameter Name="listing_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_hydrate_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spListing_SyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spListing_SyncUpdate">
+            <Parameter Name="listing_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_success_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spProduct_HydrateSyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spProduct_HydrateSyncUpdate">
+            <Parameter Name="product_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_hydrate_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spProduct_SyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spProduct_SyncUpdate">
+            <Parameter Name="product_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_success_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spPromotion_HydrateSyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spPromotion_HydrateSyncUpdate">
+            <Parameter Name="promotion_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_hydrate_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spPromotion_SyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spPromotion_SyncUpdate">
+            <Parameter Name="promotion_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_success_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spListing_InvalidateExpired" />
+          <FunctionImport Name="spLineItem_HydrateSyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spLineItem_HydrateSyncUpdate">
+            <Parameter Name="lineitem_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_hydrate_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spLineItem_SyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spLineItem_SyncUpdate">
+            <Parameter Name="lineitem_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_success_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spOrder_HydrateSyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spOrder_HydrateSyncUpdate">
+            <Parameter Name="order_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_hydrate_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spOrder_SyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spOrder_SyncUpdate">
+            <Parameter Name="order_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_success_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spInvoice_HydrateSyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spInvoice_HydrateSyncUpdate">
+            <Parameter Name="invoice_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_hydrate_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spInvoice_SyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spInvoice_SyncUpdate">
+            <Parameter Name="invoice_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_success_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="dbBrands" EntityType="Stencil.Data.Sql.dbBrand" />
+          <EntitySet Name="dbLineItems" EntityType="Stencil.Data.Sql.dbLineItem" />
+          <EntitySet Name="dbListings" EntityType="Stencil.Data.Sql.dbListing" />
+          <EntitySet Name="dbOrders" EntityType="Stencil.Data.Sql.dbOrder" />
+          <EntitySet Name="dbProducts" EntityType="Stencil.Data.Sql.dbProduct" />
+          <EntitySet Name="dbPromotions" EntityType="Stencil.Data.Sql.dbPromotion" />
+          <AssociationSet Name="FK_Order_Account_account_id" Association="Stencil.Data.Sql.FK_Order_Account_account_id">
+            <End Role="dbAccount" EntitySet="dbAccounts" />
+            <End Role="Order" EntitySet="dbOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Listing_Brand_brand_id" Association="Stencil.Data.Sql.FK_Listing_Brand_brand_id">
+            <End Role="Brand" EntitySet="dbBrands" />
+            <End Role="Listing" EntitySet="dbListings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Brand_brand_id" Association="Stencil.Data.Sql.FK_Product_Brand_brand_id">
+            <End Role="Brand" EntitySet="dbBrands" />
+            <End Role="Product" EntitySet="dbProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LineItem_Listing_listing_id" Association="Stencil.Data.Sql.FK_LineItem_Listing_listing_id">
+            <End Role="Listing" EntitySet="dbListings" />
+            <End Role="LineItem" EntitySet="dbLineItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LineItem_Order_order_id" Association="Stencil.Data.Sql.FK_LineItem_Order_order_id">
+            <End Role="Order" EntitySet="dbOrders" />
+            <End Role="LineItem" EntitySet="dbLineItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Listing_Product_product_id" Association="Stencil.Data.Sql.FK_Listing_Product_product_id">
+            <End Role="Product" EntitySet="dbProducts" />
+            <End Role="Listing" EntitySet="dbListings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Listing_Promotion_promotion_id" Association="Stencil.Data.Sql.FK_Listing_Promotion_promotion_id">
+            <End Role="Promotion" EntitySet="dbPromotions" />
+            <End Role="Listing" EntitySet="dbListings" />
+          </AssociationSet>
+          <FunctionImport Name="spPayment_HydrateSyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spPayment_HydrateSyncUpdate">
+            <Parameter Name="payment_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_hydrate_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spPayment_SyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spPayment_SyncUpdate">
+            <Parameter Name="payment_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_success_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spShipment_HydrateSyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spShipment_HydrateSyncUpdate">
+            <Parameter Name="shipment_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_hydrate_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spShipment_SyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spShipment_SyncUpdate">
+            <Parameter Name="shipment_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_success_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spOrder_GetNonInvoiced" ReturnType="Collection(Guid)" />
+          <EntitySet Name="dbInvoices" EntityType="Stencil.Data.Sql.dbInvoice" />
+          <AssociationSet Name="FK_Invoice_Asset_asset_id" Association="Stencil.Data.Sql.FK_Invoice_Asset_asset_id">
+            <End Role="dbAsset" EntitySet="dbAssets" />
+            <End Role="Invoice" EntitySet="dbInvoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Order_order_id" Association="Stencil.Data.Sql.FK_Invoice_Order_order_id">
+            <End Role="dbOrder" EntitySet="dbOrders" />
+            <End Role="Invoice" EntitySet="dbInvoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Invoice_invoice_id" Association="Stencil.Data.Sql.FK_Order_Invoice_invoice_id">
+            <End Role="Invoice" EntitySet="dbInvoices" />
+            <End Role="dbOrder" EntitySet="dbOrders" />
+          </AssociationSet>
+          <FunctionImport Name="spOrder_GetCloseableOrders" ReturnType="Collection(Guid)" />
+          <EntitySet Name="dbShipments" EntityType="Stencil.Data.Sql.dbShipment" />
+          <AssociationSet Name="FK_Order_Shipment_shipment_id" Association="Stencil.Data.Sql.FK_Order_Shipment_shipment_id">
+            <End Role="Shipment" EntitySet="dbShipments" />
+            <End Role="dbOrder" EntitySet="dbOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shipment_Order_order_id" Association="Stencil.Data.Sql.FK_Shipment_Order_order_id">
+            <End Role="dbOrder" EntitySet="dbOrders" />
+            <End Role="Shipment" EntitySet="dbShipments" />
+          </AssociationSet>
+          <EntitySet Name="dbPaymentTransactions" EntityType="Stencil.Data.Sql.dbPaymentTransaction" />
+          <AssociationSet Name="FK_PaymentTransaction_Order_order_id" Association="Stencil.Data.Sql.FK_PaymentTransaction_Order_order_id">
+            <End Role="dbOrder" EntitySet="dbOrders" />
+            <End Role="PaymentTransaction" EntitySet="dbPaymentTransactions" />
+          </AssociationSet>
+          <FunctionImport Name="spOrder_GetPayableOrderPayments" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="spPaymentTransaction_HydrateSyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spPaymentTransaction_HydrateSyncUpdate">
+            <Parameter Name="paymenttransaction_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_hydrate_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spPaymentTransaction_SyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spPaymentTransaction_SyncUpdate">
+            <Parameter Name="paymenttransaction_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_success_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="dbPayments" EntityType="Stencil.Data.Sql.dbPayment" />
+          <EntitySet Name="dbPaymentDetails" EntityType="Stencil.Data.Sql.dbPaymentDetail" />
+          <AssociationSet Name="FK_PaymentDetail_Account_account_id" Association="Stencil.Data.Sql.FK_PaymentDetail_Account_account_id">
+            <End Role="dbAccount" EntitySet="dbAccounts" />
+            <End Role="PaymentDetail" EntitySet="dbPaymentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Payment_payment_id" Association="Stencil.Data.Sql.FK_Order_Payment_payment_id">
+            <End Role="Payment" EntitySet="dbPayments" />
+            <End Role="dbOrder" EntitySet="dbOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_Order_order_id" Association="Stencil.Data.Sql.FK_Payment_Order_order_id">
+            <End Role="dbOrder" EntitySet="dbOrders" />
+            <End Role="Payment" EntitySet="dbPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentTransaction_Payment_payment_id" Association="Stencil.Data.Sql.FK_PaymentTransaction_Payment_payment_id">
+            <End Role="Payment" EntitySet="dbPayments" />
+            <End Role="dbPaymentTransaction" EntitySet="dbPaymentTransactions" />
+          </AssociationSet>
+          <FunctionImport Name="spPaymentDetail_HydrateSyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spPaymentDetail_HydrateSyncUpdate">
+            <Parameter Name="paymentdetail_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_hydrate_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spPaymentDetail_SyncGetInvalid" ReturnType="Collection(Guid)">
+            <Parameter Name="allowableSecondsToProcessIndex" Mode="In" Type="Int32" />
+            <Parameter Name="sync_agent" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spPaymentDetail_SyncUpdate">
+            <Parameter Name="paymentdetail_id" Mode="In" Type="Guid" />
+            <Parameter Name="sync_success" Mode="In" Type="Boolean" />
+            <Parameter Name="sync_success_utc" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="sync_log" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="dbSubscriptions" EntityType="Stencil.Data.Sql.dbSubscription" />
+          </EntityContainer>
         <EntityType Name="dbAccount">
           <Key>
             <PropertyRef Name="account_id" />
@@ -173,6 +1207,8 @@
           <Property Name="push_ios" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="push_google" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="push_microsoft" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="Stencil.Data.Sql.FK_Order_Account_account_id" FromRole="dbAccount" ToRole="Order" />
+          <NavigationProperty Name="PaymentDetails" Relationship="Stencil.Data.Sql.FK_PaymentDetail_Account_account_id" FromRole="dbAccount" ToRole="PaymentDetail" />
         </EntityType>
         <EntityType Name="dbGlobalSetting">
           <Key>
@@ -222,8 +1258,466 @@
           <Property Name="resize_mode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="created_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
           <Property Name="updated_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Invoices" Relationship="Stencil.Data.Sql.FK_Invoice_Asset_asset_id" FromRole="dbAsset" ToRole="Invoice" />
         </EntityType>
-      </Schema>
+        <EntityType Name="dbBrand">
+          <Key>
+            <PropertyRef Name="brand_id" />
+          </Key>
+          <Property Name="brand_id" Type="Guid" Nullable="false" />
+          <Property Name="brand_name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="created_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="updated_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="deleted_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_agent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sync_log" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Listings" Relationship="Stencil.Data.Sql.FK_Listing_Brand_brand_id" FromRole="Brand" ToRole="Listing" />
+          <NavigationProperty Name="Products" Relationship="Stencil.Data.Sql.FK_Product_Brand_brand_id" FromRole="Brand" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="dbLineItem">
+          <Key>
+            <PropertyRef Name="lineitem_id" />
+          </Key>
+          <Property Name="lineitem_id" Type="Guid" Nullable="false" />
+          <Property Name="order_id" Type="Guid" Nullable="false" />
+          <Property Name="listing_id" Type="Guid" Nullable="false" />
+          <Property Name="lineitem_quantity" Type="Int32" Nullable="false" />
+          <Property Name="created_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="updated_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="deleted_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_agent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sync_log" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Listing" Relationship="Stencil.Data.Sql.FK_LineItem_Listing_listing_id" FromRole="LineItem" ToRole="Listing" />
+          <NavigationProperty Name="Order" Relationship="Stencil.Data.Sql.FK_LineItem_Order_order_id" FromRole="LineItem" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="dbListing">
+          <Key>
+            <PropertyRef Name="listing_id" />
+          </Key>
+          <Property Name="listing_id" Type="Guid" Nullable="false" />
+          <Property Name="brand_id" Type="Guid" Nullable="false" />
+          <Property Name="product_id" Type="Guid" Nullable="false" />
+          <Property Name="promotion_id" Type="Guid" />
+          <Property Name="listing_description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="expire_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="created_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="updated_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="deleted_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_agent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sync_log" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Brand" Relationship="Stencil.Data.Sql.FK_Listing_Brand_brand_id" FromRole="Listing" ToRole="Brand" />
+          <NavigationProperty Name="LineItems" Relationship="Stencil.Data.Sql.FK_LineItem_Listing_listing_id" FromRole="Listing" ToRole="LineItem" />
+          <NavigationProperty Name="Product" Relationship="Stencil.Data.Sql.FK_Listing_Product_product_id" FromRole="Listing" ToRole="Product" />
+          <NavigationProperty Name="Promotion" Relationship="Stencil.Data.Sql.FK_Listing_Promotion_promotion_id" FromRole="Listing" ToRole="Promotion" />
+        </EntityType>
+        <EntityType Name="dbOrder">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="Guid" Nullable="false" />
+          <Property Name="account_id" Type="Guid" Nullable="false" />
+          <Property Name="invoice_id" Type="Guid" />
+          <Property Name="payment_id" Type="Guid" />
+          <Property Name="shipment_id" Type="Guid" />
+          <Property Name="order_paid" Type="Boolean" Nullable="false" />
+          <Property Name="order_shipped" Type="Boolean" Nullable="false" />
+          <Property Name="order_status" Type="Int32" Nullable="false" />
+          <Property Name="created_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="updated_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="deleted_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_agent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sync_log" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account" Relationship="Stencil.Data.Sql.FK_Order_Account_account_id" FromRole="Order" ToRole="dbAccount" />
+          <NavigationProperty Name="LineItems" Relationship="Stencil.Data.Sql.FK_LineItem_Order_order_id" FromRole="Order" ToRole="LineItem" />
+          <NavigationProperty Name="Invoices" Relationship="Stencil.Data.Sql.FK_Invoice_Order_order_id" FromRole="dbOrder" ToRole="Invoice" />
+          <NavigationProperty Name="Invoice" Relationship="Stencil.Data.Sql.FK_Order_Invoice_invoice_id" FromRole="dbOrder" ToRole="Invoice" />
+          <NavigationProperty Name="Shipment" Relationship="Stencil.Data.Sql.FK_Order_Shipment_shipment_id" FromRole="dbOrder" ToRole="Shipment" />
+          <NavigationProperty Name="Shipments" Relationship="Stencil.Data.Sql.FK_Shipment_Order_order_id" FromRole="dbOrder" ToRole="Shipment" />
+          <NavigationProperty Name="PaymentTransactions" Relationship="Stencil.Data.Sql.FK_PaymentTransaction_Order_order_id" FromRole="dbOrder" ToRole="PaymentTransaction" />
+          <NavigationProperty Name="Payment" Relationship="Stencil.Data.Sql.FK_Order_Payment_payment_id" FromRole="dbOrder" ToRole="Payment" />
+          <NavigationProperty Name="Payments" Relationship="Stencil.Data.Sql.FK_Payment_Order_order_id" FromRole="dbOrder" ToRole="Payment" />
+          </EntityType>
+        <EntityType Name="dbProduct">
+          <Key>
+            <PropertyRef Name="product_id" />
+          </Key>
+          <Property Name="product_id" Type="Guid" Nullable="false" />
+          <Property Name="brand_id" Type="Guid" Nullable="false" />
+          <Property Name="product_name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="product_description" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="baseprice" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="created_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="updated_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="deleted_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_agent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sync_log" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Brand" Relationship="Stencil.Data.Sql.FK_Product_Brand_brand_id" FromRole="Product" ToRole="Brand" />
+          <NavigationProperty Name="Listings" Relationship="Stencil.Data.Sql.FK_Listing_Product_product_id" FromRole="Product" ToRole="Listing" />
+        </EntityType>
+        <EntityType Name="dbPromotion">
+          <Key>
+            <PropertyRef Name="promotion_id" />
+          </Key>
+          <Property Name="promotion_id" Type="Guid" Nullable="false" />
+          <Property Name="promotion_description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="percent" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="created_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="updated_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="deleted_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_agent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sync_log" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Listings" Relationship="Stencil.Data.Sql.FK_Listing_Promotion_promotion_id" FromRole="Promotion" ToRole="Listing" />
+        </EntityType>
+        <Association Name="FK_Order_Account_account_id">
+          <End Type="Stencil.Data.Sql.dbAccount" Role="dbAccount" Multiplicity="1" />
+          <End Type="Stencil.Data.Sql.dbOrder" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dbAccount">
+              <PropertyRef Name="account_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="account_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Listing_Brand_brand_id">
+          <End Type="Stencil.Data.Sql.dbBrand" Role="Brand" Multiplicity="1" />
+          <End Type="Stencil.Data.Sql.dbListing" Role="Listing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="brand_id" />
+            </Principal>
+            <Dependent Role="Listing">
+              <PropertyRef Name="brand_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Brand_brand_id">
+          <End Type="Stencil.Data.Sql.dbBrand" Role="Brand" Multiplicity="1" />
+          <End Type="Stencil.Data.Sql.dbProduct" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="brand_id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="brand_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LineItem_Listing_listing_id">
+          <End Type="Stencil.Data.Sql.dbListing" Role="Listing" Multiplicity="1" />
+          <End Type="Stencil.Data.Sql.dbLineItem" Role="LineItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Listing">
+              <PropertyRef Name="listing_id" />
+            </Principal>
+            <Dependent Role="LineItem">
+              <PropertyRef Name="listing_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LineItem_Order_order_id">
+          <End Type="Stencil.Data.Sql.dbOrder" Role="Order" Multiplicity="1" />
+          <End Type="Stencil.Data.Sql.dbLineItem" Role="LineItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="LineItem">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Listing_Product_product_id">
+          <End Type="Stencil.Data.Sql.dbProduct" Role="Product" Multiplicity="1" />
+          <End Type="Stencil.Data.Sql.dbListing" Role="Listing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="Listing">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Listing_Promotion_promotion_id">
+          <End Type="Stencil.Data.Sql.dbPromotion" Role="Promotion" Multiplicity="0..1" />
+          <End Type="Stencil.Data.Sql.dbListing" Role="Listing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promotion">
+              <PropertyRef Name="promotion_id" />
+            </Principal>
+            <Dependent Role="Listing">
+              <PropertyRef Name="promotion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="dbInvoice">
+          <Key>
+            <PropertyRef Name="invoice_id" />
+          </Key>
+          <Property Name="invoice_id" Type="Guid" Nullable="false" />
+          <Property Name="order_id" Type="Guid" Nullable="false" />
+          <Property Name="asset_id" Type="Guid" Nullable="false" />
+          <Property Name="created_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="updated_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="deleted_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_agent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sync_log" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Asset" Relationship="Stencil.Data.Sql.FK_Invoice_Asset_asset_id" FromRole="Invoice" ToRole="dbAsset" />
+          <NavigationProperty Name="Order" Relationship="Stencil.Data.Sql.FK_Invoice_Order_order_id" FromRole="Invoice" ToRole="dbOrder" />
+          <NavigationProperty Name="Orders" Relationship="Stencil.Data.Sql.FK_Order_Invoice_invoice_id" FromRole="Invoice" ToRole="dbOrder" />
+        </EntityType>
+        <Association Name="FK_Invoice_Asset_asset_id">
+          <End Type="Stencil.Data.Sql.dbAsset" Role="dbAsset" Multiplicity="1" />
+          <End Type="Stencil.Data.Sql.dbInvoice" Role="Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dbAsset">
+              <PropertyRef Name="asset_id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="asset_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_Order_order_id">
+          <End Type="Stencil.Data.Sql.dbOrder" Role="dbOrder" Multiplicity="1" />
+          <End Type="Stencil.Data.Sql.dbInvoice" Role="Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dbOrder">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Invoice_invoice_id">
+          <End Type="Stencil.Data.Sql.dbInvoice" Role="Invoice" Multiplicity="0..1" />
+          <End Type="Stencil.Data.Sql.dbOrder" Role="dbOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="invoice_id" />
+            </Principal>
+            <Dependent Role="dbOrder">
+              <PropertyRef Name="invoice_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="dbShipment">
+          <Key>
+            <PropertyRef Name="shipment_id" />
+          </Key>
+          <Property Name="shipment_id" Type="Guid" Nullable="false" />
+          <Property Name="order_id" Type="Guid" Nullable="false" />
+          <Property Name="shipment_carriertype" Type="Int32" Nullable="false" />
+          <Property Name="shipment_processed_successful" Type="Boolean" Nullable="false" />
+          <Property Name="shipment_street" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="shipment_city" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="shipment_state" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="shipment_country" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="shipment_zip" Type="Int32" Nullable="false" />
+          <Property Name="created_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="updated_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="deleted_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_agent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sync_log" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="Stencil.Data.Sql.FK_Order_Shipment_shipment_id" FromRole="Shipment" ToRole="dbOrder" />
+          <NavigationProperty Name="Order" Relationship="Stencil.Data.Sql.FK_Shipment_Order_order_id" FromRole="Shipment" ToRole="dbOrder" />
+        </EntityType>
+        <Association Name="FK_Order_Shipment_shipment_id">
+          <End Type="Stencil.Data.Sql.dbShipment" Role="Shipment" Multiplicity="0..1" />
+          <End Type="Stencil.Data.Sql.dbOrder" Role="dbOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shipment">
+              <PropertyRef Name="shipment_id" />
+            </Principal>
+            <Dependent Role="dbOrder">
+              <PropertyRef Name="shipment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shipment_Order_order_id">
+          <End Type="Stencil.Data.Sql.dbOrder" Role="dbOrder" Multiplicity="1" />
+          <End Type="Stencil.Data.Sql.dbShipment" Role="Shipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dbOrder">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="Shipment">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="dbPaymentTransaction">
+          <Key>
+            <PropertyRef Name="paymenttransaction_id" />
+          </Key>
+          <Property Name="paymenttransaction_id" Type="Guid" Nullable="false" />
+          <Property Name="order_id" Type="Guid" Nullable="false" />
+          <Property Name="payment_id" Type="Guid" Nullable="false" />
+          <Property Name="transaction_outcome" Type="Int32" Nullable="false" />
+          <Property Name="created_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="updated_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="deleted_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_agent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sync_log" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Order" Relationship="Stencil.Data.Sql.FK_PaymentTransaction_Order_order_id" FromRole="PaymentTransaction" ToRole="dbOrder" />
+          <NavigationProperty Name="Payment" Relationship="Stencil.Data.Sql.FK_PaymentTransaction_Payment_payment_id" FromRole="dbPaymentTransaction" ToRole="Payment" />
+        </EntityType>
+        <Association Name="FK_PaymentTransaction_Order_order_id">
+          <End Type="Stencil.Data.Sql.dbOrder" Role="dbOrder" Multiplicity="1" />
+          <End Type="Stencil.Data.Sql.dbPaymentTransaction" Role="PaymentTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dbOrder">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="PaymentTransaction">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="dbPayment">
+          <Key>
+            <PropertyRef Name="payment_id" />
+          </Key>
+          <Property Name="payment_id" Type="Guid" Nullable="false" />
+          <Property Name="order_id" Type="Guid" Nullable="false" />
+          <Property Name="payment_processed_successful" Type="Boolean" Nullable="false" />
+          <Property Name="card_type" Type="Int32" Nullable="false" />
+          <Property Name="card_number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="expire_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="cvv" Type="Int32" Nullable="false" />
+          <Property Name="save_paymentdetails" Type="Boolean" Nullable="false" />
+          <Property Name="created_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="updated_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="deleted_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_agent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sync_log" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="Stencil.Data.Sql.FK_Order_Payment_payment_id" FromRole="Payment" ToRole="dbOrder" />
+          <NavigationProperty Name="Order" Relationship="Stencil.Data.Sql.FK_Payment_Order_order_id" FromRole="Payment" ToRole="dbOrder" />
+          <NavigationProperty Name="PaymentTransactions" Relationship="Stencil.Data.Sql.FK_PaymentTransaction_Payment_payment_id" FromRole="Payment" ToRole="dbPaymentTransaction" />
+        </EntityType>
+        <EntityType Name="dbPaymentDetail">
+          <Key>
+            <PropertyRef Name="paymentdetail_id" />
+          </Key>
+          <Property Name="paymentdetail_id" Type="Guid" Nullable="false" />
+          <Property Name="account_id" Type="Guid" Nullable="false" />
+          <Property Name="card_type" Type="Int32" Nullable="false" />
+          <Property Name="card_number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="expire_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="cvv" Type="Int32" Nullable="false" />
+          <Property Name="created_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="updated_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="deleted_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_agent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sync_log" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account" Relationship="Stencil.Data.Sql.FK_PaymentDetail_Account_account_id" FromRole="PaymentDetail" ToRole="dbAccount" />
+        </EntityType>
+        <Association Name="FK_PaymentDetail_Account_account_id">
+          <End Type="Stencil.Data.Sql.dbAccount" Role="dbAccount" Multiplicity="1" />
+          <End Type="Stencil.Data.Sql.dbPaymentDetail" Role="PaymentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dbAccount">
+              <PropertyRef Name="account_id" />
+            </Principal>
+            <Dependent Role="PaymentDetail">
+              <PropertyRef Name="account_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Payment_payment_id">
+          <End Type="Stencil.Data.Sql.dbPayment" Role="Payment" Multiplicity="0..1" />
+          <End Type="Stencil.Data.Sql.dbOrder" Role="dbOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment">
+              <PropertyRef Name="payment_id" />
+            </Principal>
+            <Dependent Role="dbOrder">
+              <PropertyRef Name="payment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_Order_order_id">
+          <End Type="Stencil.Data.Sql.dbOrder" Role="dbOrder" Multiplicity="1" />
+          <End Type="Stencil.Data.Sql.dbPayment" Role="Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dbOrder">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentTransaction_Payment_payment_id">
+          <End Type="Stencil.Data.Sql.dbPayment" Role="Payment" Multiplicity="1" />
+          <End Type="Stencil.Data.Sql.dbPaymentTransaction" Role="dbPaymentTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment">
+              <PropertyRef Name="payment_id" />
+            </Principal>
+            <Dependent Role="dbPaymentTransaction">
+              <PropertyRef Name="payment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="dbSubscription">
+          <Key>
+            <PropertyRef Name="subscription_id" />
+          </Key>
+          <Property Name="subscription_id" Type="Guid" Nullable="false" />
+          <Property Name="brand_id" Type="Guid" Nullable="false" />
+          <Property Name="product_id" Type="Guid" Nullable="false" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -328,7 +1822,289 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <FunctionImportMapping FunctionImportName="spBrand_HydrateSyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spBrand_HydrateSyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spBrand_HydrateSyncUpdate" FunctionName="Stencil.Data.Sql.Store.spBrand_HydrateSyncUpdate" />
+          <FunctionImportMapping FunctionImportName="spBrand_SyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spBrand_SyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spBrand_SyncUpdate" FunctionName="Stencil.Data.Sql.Store.spBrand_SyncUpdate" />
+          <FunctionImportMapping FunctionImportName="spListing_HydrateSyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spListing_HydrateSyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spListing_HydrateSyncUpdate" FunctionName="Stencil.Data.Sql.Store.spListing_HydrateSyncUpdate" />
+          <FunctionImportMapping FunctionImportName="spListing_SyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spListing_SyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spListing_SyncUpdate" FunctionName="Stencil.Data.Sql.Store.spListing_SyncUpdate" />
+          <FunctionImportMapping FunctionImportName="spProduct_HydrateSyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spProduct_HydrateSyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spProduct_HydrateSyncUpdate" FunctionName="Stencil.Data.Sql.Store.spProduct_HydrateSyncUpdate" />
+          <FunctionImportMapping FunctionImportName="spProduct_SyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spProduct_SyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spProduct_SyncUpdate" FunctionName="Stencil.Data.Sql.Store.spProduct_SyncUpdate" />
+          <FunctionImportMapping FunctionImportName="spPromotion_HydrateSyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spPromotion_HydrateSyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spPromotion_HydrateSyncUpdate" FunctionName="Stencil.Data.Sql.Store.spPromotion_HydrateSyncUpdate" />
+          <FunctionImportMapping FunctionImportName="spPromotion_SyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spPromotion_SyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spPromotion_SyncUpdate" FunctionName="Stencil.Data.Sql.Store.spPromotion_SyncUpdate" />
+          <FunctionImportMapping FunctionImportName="spListing_InvalidateExpired" FunctionName="Stencil.Data.Sql.Store.spListing_InvalidateExpired" />
+          <FunctionImportMapping FunctionImportName="spLineItem_HydrateSyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spLineItem_HydrateSyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spLineItem_HydrateSyncUpdate" FunctionName="Stencil.Data.Sql.Store.spLineItem_HydrateSyncUpdate" />
+          <FunctionImportMapping FunctionImportName="spLineItem_SyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spLineItem_SyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spLineItem_SyncUpdate" FunctionName="Stencil.Data.Sql.Store.spLineItem_SyncUpdate" />
+          <FunctionImportMapping FunctionImportName="spOrder_HydrateSyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spOrder_HydrateSyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spOrder_HydrateSyncUpdate" FunctionName="Stencil.Data.Sql.Store.spOrder_HydrateSyncUpdate" />
+          <FunctionImportMapping FunctionImportName="spOrder_SyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spOrder_SyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spOrder_SyncUpdate" FunctionName="Stencil.Data.Sql.Store.spOrder_SyncUpdate" />
+          <FunctionImportMapping FunctionImportName="spInvoice_HydrateSyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spInvoice_HydrateSyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spInvoice_HydrateSyncUpdate" FunctionName="Stencil.Data.Sql.Store.spInvoice_HydrateSyncUpdate" />
+          <FunctionImportMapping FunctionImportName="spInvoice_SyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spInvoice_SyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spInvoice_SyncUpdate" FunctionName="Stencil.Data.Sql.Store.spInvoice_SyncUpdate" />
+          <EntitySetMapping Name="dbBrands">
+            <EntityTypeMapping TypeName="Stencil.Data.Sql.dbBrand">
+              <MappingFragment StoreEntitySet="Brand">
+                <ScalarProperty Name="sync_log" ColumnName="sync_log" />
+                <ScalarProperty Name="sync_agent" ColumnName="sync_agent" />
+                <ScalarProperty Name="sync_attempt_utc" ColumnName="sync_attempt_utc" />
+                <ScalarProperty Name="sync_invalid_utc" ColumnName="sync_invalid_utc" />
+                <ScalarProperty Name="sync_success_utc" ColumnName="sync_success_utc" />
+                <ScalarProperty Name="sync_hydrate_utc" ColumnName="sync_hydrate_utc" />
+                <ScalarProperty Name="deleted_utc" ColumnName="deleted_utc" />
+                <ScalarProperty Name="updated_utc" ColumnName="updated_utc" />
+                <ScalarProperty Name="created_utc" ColumnName="created_utc" />
+                <ScalarProperty Name="brand_name" ColumnName="brand_name" />
+                <ScalarProperty Name="brand_id" ColumnName="brand_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dbLineItems">
+            <EntityTypeMapping TypeName="Stencil.Data.Sql.dbLineItem">
+              <MappingFragment StoreEntitySet="LineItem">
+                <ScalarProperty Name="sync_log" ColumnName="sync_log" />
+                <ScalarProperty Name="sync_agent" ColumnName="sync_agent" />
+                <ScalarProperty Name="sync_attempt_utc" ColumnName="sync_attempt_utc" />
+                <ScalarProperty Name="sync_invalid_utc" ColumnName="sync_invalid_utc" />
+                <ScalarProperty Name="sync_success_utc" ColumnName="sync_success_utc" />
+                <ScalarProperty Name="sync_hydrate_utc" ColumnName="sync_hydrate_utc" />
+                <ScalarProperty Name="deleted_utc" ColumnName="deleted_utc" />
+                <ScalarProperty Name="updated_utc" ColumnName="updated_utc" />
+                <ScalarProperty Name="created_utc" ColumnName="created_utc" />
+                <ScalarProperty Name="lineitem_quantity" ColumnName="lineitem_quantity" />
+                <ScalarProperty Name="listing_id" ColumnName="listing_id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="lineitem_id" ColumnName="lineitem_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dbListings">
+            <EntityTypeMapping TypeName="Stencil.Data.Sql.dbListing">
+              <MappingFragment StoreEntitySet="Listing">
+                <ScalarProperty Name="sync_log" ColumnName="sync_log" />
+                <ScalarProperty Name="sync_agent" ColumnName="sync_agent" />
+                <ScalarProperty Name="sync_attempt_utc" ColumnName="sync_attempt_utc" />
+                <ScalarProperty Name="sync_invalid_utc" ColumnName="sync_invalid_utc" />
+                <ScalarProperty Name="sync_success_utc" ColumnName="sync_success_utc" />
+                <ScalarProperty Name="sync_hydrate_utc" ColumnName="sync_hydrate_utc" />
+                <ScalarProperty Name="deleted_utc" ColumnName="deleted_utc" />
+                <ScalarProperty Name="updated_utc" ColumnName="updated_utc" />
+                <ScalarProperty Name="created_utc" ColumnName="created_utc" />
+                <ScalarProperty Name="expire_utc" ColumnName="expire_utc" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="listing_description" ColumnName="listing_description" />
+                <ScalarProperty Name="promotion_id" ColumnName="promotion_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="brand_id" ColumnName="brand_id" />
+                <ScalarProperty Name="listing_id" ColumnName="listing_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dbOrders">
+            <EntityTypeMapping TypeName="Stencil.Data.Sql.dbOrder">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="sync_log" ColumnName="sync_log" />
+                <ScalarProperty Name="sync_agent" ColumnName="sync_agent" />
+                <ScalarProperty Name="sync_attempt_utc" ColumnName="sync_attempt_utc" />
+                <ScalarProperty Name="sync_invalid_utc" ColumnName="sync_invalid_utc" />
+                <ScalarProperty Name="sync_success_utc" ColumnName="sync_success_utc" />
+                <ScalarProperty Name="sync_hydrate_utc" ColumnName="sync_hydrate_utc" />
+                <ScalarProperty Name="deleted_utc" ColumnName="deleted_utc" />
+                <ScalarProperty Name="updated_utc" ColumnName="updated_utc" />
+                <ScalarProperty Name="created_utc" ColumnName="created_utc" />
+                <ScalarProperty Name="order_status" ColumnName="order_status" />
+                <ScalarProperty Name="order_shipped" ColumnName="order_shipped" />
+                <ScalarProperty Name="order_paid" ColumnName="order_paid" />
+                <ScalarProperty Name="shipment_id" ColumnName="shipment_id" />
+                <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+                <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
+                <ScalarProperty Name="account_id" ColumnName="account_id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dbProducts">
+            <EntityTypeMapping TypeName="Stencil.Data.Sql.dbProduct">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="sync_log" ColumnName="sync_log" />
+                <ScalarProperty Name="sync_agent" ColumnName="sync_agent" />
+                <ScalarProperty Name="sync_attempt_utc" ColumnName="sync_attempt_utc" />
+                <ScalarProperty Name="sync_invalid_utc" ColumnName="sync_invalid_utc" />
+                <ScalarProperty Name="sync_success_utc" ColumnName="sync_success_utc" />
+                <ScalarProperty Name="sync_hydrate_utc" ColumnName="sync_hydrate_utc" />
+                <ScalarProperty Name="deleted_utc" ColumnName="deleted_utc" />
+                <ScalarProperty Name="updated_utc" ColumnName="updated_utc" />
+                <ScalarProperty Name="created_utc" ColumnName="created_utc" />
+                <ScalarProperty Name="baseprice" ColumnName="baseprice" />
+                <ScalarProperty Name="product_description" ColumnName="product_description" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="brand_id" ColumnName="brand_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dbPromotions">
+            <EntityTypeMapping TypeName="Stencil.Data.Sql.dbPromotion">
+              <MappingFragment StoreEntitySet="Promotion">
+                <ScalarProperty Name="sync_log" ColumnName="sync_log" />
+                <ScalarProperty Name="sync_agent" ColumnName="sync_agent" />
+                <ScalarProperty Name="sync_attempt_utc" ColumnName="sync_attempt_utc" />
+                <ScalarProperty Name="sync_invalid_utc" ColumnName="sync_invalid_utc" />
+                <ScalarProperty Name="sync_success_utc" ColumnName="sync_success_utc" />
+                <ScalarProperty Name="sync_hydrate_utc" ColumnName="sync_hydrate_utc" />
+                <ScalarProperty Name="deleted_utc" ColumnName="deleted_utc" />
+                <ScalarProperty Name="updated_utc" ColumnName="updated_utc" />
+                <ScalarProperty Name="created_utc" ColumnName="created_utc" />
+                <ScalarProperty Name="percent" ColumnName="percent" />
+                <ScalarProperty Name="promotion_description" ColumnName="promotion_description" />
+                <ScalarProperty Name="promotion_id" ColumnName="promotion_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spPayment_HydrateSyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spPayment_HydrateSyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spPayment_HydrateSyncUpdate" FunctionName="Stencil.Data.Sql.Store.spPayment_HydrateSyncUpdate" />
+          <FunctionImportMapping FunctionImportName="spPayment_SyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spPayment_SyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spPayment_SyncUpdate" FunctionName="Stencil.Data.Sql.Store.spPayment_SyncUpdate" />
+          <FunctionImportMapping FunctionImportName="spShipment_HydrateSyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spShipment_HydrateSyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spShipment_HydrateSyncUpdate" FunctionName="Stencil.Data.Sql.Store.spShipment_HydrateSyncUpdate" />
+          <FunctionImportMapping FunctionImportName="spShipment_SyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spShipment_SyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spShipment_SyncUpdate" FunctionName="Stencil.Data.Sql.Store.spShipment_SyncUpdate" />
+          <FunctionImportMapping FunctionImportName="spOrder_GetNonInvoiced" FunctionName="Stencil.Data.Sql.Store.spOrder_GetNonInvoiced" />
+          <EntitySetMapping Name="dbInvoices">
+            <EntityTypeMapping TypeName="Stencil.Data.Sql.dbInvoice">
+              <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="sync_log" ColumnName="sync_log" />
+                <ScalarProperty Name="sync_agent" ColumnName="sync_agent" />
+                <ScalarProperty Name="sync_attempt_utc" ColumnName="sync_attempt_utc" />
+                <ScalarProperty Name="sync_invalid_utc" ColumnName="sync_invalid_utc" />
+                <ScalarProperty Name="sync_success_utc" ColumnName="sync_success_utc" />
+                <ScalarProperty Name="sync_hydrate_utc" ColumnName="sync_hydrate_utc" />
+                <ScalarProperty Name="deleted_utc" ColumnName="deleted_utc" />
+                <ScalarProperty Name="updated_utc" ColumnName="updated_utc" />
+                <ScalarProperty Name="created_utc" ColumnName="created_utc" />
+                <ScalarProperty Name="asset_id" ColumnName="asset_id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spOrder_GetCloseableOrders" FunctionName="Stencil.Data.Sql.Store.spOrder_GetCloseableOrders" />
+          <EntitySetMapping Name="dbShipments">
+            <EntityTypeMapping TypeName="Stencil.Data.Sql.dbShipment">
+              <MappingFragment StoreEntitySet="Shipment">
+                <ScalarProperty Name="sync_log" ColumnName="sync_log" />
+                <ScalarProperty Name="sync_agent" ColumnName="sync_agent" />
+                <ScalarProperty Name="sync_attempt_utc" ColumnName="sync_attempt_utc" />
+                <ScalarProperty Name="sync_invalid_utc" ColumnName="sync_invalid_utc" />
+                <ScalarProperty Name="sync_success_utc" ColumnName="sync_success_utc" />
+                <ScalarProperty Name="sync_hydrate_utc" ColumnName="sync_hydrate_utc" />
+                <ScalarProperty Name="deleted_utc" ColumnName="deleted_utc" />
+                <ScalarProperty Name="updated_utc" ColumnName="updated_utc" />
+                <ScalarProperty Name="created_utc" ColumnName="created_utc" />
+                <ScalarProperty Name="shipment_zip" ColumnName="shipment_zip" />
+                <ScalarProperty Name="shipment_country" ColumnName="shipment_country" />
+                <ScalarProperty Name="shipment_state" ColumnName="shipment_state" />
+                <ScalarProperty Name="shipment_city" ColumnName="shipment_city" />
+                <ScalarProperty Name="shipment_street" ColumnName="shipment_street" />
+                <ScalarProperty Name="shipment_processed_successful" ColumnName="shipment_processed_successful" />
+                <ScalarProperty Name="shipment_carriertype" ColumnName="shipment_carriertype" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="shipment_id" ColumnName="shipment_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dbPaymentTransactions">
+            <EntityTypeMapping TypeName="Stencil.Data.Sql.dbPaymentTransaction">
+              <MappingFragment StoreEntitySet="PaymentTransaction">
+                <ScalarProperty Name="sync_log" ColumnName="sync_log" />
+                <ScalarProperty Name="sync_agent" ColumnName="sync_agent" />
+                <ScalarProperty Name="sync_attempt_utc" ColumnName="sync_attempt_utc" />
+                <ScalarProperty Name="sync_invalid_utc" ColumnName="sync_invalid_utc" />
+                <ScalarProperty Name="sync_success_utc" ColumnName="sync_success_utc" />
+                <ScalarProperty Name="sync_hydrate_utc" ColumnName="sync_hydrate_utc" />
+                <ScalarProperty Name="deleted_utc" ColumnName="deleted_utc" />
+                <ScalarProperty Name="updated_utc" ColumnName="updated_utc" />
+                <ScalarProperty Name="created_utc" ColumnName="created_utc" />
+                <ScalarProperty Name="transaction_outcome" ColumnName="transaction_outcome" />
+                <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="paymenttransaction_id" ColumnName="paymenttransaction_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spOrder_GetPayableOrderPayments" FunctionName="Stencil.Data.Sql.Store.spOrder_GetPayableOrderPayments" />
+          <FunctionImportMapping FunctionImportName="spPaymentTransaction_HydrateSyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spPaymentTransaction_HydrateSyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spPaymentTransaction_HydrateSyncUpdate" FunctionName="Stencil.Data.Sql.Store.spPaymentTransaction_HydrateSyncUpdate" />
+          <FunctionImportMapping FunctionImportName="spPaymentTransaction_SyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spPaymentTransaction_SyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spPaymentTransaction_SyncUpdate" FunctionName="Stencil.Data.Sql.Store.spPaymentTransaction_SyncUpdate" />
+          <EntitySetMapping Name="dbPayments">
+            <EntityTypeMapping TypeName="Stencil.Data.Sql.dbPayment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="sync_log" ColumnName="sync_log" />
+                <ScalarProperty Name="sync_agent" ColumnName="sync_agent" />
+                <ScalarProperty Name="sync_attempt_utc" ColumnName="sync_attempt_utc" />
+                <ScalarProperty Name="sync_invalid_utc" ColumnName="sync_invalid_utc" />
+                <ScalarProperty Name="sync_success_utc" ColumnName="sync_success_utc" />
+                <ScalarProperty Name="sync_hydrate_utc" ColumnName="sync_hydrate_utc" />
+                <ScalarProperty Name="deleted_utc" ColumnName="deleted_utc" />
+                <ScalarProperty Name="updated_utc" ColumnName="updated_utc" />
+                <ScalarProperty Name="created_utc" ColumnName="created_utc" />
+                <ScalarProperty Name="save_paymentdetails" ColumnName="save_paymentdetails" />
+                <ScalarProperty Name="cvv" ColumnName="cvv" />
+                <ScalarProperty Name="expire_date" ColumnName="expire_date" />
+                <ScalarProperty Name="card_number" ColumnName="card_number" />
+                <ScalarProperty Name="card_type" ColumnName="card_type" />
+                <ScalarProperty Name="payment_processed_successful" ColumnName="payment_processed_successful" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dbPaymentDetails">
+            <EntityTypeMapping TypeName="Stencil.Data.Sql.dbPaymentDetail">
+              <MappingFragment StoreEntitySet="PaymentDetail">
+                <ScalarProperty Name="sync_log" ColumnName="sync_log" />
+                <ScalarProperty Name="sync_agent" ColumnName="sync_agent" />
+                <ScalarProperty Name="sync_attempt_utc" ColumnName="sync_attempt_utc" />
+                <ScalarProperty Name="sync_invalid_utc" ColumnName="sync_invalid_utc" />
+                <ScalarProperty Name="sync_success_utc" ColumnName="sync_success_utc" />
+                <ScalarProperty Name="sync_hydrate_utc" ColumnName="sync_hydrate_utc" />
+                <ScalarProperty Name="deleted_utc" ColumnName="deleted_utc" />
+                <ScalarProperty Name="updated_utc" ColumnName="updated_utc" />
+                <ScalarProperty Name="created_utc" ColumnName="created_utc" />
+                <ScalarProperty Name="cvv" ColumnName="cvv" />
+                <ScalarProperty Name="expire_date" ColumnName="expire_date" />
+                <ScalarProperty Name="card_number" ColumnName="card_number" />
+                <ScalarProperty Name="card_type" ColumnName="card_type" />
+                <ScalarProperty Name="account_id" ColumnName="account_id" />
+                <ScalarProperty Name="paymentdetail_id" ColumnName="paymentdetail_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spPaymentDetail_HydrateSyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spPaymentDetail_HydrateSyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spPaymentDetail_HydrateSyncUpdate" FunctionName="Stencil.Data.Sql.Store.spPaymentDetail_HydrateSyncUpdate" />
+          <FunctionImportMapping FunctionImportName="spPaymentDetail_SyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spPaymentDetail_SyncGetInvalid" />
+          <FunctionImportMapping FunctionImportName="spPaymentDetail_SyncUpdate" FunctionName="Stencil.Data.Sql.Store.spPaymentDetail_SyncUpdate" />
+          <EntitySetMapping Name="dbSubscriptions">
+            <EntityTypeMapping TypeName="Stencil.Data.Sql.dbSubscription">
+              <MappingFragment StoreEntitySet="Subscription">
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="brand_id" ColumnName="brand_id" />
+                <ScalarProperty Name="subscription_id" ColumnName="subscription_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

@@ -12,6 +12,7 @@ using Stencil.Primary.Business.Integration.Implementation;
 using Stencil.Primary.Emaling;
 using Stencil.Primary.Exceptions;
 using Stencil.Primary.Health;
+using Stencil.Primary.Daemons;
 using Stencil.Primary.Health.Daemons;
 using Stencil.Primary.Health.Exceptions;
 using Stencil.Primary.Mapping;
@@ -20,6 +21,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Stencil.Primary.Workers;
 
 namespace Stencil.Primary.Foundation
 {
@@ -41,6 +43,8 @@ namespace Stencil.Primary.Foundation
             foundation.Container.RegisterType<IStencilContextFactory, StencilContextFactory>(new ContainerControlledLifetimeManager());
             foundation.Container.RegisterType<IStencilElasticClientFactory, StencilElasticClientFactory>(new ContainerControlledLifetimeManager());
             foundation.Container.RegisterType<IDependencyCoordinator, DependencyCoordinator>(new ContainerControlledLifetimeManager());
+            foundation.Container.RegisterType<IQueryReportWorker, QueryReportWorker>(new ContainerControlledLifetimeManager());
+
 
             this.RegisterDataElements(foundation);
 
@@ -84,7 +88,10 @@ namespace Stencil.Primary.Foundation
                 TaskConfiguration = string.Empty
             };
             foundation.GetDaemonManager().RegisterDaemon(healthConfig, new HealthReportDaemon(foundation), true);
-            
+
+         
+
+
         }
 
     }

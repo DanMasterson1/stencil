@@ -1,0 +1,7 @@
+﻿AssemblyFileName: Stencil.Plugins.OrderProcessor.dll
+SystemName: OrderProcessor
+FriendlyName: Stencil - OrderProcessor
+Description: Various Order Processing Operations
+Version: 1.0 
+Author: daniel.masterson@suzy.com
+Feature: Unknown

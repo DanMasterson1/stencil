@@ -33,9 +33,9 @@ namespace Stencil.Plugins.SystemMonitor.Controllers
                     Account newAccount = new Account()
                     {
                         account_id = newAccountID,
-                        first_name = "William",
-                        last_name = "Mansfield",
-                        email = "wmansfield@socialhaven.com",
+                        first_name = "Daniel",
+                        last_name = "Masterson",
+                        email = "daniel.masterson@suzy.com",
                         password = "stencildemo",
                         entitlements = "super_admin",
                     };

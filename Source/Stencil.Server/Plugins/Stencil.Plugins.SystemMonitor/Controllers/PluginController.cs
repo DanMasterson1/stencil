@@ -25,6 +25,7 @@ namespace Stencil.Plugins.SystemMonitor.Controllers
 
                 PluginInfo result = new PluginInfo();
                 result.FoundationPlugins = pluginManager.FoundationPlugins.ToList();
+                
                 result.WebPlugins = webPluginLoader.GetRegisteredPlugins().ToList();
 
                 return View(result);

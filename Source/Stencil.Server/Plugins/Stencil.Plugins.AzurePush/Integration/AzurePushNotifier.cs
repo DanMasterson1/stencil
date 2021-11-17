@@ -177,6 +177,7 @@ namespace Stencil.Plugins.AzurePush.Integration
                     NotificationHubClient hubClient = this.HubClient;
 
                     Account account = this.API.Direct.Accounts.GetById(account_id);
+                    SDK.Models.Order ord = this.API.Index.Orders.GetById(new Guid());
                     string previousRegistrationID = account.push_ios;
 
                     if (!string.IsNullOrEmpty(previousRegistrationID))

@@ -17,7 +17,7 @@ namespace Stencil.Web.Security
     {
         public const string API_PARAM_KEY = "api_key";
         public const string API_PARAM_SIG = "api_signature";
-        public const string CURRENT_ACCOUNT_HTTP_CONTEXT_KEY = "__current_account";
+        public const string CURRENT_ACCOUNT_HTTP_CONTEXT_KEY = "";
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {

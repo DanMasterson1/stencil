@@ -5,8 +5,128 @@
     <field type="string" dbType="nvarchar(100)" isNullable="false" searchable="true" friendlyName="Name">name</field>
     <field type="string" dbType="nvarchar(max)" isNullable="true" friendlyName="Value">value</field>
   </item>
+
+  <item name="Brand" friendlyName="Brand" useIndex="true" indexPriority="15" indexForSearchable="true">
+		<field type="Guid" dbType="uniqueidentifier" isNullable="false" friendlyName="BrandId">brand_id</field>
+		<field type="string" dbType="nvarchar(100)" isNullable="false" friendlyName="BrandName" searchable="true" sortable="true">brand_name</field>
+    <indexfield type="int" isNullable="false" sortable="true" computedFrom="Product" computedReferenceField="brand_id" computedBy="Count" friendlyName="ProductCount">product_count</indexfield>
+    <indexfield type="int" isNullable="false" sortable="true" computedFrom="Listing" computedReferenceField="listing_id" computedBy="Count" friendlyName="ListingCount">listing_count</indexfield>
+	</item>
+
+	<item name="Product" friendlyName="Product" useIndex="true" indexPriority="20" indexForSearchable="true">
+		<field type="Guid" dbType="uniqueidentifier" isNullable="false" friendlyName="ProductId">product_id</field>
+    <field type="Guid" dbType="uniqueidentifier" foreignKey="Brand" foreignKeyField="brand_id" isNullable="false" friendlyName="BrandId" iInvalidateforeignKey="false" foreignKeyInvalidatesMe="true" >brand_id</field>
+		<field type="string" dbType="nvarchar(100)" isNullable="false" friendlyName="ProductName" searchable="true" sortable="true">product_name</field>
+    <field type="string" dbType="nvarchar(4000)" isNullable="false" friendlyName="ProductDescription" searchable="true">product_description</field>
+    <field type="decimal" dbType="decimal(5,2)" isNullable="false" friendlyName="BasePrice" sortable="true">baseprice</field>
+    <indexfield type="string" isNullable="false" sortable="true" computedFrom="Brand" computedReferenceField="brand_id" computedBy="Extra" friendlyName="BrandName">brand_name</indexfield>
+	</item>
+
+  <item name="Promotion" friendlyName="Promotion" useIndex="true" indexPriority="25" indexForSearchable="true">
+    <field type="Guid" dbType="uniqueidentifier" isNullable="false" friendlyName="PromotionId">promotion_id</field>
+    <field type="string" dbType="nvarchar(500)" isNullable="false" friendlyName="PromotionDescription">promotion_description</field>
+    <field type="decimal" dbType="decimal(5,2)" isNullable="false" friendlyName="PromotionPercent">percent</field> 
+  </item>
+
+  <item name="Listing" friendlyName="Listing" useIndex="true" indexPriority="30" indexForSearchable="true">
+    <field type="Guid" dbType="uniqueidentifier" isNullable="false" friendlyName="ListingId">listing_id</field>
+    <field type="Guid" dbType="uniqueidentifier" isNullable="false" foreignKey="Brand" foreignKeyField="brand_id" friendlyName="BrandId" iInvalidateforeignKey="false" foreignKeyInvalidatesMe="true">brand_id</field>
+    <field type="Guid" dbType="uniqueidentifier" isNullable="false" foreignKey="Product" foreignKeyField="product_id" friendlyName="ProductId" iInvalidateforeignKey="false" foreignKeyInvalidatesMe="true">product_id</field>
+    <field type="Guid" dbType="uniqueidentifier" isNullable="true" foreignKey="Promotion" foreignKeyField="promotion_id" friendlyName="PromotionId" iInvalidateforeignKey="false" foreignKeyInvalidatesMe="true">promotion_id</field>
+    <field type="string" dbType="nvarchar(500)" isNullable="true" friendlyName="ListingDescription" searchable="true">listing_description</field>
+    <field type="bool" dbType="bit" isNullable="false" friendlyName="Active">active</field> 
+    <field type="DateTime" dbType="datetimeoffset(0)" isNullable="false" friendlyName="ExpireDate">expire_utc</field>
+    <indexfield type="decimal" isNullable="false" sortable="true" friendlyName="ListingPrice">listing_price</indexfield> 
+    <indexfield type="decimal" isNullable="false" sortable="true" friendlyName="ProductBasePrice">product_baseprice</indexfield>
+    <indexfield type="decimal" isNullable="true" friendlyName="PromotionPercent">promotion_percent</indexfield>
+    <indexfield type="string" isNullable="false" sortable="true" computedFrom="Brand" computedReferenceField="brand_id" computedBy="Extra" friendlyName="BrandName">brand_name</indexfield> 
+    <indexfield type="string" isNullable="false" sortable="true" computedFrom="Product" computedReferenceField="product_id" computedBy="Extra" friendlyName="ProductName">product_name</indexfield>
+    <indexfield type="string" isNullable="true" sortable="true"  computedFrom="Promotion" computedReferenceField="promotion_id" computedBy="Extra" friendlyName="PromotionDescription">promotion_description</indexfield>
+  </item>
+
+  <item name="Order" friendlyName="Order" useIndex="true" indexPriority="35" indexForSearchable="true">
+    <field type="Guid" dbType="uniqueidentifier" isNullable="false" friendlyName="ListingId">order_id</field>
+    <field type="Guid" dbType="uniqueidentifier" isNullable="false" foreignKey="Account" foreignKeyField="account_id" friendlyName="AccountId" iInvalidateforeignKey="false" foreignKeyInvalidatesMe="true">account_id</field>
+    <field type="Guid" dbType="uniqueidentifier" isNullable="true" foreignKey="Invoice" foreignKeyField="invoice_id" friendlyName="InvoiceId" iInvalidateforeignKey="true" foreignKeyInvalidatesMe="false">invoice_id</field>
+    <field type="Guid" dbType="uniqueidentifier" isNullable="true" foreignKey="Payment" foreignKeyField="payment_id" friendlyName="PaymentId" iInvalidateforeignKey="true" foreignKeyInvalidatesMe="true">payment_id</field>
+    <field type="Guid" dbType="uniqueidentifier" isNullable="true" foreignKey="Shipment" foreignKeyField="shipment_id" friendlyName="ShipmentId" iInvalidateforeignKey="true" foreignKeyInvalidatesMe="true">shipment_id</field>
+    <field type="bool" dbType="bit" isNullable="false" friendlyName="OrderPaid">order_paid</field> 
+    <field type="bool" dbType="bit" isNullable="false" friendlyName="OrderShipped">order_shipped</field> 
+    <field type="OrderStatus" dbType="int" isNullable="false" friendlyName="OrderStatus">order_status</field>
+    <indexfield type="decimal" isNullable="false" sortable="true"  friendlyName="OrderTotal">order_total</indexfield>
+    <indexfield type="DateTime" isNullable="false" sortable="true"  friendlyName="CreatedUtc">created_utc</indexfield>
+    <indexfield type="string" isNullable="false" sortable="true" friendlyName="AccountName">account_name</indexfield>
+    <indexfield type="string" isNullable="false" sortable="true" friendlyName="AccountEmail">account_email</indexfield>
+    <indexfield type="string" isNullable="false" sortable="true" friendlyName="ShipmentAddress">shipment_address</indexfield>
+    <indexfield type="string" isNullable="false" sortable="true" friendlyName="PaymentCardType">payment_cardtype</indexfield>
+    <indexfield type="string" isNullable="false" sortable="true" friendlyName="Status">status</indexfield>
+    <indexfield type="int" isNullable="false" sortable="true" computedFrom="LineItem" computedReferenceField="lineitem_id" computedBy="Count" friendlyName="LineItemCount">lineitem_count</indexfield>
+  </item>
+
+  <item name="LineItem" friendlyName="LineItem" useIndex="true" indexPriority="40" indexForSearchable="true">
+     <field type="Guid" dbType="uniqueidentifier" isNullable="false" friendlyName="LineItemId">lineitem_id</field>
+     <field type="Guid" dbType="uniqueidentifier" isNullable="false" foreignKey="Order" foreignKeyField="order_id" friendlyName="OrderId" iInvalidateforeignKey="true" foreignKeyInvalidatesMe="true">order_id</field>
+     <field type="Guid" dbType="uniqueidentifier" isNullable="false" foreignKey="Listing" foreignKeyField="listing_id" friendlyName="ListingId" iInvalidateforeignKey="false" foreignKeyInvalidatesMe="true">listing_id</field>
+     <field type="int" dbType="int" isNullable="false" friendlyName="LineItemQuantity">lineitem_quantity</field>
+     <indexfield type="decimal" isNullable="false" friendlyName="ListingPrice">listing_price</indexfield>
+     <indexfield type="decimal" isNullable="false" friendlyName="LineItemTotal">lineitem_total</indexfield>
+  </item>
+
+  <item name="Invoice" friendlyName="Invoice" useIndex="true" indexPriority="45" indexForSearchable="true">
+    <field type="Guid" dbType="uniqueidentifier" isNullable="false" friendlyName="InvoiceId">invoice_id</field>
+    <field type="Guid" dbType="uniqueidentifier" isNullable="false" foreignKey="Order" foreignKeyField="order_id" friendlyName="OrderId" iInvalidateforeignKey="true" foreignKeyInvalidatesMe="true">order_id</field>
+    <field type="Guid" dbType="uniqueidentifier" isNullable="false" foreignKey="Asset" foreignKeyField="asset_id" friendlyName="AssetId" iInvalidateforeignKey="false" foreignKeyInvalidatesMe="true">asset_id</field>
+    
+  </item>
+
+  <item name="Payment" friendlyName="Payment" useIndex="true" indexPriority="50" indexForSearchable="true">
+    <field type="Guid" dbType="uniqueidentifier" isNullable="false" friendlyName="PaymentId">payment_id</field>
+    <field type="Guid" dbType="uniqueidentifier" isNullable="false" foreignKey="Order" foreignKeyField="order_id" friendlyName="OrderId" iInvalidateforeignKey="true" foreignKeyInvalidatesMe="true">order_id</field>
+    <field type="bool" dbType="bit" isNullable="false">payment_processed_successful</field>
+    <field type="CardType" dbType="int" isNullable="false">card_type</field>
+    <field type="string" dbType="nvarchar(50)" isNullable="false">card_number</field>
+    <field type="DateTime" dbType="DateTime" isNullable="false">expire_date</field>
+    <field type="int" dbType="int">cvv</field>
+    <field type="bool" dbType="bit">save_paymentdetails</field>
+  </item>
+
+  <item name="Shipment" friendlyName="Shipment" useIndex="true" indexPriority="55" indexForSearchable="true">
+    <field type="Guid" dbType="uniqueidentifier" isNullable="false" friendlyName="ShipmentId">shipment_id</field>
+    <field type="Guid" dbType="uniqueidentifier" isNullable="false" foreignKey="Order" foreignKeyField="order_id" friendlyName="OrderId" iInvalidateforeignKey="true" foreignKeyInvalidatesMe="true">order_id</field>
+    <field type="CarrierType" dbType="int" isNullable="false">shipment_carriertype</field>
+    <field type="bool" dbType="bit" isNullable="false">shipment_processed_successful</field>
+    <field type="string" dbType="nvarchar(150)" isNullable="false">shipment_street</field>
+    <field type="string" dbType="nvarchar(100)" isNullable="false">shipment_city</field>
+    <field type="string" dbType="nvarchar(100)" isNullable="false">shipment_state</field>
+    <field type="string" dbType="nvarchar(50)" isNullable="false">shipment_country</field>
+    <field type="int" dbType="int" isNullable="false">shipment_zip</field>
+  </item>
+
+  <item name="PaymentTransaction" friendlyName="PaymentTransaction" useIndex="true" indexPriority="60" indexForSearchable="true">
+    <field type="Guid" dbType="uniqueidentifier" isNullable="false" friendlyName="PaymentId">paymenttransaction_id</field>
+    <field type="Guid" dbType="uniqueidentifier" isNullable="false" foreignKey="Order" foreignKeyField="order_id" friendlyName="OrderId" iInvalidateforeignKey="true" foreignKeyInvalidatesMe="true">order_id</field>
+    <field type="Guid" dbType="uniqueidentifier" isNullable="false" foreignKey="Payment" foreignKeyField="payment_id" friendlyName="PaymentId" iInvalidateforeignKey="true" foreignKeyInvalidatesMe="true">payment_id</field>
+    <field type="TransactionOutcome" dbType="int" isNullable="false">transaction_outcome</field>
+  </item>
+
+  <item name="PaymentDetail" friendlyName="PaymentDetail" useIndex="true" indexPriority="65" indexForSearchable="true">
+    <field type="Guid" dbType="uniqueidentifier" isNullable="false" friendlyName="PaymentDetailId">paymentdetail_id</field>
+    <field type="Guid" dbType="uniqueidentifier" isNullable="false" foreignKey="Account" foreignKeyField="account_id" friendlyName="AccountId" iInvalidateforeignKey="true" foreignKeyInvalidatesMe="true">account_id</field>
+    <field type="CardType" dbType="int" isNullable="false">card_type</field>
+    <field type="string" dbType="nvarchar(50)" isNullable="false">card_number</field>
+    <field type="DateTime" dbType="DateTime" isNullable="false">expire_date</field>
+    <field type="int" dbType="int">cvv</field>
+  </item>
+  
+  <item name="Subscription" friendlyName="Subscription" useIndex="false" indexPriority="70" indexForSearchable="false">
+    <field type="Guid"  dbType="uniqueidentifier" isNullable="false" friendlyName="BrandId">subscription_id</field>
+    <field type="Guid" dbType="uniqueidentifier" isNullable="false" foreignKey="Brand" foreignKeyField="brand_id" friendlyName="BrandId" iInvalidateforeignKey="false" foreignKeyInvalidatesMe="false">brand_id</field>
+    <field type="Guid" dbType="uniqueidentifier" isNullable="false" foreignKey="Product" foreignKeyField="product_id" friendlyName="ProductId" iInvalidateforeignKey="false" foreignKeyInvalidatesMe="false">product_id</field>
+    <field type="DateTime" dbType="DateTime" isNullable="false">timestamp</field>
+  </item>
+  
   <item name="Account" friendlyName="Account" uiDisplayField="first_name" useIndex="true" indexPriority="10" >
-    <field type="Guid" dbType="uniqueidentifier" isNullable="false" friendlyName="Account ID">account_id</field>
+    <field type="Guid" dbType="uniqueidentifier" isNullable="false" friendlyName="AccountId">account_id</field>
     <field type="string" dbType="nvarchar(250)" isNullable="false" searchable="true" sortable="true" friendlyName="E-mail">email</field>
     <field type="string" dbType="nvarchar(250)" isNullable="false" uiListHidden="true" friendlyName="Password">password</field>
     <field type="string" dbType="nvarchar(50)" isNullable="false" uiListHidden="true" generateTokenIfEmpty="true" friendlyName="Password Salt">password_salt</field>
@@ -24,6 +144,7 @@
     <field type="DateTime" dbType="datetimeoffset(0)" isNullable="true" sortable="true" friendlyName="Last Login">last_login_utc</field>
     <field type="string" dbType="nvarchar(250)" isNullable="true" sortable="true" friendlyName="Last Login Platform">last_login_platform</field>
   </item>
+
   <item name="Asset" friendlyName="Asset" uiDisplayField="asset_id" trackUpdates="true">
     <field type="Guid" dbType="uniqueidentifier" isNullable="false" friendlyName="Asset ID">asset_id</field>
     <field type="AssetType" dbType="int" isNullable="false" friendlyName="Asset Type">type</field>
@@ -56,6 +177,30 @@
     <field value="0">Image</field>
     <field value="1">Video</field>
   </enum>
+
+  <enum name="OrderStatus">
+    <field value="0">Open</field>
+    <field value="1">Submitted</field>
+    <field value="2">Processing</field>
+    <field value="3">Closed</field>
+  </enum>
+
+  <enum name="CardType">
+    <field value="0">Mastercard</field>
+    <field value="1">Visa</field>
+  </enum>
+
+  <enum name="CarrierType">
+    <field value="0">UPS</field>
+    <field value="1">FedEX</field>
+  </enum>
+
+  <enum name="TransactionOutcome">
+    <field value="0">Unprocessed</field>
+    <field value="1">Success</field>
+    <field value="1">Failure</field>
+  </enum>
+
   <enum name="Dependency">
     <field value="0">None</field>
   </enum>

@@ -54,6 +54,7 @@ namespace Stencil.Plugins.RestAPI.Controllers
             });
         }
 
+
         [HttpPost]
         [Route("register")]
         public object Register(RegisterInput input)

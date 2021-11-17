@@ -70,10 +70,27 @@
   <ItemGroup>
     <Compile Include="Domain\Account.cs" />
     <Compile Include="DomainModel.cs" />
+    <Compile Include="Domain\AccountType.cs" />
     <Compile Include="Domain\Asset.cs" />
     <Compile Include="Domain\AssetType.cs" />
+    <Compile Include="Domain\Brand.cs" />
+    <Compile Include="Domain\CardType.cs" />
+    <Compile Include="Domain\CarrierType.cs" />
     <Compile Include="Domain\Dependency.cs" />
     <Compile Include="Domain\GlobalSetting.cs" />
+    <Compile Include="Domain\Invoice.cs" />
+    <Compile Include="Domain\LineItem.cs" />
+    <Compile Include="Domain\Listing.cs" />
+    <Compile Include="Domain\Order.cs" />
+    <Compile Include="Domain\OrderStatus.cs" />
+    <Compile Include="Domain\Payment.cs" />
+    <Compile Include="Domain\PaymentDetail.cs" />
+    <Compile Include="Domain\PaymentTransaction.cs" />
+    <Compile Include="Domain\Product.cs" />
+    <Compile Include="Domain\Promotion.cs" />
+    <Compile Include="Domain\Shipment.cs" />
+    <Compile Include="Domain\Subscription.cs" />
+    <Compile Include="Domain\TransactionOutcome.cs" />
     <Compile Include="Domain\WellKnownEntitlements.cs" />
     <Compile Include="_DomainExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

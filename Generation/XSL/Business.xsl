@@ -682,22 +682,26 @@ namespace <xsl:value-of select="../@projectName"/>.Primary.Synchronization.Imple
             <xsl:variable name="computedFieldCurrent"><xsl:value-of select="@computedField" /></xsl:variable>
             <xsl:variable name="computedReferenceField"><xsl:value-of select="@computedReferenceField" /></xsl:variable>
             <xsl:variable name="computedByCurrent"><xsl:value-of select="@computedBy" /></xsl:variable>
+			<xsl:variable name="isNullable"><xsl:value-of select="@isNullable" /></xsl:variable>
             <xsl:choose><xsl:when test="$computedByCurrent='Count'">
             sdkModel.<xsl:value-of select="text()" /> = this.API.Index.<xsl:call-template name="Pluralize"><xsl:with-param name="inputString" select="@computedFrom"/></xsl:call-template>.Get<xsl:value-of select="@computedBy" /><xsl:value-of select="../../item[@name=$computedFromCurrent]/field[text()=$computedFieldCurrent]/@friendlyName" />(sdkModel.<xsl:value-of select="../field[1]" />);
-            </xsl:when><xsl:when test="$computedByCurrent='Extra'">
-            sdk.<xsl:value-of select="@computedFrom"/> reference<xsl:value-of select="@computedFrom"/> = this.API.Index.<xsl:call-template name="Pluralize"><xsl:with-param name="inputString" select="@computedFrom"/></xsl:call-template>.GetById(sdkModel.<xsl:value-of select="$computedReferenceField" />);
-            if(reference<xsl:value-of select="@computedFrom"/> != null)
-            {
-                sdkModel.<xsl:value-of select="text()" /> = reference<xsl:value-of select="@computedFrom"/>.<xsl:value-of select="text()"/>;
-            }
-            else
-            {
-                <xsl:value-of select="@computedFrom"/> referenceDomain<xsl:value-of select="@computedFrom"/> = this.API.Direct.<xsl:call-template name="Pluralize"><xsl:with-param name="inputString" select="@computedFrom"/></xsl:call-template>.GetById(sdkModel.<xsl:value-of select="$computedReferenceField"/>);
-                if(referenceDomain<xsl:value-of select="@computedFrom"/> != null)
-                {
-                    sdkModel.<xsl:value-of select="text()" /> = referenceDomain<xsl:value-of select="@computedFrom"/>.<xsl:value-of select="text()"/>;
-                }
-            }
+            </xsl:when>
+			
+			<xsl:when test="$computedByCurrent='Extra'">
+				sdk.<xsl:value-of select="@computedFrom"/> reference<xsl:value-of select="@computedFrom"/> = this.API.Index.<xsl:call-template name="Pluralize"><xsl:with-param name="inputString" select="@computedFrom"/></xsl:call-template>.GetById(sdkModel.<xsl:value-of select="$computedReferenceField" />);
+				if(reference<xsl:value-of select="@computedFrom"/> != null)
+				{
+					sdkModel.<xsl:value-of select="text()" /> = reference<xsl:value-of select="@computedFrom"/>.<xsl:value-of select="text()"/>;
+				}
+				else
+				{
+					<xsl:value-of select="@computedFrom"/> referenceFDomain<xsl:value-of select="@computedFrom"/> = this.API.Direct.<xsl:call-template name="Pluralize"><xsl:with-param name="inputString" select="@computedFrom"/></xsl:call-template>.GetById(sdkModel.<xsl:value-of select="$computedReferenceField"/>);
+					if(referenceDomain<xsl:value-of select="@computedFrom"/> != null)
+					{
+						sdkModel.<xsl:value-of select="text()" /> = referenceDomain<xsl:value-of select="@computedFrom"/>.<xsl:value-of select="text()"/>;
+					}
+				}
+				
             </xsl:when><xsl:when test="$computedByCurrent='NotNull'">
             sdkModel.<xsl:value-of select="text()" /> = sdkModel.<xsl:value-of select="@computedFrom"/> != null;
             </xsl:when><xsl:when test="$computedByCurrent='Null'">
@@ -712,19 +716,19 @@ namespace <xsl:value-of select="../@projectName"/>.Primary.Synchronization.Imple
             <xsl:choose><xsl:when test="$computedByCurrent='Count'">
             sdkModel.<xsl:value-of select="text()" /> = this.API.Index.<xsl:call-template name="Pluralize"><xsl:with-param name="inputString" select="@computedFrom"/></xsl:call-template>.Get<xsl:value-of select="@computedBy" /><xsl:value-of select="../../item[@name=$computedFromCurrent]/field[text()=$computedFieldCurrent]/@friendlyName" />(sdkModel.<xsl:value-of select="../field[1]" />);
             </xsl:when><xsl:when test="$computedByCurrent='Extra'">
-            sdk.<xsl:value-of select="@computedFrom"/> reference<xsl:value-of select="@computedFrom"/> = this.API.Index.<xsl:call-template name="Pluralize"><xsl:with-param name="inputString" select="@computedFrom"/></xsl:call-template>.GetById(sdkModel.<xsl:value-of select="$computedReferenceField" />);
-            if(reference<xsl:value-of select="@computedFrom"/> != null)
-            {
-                sdkModel.<xsl:value-of select="text()" /> = reference<xsl:value-of select="@computedFrom"/>.<xsl:value-of select="text()"/>;
-            }
-            else
-            {
-                <xsl:value-of select="@computedFrom"/> referenceDomain<xsl:value-of select="@computedFrom"/> = this.API.Direct.<xsl:call-template name="Pluralize"><xsl:with-param name="inputString" select="@computedFrom"/></xsl:call-template>.GetById(sdkModel.<xsl:value-of select="$computedReferenceField"/>);
-                if(referenceDomain<xsl:value-of select="@computedFrom"/> != null)
-                {
-                    sdkModel.<xsl:value-of select="text()" /> = referenceDomain<xsl:value-of select="@computedFrom"/>.<xsl:value-of select="text()"/>;
-                }
-            }
+			sdk.<xsl:value-of select="@computedFrom"/> reference<xsl:value-of select="@computedFrom"/> = this.API.Index.<xsl:call-template name="Pluralize"><xsl:with-param name="inputString" select="@computedFrom"/></xsl:call-template>.GetById(sdkModel.<xsl:value-of select="$computedReferenceField" />);
+			if(reference<xsl:value-of select="@computedFrom"/> != null)
+			{
+				sdkModel.<xsl:value-of select="text()" /> = reference<xsl:value-of select="@computedFrom"/>.<xsl:value-of select="text()"/>;
+			}
+			else
+			{
+				<xsl:value-of select="@computedFrom"/> referenceDomain<xsl:value-of select="@computedFrom"/> = this.API.Direct.<xsl:call-template name="Pluralize"><xsl:with-param name="inputString" select="@computedFrom"/></xsl:call-template>.GetById(sdkModel.<xsl:value-of select="$computedReferenceField"/>);
+				if(referenceDomain<xsl:value-of select="@computedFrom"/> != null)
+				{
+					sdkModel.<xsl:value-of select="text()" /> = referenceDomain<xsl:value-of select="@computedFrom"/>.<xsl:value-of select="text()"/>;
+				}
+			}		
             </xsl:when><xsl:when test="$computedByCurrent='NotNull'">
             sdkModel.<xsl:value-of select="text()" /> = sdkModel.<xsl:value-of select="@computedFrom"/> != null;
             </xsl:when><xsl:when test="$computedByCurrent='Null'">

@@ -181,6 +181,7 @@ namespace Stencil.Plugins.Amazon.Daemons
         {
             base.ExecuteMethod("PerformProcessVideos", delegate ()
             {
+                
                 List<Asset> assetsFailed = this.API.Direct.Assets.GetVideosFailedProcessingAfter(MaximumRetries + 1, DateTime.UtcNow.AddMinutes(-1));
                 if (assetsFailed.Count > 0)
                 {

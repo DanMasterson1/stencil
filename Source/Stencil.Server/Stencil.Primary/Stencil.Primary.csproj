@@ -80,23 +80,19 @@
     </Reference>
     <Reference Include="Nest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <HintPath>..\packages\NEST.2.3.3\lib\net45\Nest.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -114,10 +110,17 @@
     <Compile Include="Business\Direct\IAssetBusiness_Crud.cs">
       <DependentUpon>IAssetBusiness.cs</DependentUpon>
     </Compile>
+    <Compile Include="Business\Direct\IBrandBusiness_Crud.cs" />
     <Compile Include="Business\Direct\IGlobalSettingBusiness.cs" />
     <Compile Include="Business\Direct\IGlobalSettingBusiness_Crud.cs">
       <DependentUpon>IGlobalSettingBusiness.cs</DependentUpon>
     </Compile>
+    <Compile Include="Business\Direct\IInvoiceBusiness.cs" />
+    <Compile Include="Business\Direct\IInvoiceBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\ILineItemBusiness.cs" />
+    <Compile Include="Business\Direct\ILineItemBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\IListingBusiness.cs" />
+    <Compile Include="Business\Direct\IListingBusiness_Crud.cs" />
     <Compile Include="Business\Direct\Implementation\AccountBusiness.cs" />
     <Compile Include="Business\Direct\Implementation\AccountBusiness_Crud.cs">
       <DependentUpon>AccountBusiness.cs</DependentUpon>
@@ -126,6 +129,7 @@
     <Compile Include="Business\Direct\Implementation\AssetBusiness_Crud.cs">
       <DependentUpon>AssetBusiness.cs</DependentUpon>
     </Compile>
+    <Compile Include="Business\Direct\Implementation\BrandBusiness_Crud.cs" />
     <Compile Include="Business\Direct\Implementation\BusinessBase.cs" />
     <Compile Include="Business\Direct\Implementation\BusinessBaseHealth.cs" />
     <Compile Include="Business\Direct\Implementation\GlobalSettingBusiness.cs" />
@@ -133,6 +137,34 @@
       <DependentUpon>GlobalSettingBusiness.cs</DependentUpon>
     </Compile>
     <Compile Include="Business\Direct\Implementation\InterceptArgs.cs" />
+    <Compile Include="Business\Direct\Implementation\InvoiceBusiness.cs" />
+    <Compile Include="Business\Direct\Implementation\InvoiceBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\Implementation\LineItemBusiness.cs" />
+    <Compile Include="Business\Direct\Implementation\LineItemBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\Implementation\ListingBusiness.cs" />
+    <Compile Include="Business\Direct\Implementation\ListingBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\Implementation\OrderBusiness.cs" />
+    <Compile Include="Business\Direct\Implementation\OrderBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\Implementation\PaymentBusiness.cs" />
+    <Compile Include="Business\Direct\Implementation\PaymentBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\Implementation\PaymentDetailBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\Implementation\PaymentTransactionBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\Implementation\ProductBusiness.cs" />
+    <Compile Include="Business\Direct\Implementation\ProductBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\Implementation\PromotionBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\Implementation\ShipmentBusiness.cs" />
+    <Compile Include="Business\Direct\Implementation\ShipmentBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\Implementation\SubscriptionBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\IOrderBusiness.cs" />
+    <Compile Include="Business\Direct\IOrderBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\IPaymentBusiness.cs" />
+    <Compile Include="Business\Direct\IPaymentBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\IPaymentDetailBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\IPaymentTransactionBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\IProductBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\IPromotionBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\IShipmentBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\ISubscriptionBusiness_Crud.cs" />
     <Compile Include="Business\Direct\_DirectExtensions.cs" />
     <Compile Include="Business\Index\Factory\DocumentNames.cs" />
     <Compile Include="Business\Index\Factory\IStencilElasticClientFactory.cs" />
@@ -144,14 +176,47 @@
     <Compile Include="Business\Index\IAccountIndex_Core.cs">
       <DependentUpon>IAccountIndex.cs</DependentUpon>
     </Compile>
+    <Compile Include="Business\Index\IBrandIndex.cs" />
+    <Compile Include="Business\Index\IBrandIndex_Core.cs" />
     <Compile Include="Business\Index\IIndexer.cs" />
+    <Compile Include="Business\Index\IInvoiceIndex_Core.cs" />
+    <Compile Include="Business\Index\ILineItemIndex.cs" />
+    <Compile Include="Business\Index\ILineItemIndex_Core.cs" />
+    <Compile Include="Business\Index\IListingIndex.cs" />
+    <Compile Include="Business\Index\IListingIndex_Core.cs" />
     <Compile Include="Business\Index\Implementation\AccountIndex.cs" />
     <Compile Include="Business\Index\Implementation\AccountIndex_Core.cs">
       <DependentUpon>AccountIndex.cs</DependentUpon>
     </Compile>
+    <Compile Include="Business\Index\Implementation\BrandIndex.cs" />
+    <Compile Include="Business\Index\Implementation\BrandIndex_Core.cs" />
     <Compile Include="Business\Index\Implementation\IndexerBase.cs" />
     <Compile Include="Business\Index\Implementation\IndexerBaseHealth.cs" />
+    <Compile Include="Business\Index\Implementation\InvoiceIndex_Core.cs" />
+    <Compile Include="Business\Index\Implementation\LineItemIndex_Core.cs" />
+    <Compile Include="Business\Index\Implementation\ListingIndex_Core.cs" />
+    <Compile Include="Business\Index\Implementation\OrderIndex.cs" />
+    <Compile Include="Business\Index\Implementation\OrderIndex_Core.cs" />
+    <Compile Include="Business\Index\Implementation\PaymentDetailIndex_Core.cs" />
+    <Compile Include="Business\Index\Implementation\PaymentIndex_Core.cs" />
+    <Compile Include="Business\Index\Implementation\PaymentTransactionIndex_Core.cs" />
+    <Compile Include="Business\Index\Implementation\ProductIndex.cs" />
+    <Compile Include="Business\Index\Implementation\ProductIndex_Core.cs" />
+    <Compile Include="Business\Index\Implementation\ListingIndex.cs" />
+    <Compile Include="Business\Index\Implementation\PromotionIndex.cs" />
+    <Compile Include="Business\Index\Implementation\PromotionIndex_Core.cs" />
+    <Compile Include="Business\Index\Implementation\ShipmentIndex_Core.cs" />
     <Compile Include="Business\Index\IndexResult.cs" />
+    <Compile Include="Business\Index\IOrderIndex.cs" />
+    <Compile Include="Business\Index\IOrderIndex_Core.cs" />
+    <Compile Include="Business\Index\IPaymentDetailIndex_Core.cs" />
+    <Compile Include="Business\Index\IPaymentIndex_Core.cs" />
+    <Compile Include="Business\Index\IPaymentTransactionIndex_Core.cs" />
+    <Compile Include="Business\Index\IProductIndex.cs" />
+    <Compile Include="Business\Index\IProductIndex_Core.cs" />
+    <Compile Include="Business\Index\IPromotionIndex.cs" />
+    <Compile Include="Business\Index\IPromotionIndex_Core.cs" />
+    <Compile Include="Business\Index\IShipmentIndex_Core.cs" />
     <Compile Include="Business\Index\_IndexExtensions.cs" />
     <Compile Include="Business\Integration\DependencyCoordinator_Core.cs">
       <DependentUpon>DependencyCoordinator.cs</DependentUpon>
@@ -161,8 +226,36 @@
     <Compile Include="Business\Integration\DependencyCoordinator.cs" />
     <Compile Include="Business\Synchronization\Availability.cs" />
     <Compile Include="Business\Synchronization\IAccountSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\IBrandSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\IInvoiceSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\ILineItemSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\IListingSynchronizer_Core.cs" />
     <Compile Include="Business\Synchronization\Implementation\AccountSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\Implementation\BrandSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\Implementation\InvoiceSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\Implementation\LineItemSynchronizer.cs" />
+    <Compile Include="Business\Synchronization\Implementation\LineItemSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\Implementation\ListingSynchronizer.cs" />
+    <Compile Include="Business\Synchronization\Implementation\ListingSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\Implementation\OrderSynchronizer.cs" />
+    <Compile Include="Business\Synchronization\Implementation\OrderSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\Implementation\PaymentDetailSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\Implementation\PaymentSynchronizer.cs" />
+    <Compile Include="Business\Synchronization\Implementation\PaymentSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\Implementation\PaymentTransactionSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\Implementation\ProductSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\Implementation\PromotionSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\Implementation\ShipmentSynchronizer.cs" />
+    <Compile Include="Business\Synchronization\Implementation\ShipmentSynchronizer_Core.cs" />
     <Compile Include="Business\Synchronization\Implementation\SynchronizerBase.cs" />
+    <Compile Include="Business\Synchronization\IOrderSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\IPaymentDetailSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\IPaymentSynchronizer.cs" />
+    <Compile Include="Business\Synchronization\IPaymentSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\IPaymentTransactionSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\IProductSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\IPromotionSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\IShipmentSynchronizer_Core.cs" />
     <Compile Include="Business\Synchronization\ISynchronizer.cs" />
     <Compile Include="Daemons\Agents.cs" />
     <Compile Include="Daemons\WorkerBase.cs" />
@@ -190,7 +283,11 @@
     <Compile Include="Health\IHealthExtractor.cs" />
     <Compile Include="Health\ServerHealthExtractor.cs" />
     <Compile Include="Health\_HealthExtensions.cs" />
+    <Compile Include="Integration\IGeneratePDFs.cs" />
     <Compile Include="Integration\IProcessImage.cs" />
+    <Compile Include="Integration\IProductNotify.cs" />
+    <Compile Include="Integration\IProductSubscription.cs" />
+    <Compile Include="Integration\ProductSubscription.cs" />
     <Compile Include="Mapping\PrimaryMappingProfile.cs" />
     <Compile Include="Mapping\PrimaryMappingProfile_Core.cs">
       <DependentUpon>PrimaryMappingProfile.cs</DependentUpon>
@@ -207,7 +304,12 @@
     <Compile Include="StencilAPIIndex.cs" />
     <Compile Include="StencilAPIIntegration.cs" />
     <Compile Include="Workers\AccountLoggedInWorker.cs" />
+    <Compile Include="Workers\IQueryReportWorker.cs" />
     <Compile Include="Workers\Models\LoggedInRequest.cs" />
+    <Compile Include="Workers\Models\PaymentDetailRequest.cs" />
+    <Compile Include="Workers\Models\QueryReportRequest.cs" />
+    <Compile Include="Workers\PaymentDetailPersistanceWorker.cs" />
+    <Compile Include="Workers\QueryReportWorker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

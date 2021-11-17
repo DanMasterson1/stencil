@@ -9,7 +9,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
-using System.Web.Optimization;
+//using System.Web.Optimization;
 using System.Web.Routing;
 
 namespace Stencil.Website
@@ -19,7 +19,6 @@ namespace Stencil.Website
         private IHttpApplicationBinder _iHttpApplicationBinder;
         protected void Application_Start()
         {
-
 
             ServicePointManager.DefaultConnectionLimit = 500;
             ServicePointManager.Expect100Continue = false;

@@ -61,6 +61,12 @@
     <Compile Include="Synchronization\INotifySynchronizer.cs" />
     <Compile Include="_CommonExtensions.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Stencil.SDK.Windows\Stencil.SDK.Windows.csproj">
+      <Project>{09E84254-B519-4DAC-B02D-D8CAA97FD4B9}</Project>
+      <Name>Stencil.SDK.Windows</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

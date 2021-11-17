@@ -85,7 +85,43 @@
     <Compile Include="dbAsset.cs">
       <DependentUpon>StencilModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="dbBrand.cs">
+      <DependentUpon>StencilModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="dbGlobalSetting.cs">
+      <DependentUpon>StencilModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbInvoice.cs">
+      <DependentUpon>StencilModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbLineItem.cs">
+      <DependentUpon>StencilModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbListing.cs">
+      <DependentUpon>StencilModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbOrder.cs">
+      <DependentUpon>StencilModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbPayment.cs">
+      <DependentUpon>StencilModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbPaymentDetail.cs">
+      <DependentUpon>StencilModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbPaymentTransaction.cs">
+      <DependentUpon>StencilModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbProduct.cs">
+      <DependentUpon>StencilModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbPromotion.cs">
+      <DependentUpon>StencilModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbShipment.cs">
+      <DependentUpon>StencilModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbSubscription.cs">
       <DependentUpon>StencilModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Extensions\DatabaseExtensions.cs" />

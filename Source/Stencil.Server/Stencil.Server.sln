@@ -1,9 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stencil.Website", "Stencil.Website\Stencil.Website.csproj", "{85D0F8FD-BF8D-49E5-8184-D117436B316F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{739A28DC-EE3A-4BA3-A4B4-E5EAB45DEF1D} = {739A28DC-EE3A-4BA3-A4B4-E5EAB45DEF1D}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stencil.Backing", "Stencil.Backing\Stencil.Backing.csproj", "{227C5C9A-62E2-4050-A952-C92568055EF3}"
 EndProject
@@ -44,6 +47,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stencil.Plugins.AzurePush", "Plugins\Stencil.Plugins.AzurePush\Stencil.Plugins.AzurePush.csproj", "{DF6BD0D9-E199-43FD-94E6-D3A4CCAD77B2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stencil.Plugins.Amazon", "Plugins\Stencil.Plugins.Amazon\Stencil.Plugins.Amazon.csproj", "{7552B994-8754-4CEE-B8D2-609263716036}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stencil.Plugins.InvoiceGenerator", "Plugins\Stencil.Plugins.InvoiceGenerator\Stencil.Plugins.InvoiceGenerator.csproj", "{A938DE9A-F873-4DD1-A9C1-759C73F168EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stencil.Plugins.OrderProcessor", "Plugins\Stencil.Plugins.OrderProcessor\Stencil.Plugins.OrderProcessor.csproj", "{0E4021A1-3892-4EC6-BFCF-1CF2C8AAFB3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stencil.Plugins.MasterCard", "Plugins\Stencil.Plugins.MasterCard\Stencil.Plugins.MasterCard.csproj", "{FF91217C-9A65-4A40-BFDB-CCE790042038}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stencil.Plugins.ProductReporter", "Plugins\Stencil.Plugins.ProductReporter\Stencil.Plugins.ProductReporter.csproj", "{549DB75D-A83C-4A65-BB61-A92ED3A05532}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -116,6 +127,22 @@ Global
 		{7552B994-8754-4CEE-B8D2-609263716036}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7552B994-8754-4CEE-B8D2-609263716036}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7552B994-8754-4CEE-B8D2-609263716036}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A938DE9A-F873-4DD1-A9C1-759C73F168EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A938DE9A-F873-4DD1-A9C1-759C73F168EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A938DE9A-F873-4DD1-A9C1-759C73F168EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A938DE9A-F873-4DD1-A9C1-759C73F168EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E4021A1-3892-4EC6-BFCF-1CF2C8AAFB3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E4021A1-3892-4EC6-BFCF-1CF2C8AAFB3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E4021A1-3892-4EC6-BFCF-1CF2C8AAFB3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E4021A1-3892-4EC6-BFCF-1CF2C8AAFB3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF91217C-9A65-4A40-BFDB-CCE790042038}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF91217C-9A65-4A40-BFDB-CCE790042038}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF91217C-9A65-4A40-BFDB-CCE790042038}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF91217C-9A65-4A40-BFDB-CCE790042038}.Release|Any CPU.Build.0 = Release|Any CPU
+		{549DB75D-A83C-4A65-BB61-A92ED3A05532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{549DB75D-A83C-4A65-BB61-A92ED3A05532}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{549DB75D-A83C-4A65-BB61-A92ED3A05532}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{549DB75D-A83C-4A65-BB61-A92ED3A05532}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -137,5 +164,12 @@ Global
 		{FB4AE534-1DF5-45D3-9C89-FF4EBF4F5172} = {0390AEAB-CF3E-4D8D-BDF3-606066A7B557}
 		{DF6BD0D9-E199-43FD-94E6-D3A4CCAD77B2} = {0390AEAB-CF3E-4D8D-BDF3-606066A7B557}
 		{7552B994-8754-4CEE-B8D2-609263716036} = {0390AEAB-CF3E-4D8D-BDF3-606066A7B557}
+		{A938DE9A-F873-4DD1-A9C1-759C73F168EA} = {0390AEAB-CF3E-4D8D-BDF3-606066A7B557}
+		{0E4021A1-3892-4EC6-BFCF-1CF2C8AAFB3D} = {0390AEAB-CF3E-4D8D-BDF3-606066A7B557}
+		{FF91217C-9A65-4A40-BFDB-CCE790042038} = {0390AEAB-CF3E-4D8D-BDF3-606066A7B557}
+		{549DB75D-A83C-4A65-BB61-A92ED3A05532} = {0390AEAB-CF3E-4D8D-BDF3-606066A7B557}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E93CDA94-78E4-417F-86D5-26DDEFBA4602}
 	EndGlobalSection
 EndGlobal

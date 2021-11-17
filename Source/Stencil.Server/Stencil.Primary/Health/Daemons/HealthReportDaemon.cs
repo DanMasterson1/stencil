@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Stencil.Common.Configuration;
 using Stencil.Common;
+using Stencil.Domain;
 
 namespace Stencil.Primary.Health.Daemons
 {
@@ -68,7 +69,7 @@ namespace Stencil.Primary.Health.Daemons
             base.ExecuteMethod("PersistHealth", delegate()
             {
                 base.IFoundation.LogWarning("Sending Health Reports");
-
+                
                 string hostName = Dns.GetHostName();
                 Dictionary<string, decimal> metrics = null;
                 List<string> logs = null;

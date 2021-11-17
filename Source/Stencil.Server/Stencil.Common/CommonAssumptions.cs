@@ -35,6 +35,8 @@ namespace Stencil.Common
         public static readonly string CONFIG_KEY_AMAZON_ENCODE_RETRY_MAX = "AWS-Retry-Max";
         public static readonly string CONFIG_KEY_ENCODE_RETRY_WINDOW_MINUTES = "AWS-Retry-WindowMins";
 
+        public static readonly string CONFIG_KEY_MASTERCARD_PUBLIC_URL = "MASTERCARD-{0}-Url-Public";
+
         public static readonly int INDEX_RETRY_THRESHOLD_SECONDS = 5;
     }
 }

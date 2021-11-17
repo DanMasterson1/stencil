@@ -23,6 +23,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -134,6 +135,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="Views\Brand\" />
+    <Folder Include="Views\Invoice\" />
+    <Folder Include="Views\LineItem\" />
+    <Folder Include="Views\Listing\" />
+    <Folder Include="Views\Order\" />
+    <Folder Include="Views\Product\" />
+    <Folder Include="Views\Promotion\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
@@ -142,8 +150,27 @@
     </Compile>
     <Compile Include="Controllers\AssetController_Crud.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\BrandController.cs" />
+    <Compile Include="Controllers\BrandController_Crud.cs" />
     <Compile Include="Controllers\GlobalSettingController_Crud.cs" />
+    <Compile Include="Controllers\InvoiceController.cs" />
+    <Compile Include="Controllers\InvoiceController_Crud.cs" />
+    <Compile Include="Controllers\LineItemController.cs" />
+    <Compile Include="Controllers\LineItemController_Crud.cs" />
+    <Compile Include="Controllers\ListingController.cs" />
+    <Compile Include="Controllers\ListingController_Crud.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\OrderController_Crud.cs" />
+    <Compile Include="Controllers\PaymentController_Crud.cs" />
+    <Compile Include="Controllers\PaymentDetailController_Crud.cs" />
+    <Compile Include="Controllers\PaymentTransactionController_Crud.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ProductController_Crud.cs" />
+    <Compile Include="Controllers\PromotionController.cs" />
+    <Compile Include="Controllers\PromotionController_Crud.cs" />
     <Compile Include="Controllers\ServerController.cs" />
+    <Compile Include="Controllers\ShipmentController_Crud.cs" />
+    <Compile Include="Controllers\SubscriptionController_Crud.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
