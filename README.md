@@ -1,2 +1,2 @@
 # stencil
-Social Haven Stencil Framework
+My stencil learning project
