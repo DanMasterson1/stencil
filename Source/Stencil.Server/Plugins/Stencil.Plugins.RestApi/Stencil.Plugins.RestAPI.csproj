@@ -136,6 +136,7 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Views\Brand\" />
+    <Folder Include="Views\EntitySubscription\" />
     <Folder Include="Views\Invoice\" />
     <Folder Include="Views\LineItem\" />
     <Folder Include="Views\Listing\" />

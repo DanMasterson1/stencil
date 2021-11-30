@@ -38,6 +38,7 @@ namespace Stencil.Primary.Synchronization.Implementation
                 if (referencePromotion != null)
                 {
                     sdkModel.promotion_percent = referencePromotion.percent;
+                    sdkModel.promotion_description = referencePromotion.promotion_description;
                 }
                 else
                 {
@@ -45,12 +46,13 @@ namespace Stencil.Primary.Synchronization.Implementation
                     if (referenceDomainPromotion != null)
                     {
                         sdkModel.promotion_percent = referenceDomainPromotion.percent;
+                        sdkModel.promotion_description = referenceDomainPromotion.promotion_description;
                     }
                 }
             }
 
             // listing price set by above 2
-            if(sdkModel.promotion_percent != null)
+            if (sdkModel.promotion_percent != null)
             {
                 sdkModel.listing_price = sdkModel.product_baseprice - ((decimal)sdkModel.promotion_percent * sdkModel.product_baseprice);
             }

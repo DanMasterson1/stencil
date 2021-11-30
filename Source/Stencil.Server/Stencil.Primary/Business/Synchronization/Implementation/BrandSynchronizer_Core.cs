@@ -111,10 +111,6 @@ namespace Stencil.Primary.Synchronization.Implementation
         protected void HydrateSDKModelComputed(Brand domainModel, sdk.Brand sdkModel)
         {
             
-            sdkModel.product_count = this.API.Index.Products.GetCount(sdkModel.brand_id);
-            
-            sdkModel.listing_count = this.API.Index.Listings.GetCount(sdkModel.brand_id);
-            
         }
         partial void HydrateSDKModel(Brand domainModel, sdk.Brand sdkModel);
     }

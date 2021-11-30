@@ -22,6 +22,8 @@ using Stencil.Primary.Integration;
 using Stencil.Domain;
 using Stencil.Plugins.MasterCard.Models;
 using Newtonsoft.Json;
+using Stencil.Primary.Models;
+using Stencil.Primary.Workers;
 
 namespace Stencil.Plugins.MasterCard.Integration
 {
@@ -97,11 +99,62 @@ namespace Stencil.Plugins.MasterCard.Integration
                         {
                             order.order_paid = true;
                             this.API.Direct.Orders.Update(order);
+
+                            // Notify subscribed brands their product was bought
+
+                            sdk.Order indexedOrder = this.API.Index.Orders.GetById(order.order_id);
+
+                            List<sdk.Product> indexedProducts = indexedOrder.products.ToList();
+
+                            List<Guid> orderBrands = indexedProducts.Select(x => x.brand_id).ToList();
+
+                            List<Guid> subscribedBrands = this.API.Direct.Subscriptions.GetOrderSubscribers();
+                            
+                            // get total $ for the line items from this brand
+
+                            foreach (Guid brand_id in orderBrands)
+                            {
+                                if (subscribedBrands.Contains(brand_id))
+                                {
+                                    
+                                    List<sdk.Product> brandProducts = indexedProducts.Where(x => x.brand_id == brand_id).ToList();
+                                    List<ProductResponse> productPrices = new List<ProductResponse>();
+
+
+                                    foreach(sdk.Product product in brandProducts)
+                                    {
+                                        double lineItemTotal = this.API.Index.Products.GetTotalSalesOnOrder(product.product_id, indexedOrder.order_id).item;
+
+                                        productPrices.Add(new ProductResponse
+                                        {
+                                            ProductName = product.product_name,
+                                            LineItemPrice = lineItemTotal
+                                        });
+                                    }
+
+                                    NotifyPluginRequest request = new NotifyPluginRequest()
+                                    {
+                                        eventName = "ProductOrdered",
+                                        query_context = "Products from your brand were successfully paid for on an order",
+                                        brand_id = brand_id,
+                                        response = JsonConvert.SerializeObject(productPrices)
+                                    };
+
+                                    NotifyPluginWorker.EnqueueRequest(base.IFoundation, request);
+                                }
+                            }
+
                         }
                     }
                 }
 
             }
         }
+    }
+
+    public class ProductResponse
+    {
+        public string ProductName { get; set; }
+        public double LineItemPrice { get; set; }
     }
 }

@@ -296,8 +296,8 @@
           </Key>
           <Property Name="subscription_id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="brand_id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="product_id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="timestamp" Type="datetime" Nullable="false" />
+          <Property Name="event_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="url" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_Invoice_Asset_asset_id">
           <End Role="Asset" Type="Self.Asset" Multiplicity="1" />
@@ -500,6 +500,18 @@
             </Principal>
             <Dependent Role="Shipment">
               <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subscription_Brand_brand_id">
+          <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
+          <End Role="Subscription" Type="Self.Subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="brand_id" />
+            </Principal>
+            <Dependent Role="Subscription">
+              <PropertyRef Name="brand_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -836,6 +848,10 @@
           <AssociationSet Name="FK_Shipment_Order_order_id" Association="Self.FK_Shipment_Order_order_id">
             <End Role="Order" EntitySet="Order" />
             <End Role="Shipment" EntitySet="Shipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subscription_Brand_brand_id" Association="Self.FK_Subscription_Brand_brand_id">
+            <End Role="Brand" EntitySet="Brand" />
+            <End Role="Subscription" EntitySet="Subscription" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -1176,6 +1192,10 @@
             <Parameter Name="sync_log" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="dbSubscriptions" EntityType="Stencil.Data.Sql.dbSubscription" />
+          <AssociationSet Name="FK_Subscription_Brand_brand_id" Association="Stencil.Data.Sql.FK_Subscription_Brand_brand_id">
+            <End Role="dbBrand" EntitySet="dbBrands" />
+            <End Role="Subscription" EntitySet="dbSubscriptions" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="dbAccount">
           <Key>
@@ -1277,6 +1297,7 @@
           <Property Name="sync_log" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Listings" Relationship="Stencil.Data.Sql.FK_Listing_Brand_brand_id" FromRole="Brand" ToRole="Listing" />
           <NavigationProperty Name="Products" Relationship="Stencil.Data.Sql.FK_Product_Brand_brand_id" FromRole="Brand" ToRole="Product" />
+          <NavigationProperty Name="Subscriptions" Relationship="Stencil.Data.Sql.FK_Subscription_Brand_brand_id" FromRole="dbBrand" ToRole="Subscription" />
         </EntityType>
         <EntityType Name="dbLineItem">
           <Key>
@@ -1714,9 +1735,22 @@
           </Key>
           <Property Name="subscription_id" Type="Guid" Nullable="false" />
           <Property Name="brand_id" Type="Guid" Nullable="false" />
-          <Property Name="product_id" Type="Guid" Nullable="false" />
-          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="event_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="url" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Brand" Relationship="Stencil.Data.Sql.FK_Subscription_Brand_brand_id" FromRole="Subscription" ToRole="dbBrand" />
         </EntityType>
+        <Association Name="FK_Subscription_Brand_brand_id">
+          <End Type="Stencil.Data.Sql.dbBrand" Role="dbBrand" Multiplicity="1" />
+          <End Type="Stencil.Data.Sql.dbSubscription" Role="Subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dbBrand">
+              <PropertyRef Name="brand_id" />
+            </Principal>
+            <Dependent Role="Subscription">
+              <PropertyRef Name="brand_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2097,8 +2131,8 @@
           <EntitySetMapping Name="dbSubscriptions">
             <EntityTypeMapping TypeName="Stencil.Data.Sql.dbSubscription">
               <MappingFragment StoreEntitySet="Subscription">
-                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
-                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="event_name" ColumnName="event_name" />
                 <ScalarProperty Name="brand_id" ColumnName="brand_id" />
                 <ScalarProperty Name="subscription_id" ColumnName="subscription_id" />
               </MappingFragment>

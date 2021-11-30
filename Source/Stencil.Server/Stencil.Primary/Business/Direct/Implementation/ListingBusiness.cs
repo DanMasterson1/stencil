@@ -16,7 +16,7 @@ namespace Stencil.Primary.Business.Direct.Implementation
             {
                 using (StencilContext db = base.CreateSQLContext())
                 {
-                    //db.spListing_InvalidateExpired();
+                    
 
                     IQueryable<dbListing> result = (from n in db.dbListings
                                                     where n.active == true && n.expire_utc > DateTime.Now

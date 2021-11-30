@@ -16,7 +16,6 @@ namespace Stencil.Primary.Business.Index
             where TCustomModel : class;
         ListResult<LineItem> GetByOrderId(Guid order_id, int skip, int take, string order_by = "", bool descending = false);
         ListResult<LineItem> GetByListingId(Guid listing_id, int skip, int take, string order_by = "", bool descending = false);
-        int GetCount(Guid order_id);
         
     }
 }

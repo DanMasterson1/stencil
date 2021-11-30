@@ -11,8 +11,6 @@ namespace Stencil.Primary.Business.Direct
         Subscription GetById(Guid subscription_id);
         
         List<Subscription> GetByBrandId(Guid brand_id);
-        
-        List<Subscription> GetByProductId(Guid product_id);
         Subscription Insert(Subscription insertSubscription);
         Subscription Update(Subscription updateSubscription);
         

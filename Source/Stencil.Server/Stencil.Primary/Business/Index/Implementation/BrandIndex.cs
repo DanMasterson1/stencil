@@ -127,5 +127,7 @@ namespace Stencil.Primary.Business.Index.Implementation
                 return result;
             });
         }
+
+       
     }
 }

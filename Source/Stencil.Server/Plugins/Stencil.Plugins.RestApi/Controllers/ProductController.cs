@@ -56,25 +56,25 @@ namespace Stencil.Plugins.RestAPI.Controllers
                 {
                     sdk.Product result = this.API.Index.Products.GetById(product_id);
 
-                    QueryReportRequest request = new QueryReportRequest()
+                    NotifyPluginRequest request = new NotifyPluginRequest()
                     {
-                        entity = this.TrackPrefix,
-                        query_context = nameof(GetById),
-                        // keyword that was searched
+                        eventName = "ProductQueried",
+                        query_context = "Product was queried and returned",
+                        brand_id = result.brand_id
                     };
 
                     if (result == null)
                     {
                         request.response = JsonConvert.SerializeObject(Http404(this.TrackPrefix));
 
-                        QueryReportWorker.EnqueueRequest(base.IFoundation, request);
+                        NotifyPluginWorker.EnqueueRequest(base.IFoundation, request);
                         
                         return Http404("Product");
                     }
 
                     request.response = JsonConvert.SerializeObject(result);
 
-                    QueryReportWorker.EnqueueRequest(base.IFoundation, request);
+                    NotifyPluginWorker.EnqueueRequest(base.IFoundation, request);
 
                     return base.Http200(new ItemResult<sdk.Product>()
                     {

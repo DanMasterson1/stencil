@@ -30,6 +30,7 @@ namespace Stencil.SDK.Models
         public string payment_cardtype { get; set; }
         public string status { get; set; }
         public int lineitem_count { get; set; }
+        public Product[] products { get; set; }
         
         //</IndexOnly>
 	}

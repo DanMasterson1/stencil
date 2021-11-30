@@ -8,8 +8,6 @@ GO
 
 ALTER TABLE [dbo].[Subscription] DROP  [FK_Subscription_Brand_brand_id]
 
-ALTER TABLE [dbo].[Subscription] DROP  [FK_Subscription_Product_product_id]
-
 GO
 
 ALTER TABLE [dbo].[PaymentDetail] DROP  [FK_PaymentDetail_Account_account_id]

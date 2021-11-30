@@ -156,8 +156,9 @@
     <Folder Include="Models\" />
     <Folder Include="Plugins\InvoiceGenerator\" />
     <Folder Include="Plugins\MasterCard\" />
+    <Folder Include="Plugins\OrderInformant\" />
     <Folder Include="Plugins\OrderProcessor\" />
-    <Folder Include="Plugins\ProductReporter\" />
+    <Folder Include="Plugins\ProductInformant\" />
     <Folder Include="Plugins\QueryReporter\" />
     <Folder Include="Scripts\" />
   </ItemGroup>

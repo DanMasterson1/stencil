@@ -15,8 +15,8 @@ namespace Stencil.Domain
     
         public Guid subscription_id { get; set; }
         public Guid brand_id { get; set; }
-        public Guid product_id { get; set; }
-        public DateTime timestamp { get; set; }
+        public string event_name { get; set; }
+        public string url { get; set; }
         
 	}
 }

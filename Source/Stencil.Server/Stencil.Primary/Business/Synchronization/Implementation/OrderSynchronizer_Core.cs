@@ -111,8 +111,6 @@ namespace Stencil.Primary.Synchronization.Implementation
         protected void HydrateSDKModelComputed(Order domainModel, sdk.Order sdkModel)
         {
             
-            sdkModel.lineitem_count = this.API.Index.LineItems.GetCount(sdkModel.order_id);
-            
         }
         partial void HydrateSDKModel(Order domainModel, sdk.Order sdkModel);
     }

@@ -29,6 +29,7 @@ namespace Stencil.Primary.Business.Integration
         {
             base.ExecuteMethod("ProcessGlobalSettingInvalidation", delegate ()
             {
+                GlobalSetting item = this.API.Direct.GlobalSettings.GetById(global_setting_id);
                 
             });
         }
@@ -44,9 +45,12 @@ namespace Stencil.Primary.Business.Integration
             base.ExecuteMethod("ProcessBrandInvalidation", delegate ()
             {
                 
+				
                 this.API.Direct.Products.InvalidateForBrandId(brand_id, " changed");
                 
+				
                 this.API.Direct.Listings.InvalidateForBrandId(brand_id, " changed");
+                Brand item = this.API.Direct.Brands.GetById(brand_id);
                 
                 this.API.Integration.Synchronization.AgitateSyncDaemon();
             });
@@ -63,7 +67,9 @@ namespace Stencil.Primary.Business.Integration
             base.ExecuteMethod("ProcessProductInvalidation", delegate ()
             {
                 
+				
                 this.API.Direct.Listings.InvalidateForProductId(product_id, " changed");
+                Product item = this.API.Direct.Products.GetById(product_id);
                 
                 this.API.Integration.Synchronization.AgitateSyncDaemon();
             });
@@ -80,7 +86,9 @@ namespace Stencil.Primary.Business.Integration
             base.ExecuteMethod("ProcessPromotionInvalidation", delegate ()
             {
                 
+				
                 this.API.Direct.Listings.InvalidateForPromotionId(promotion_id, " changed");
+                Promotion item = this.API.Direct.Promotions.GetById(promotion_id);
                 
                 this.API.Integration.Synchronization.AgitateSyncDaemon();
             });
@@ -97,7 +105,9 @@ namespace Stencil.Primary.Business.Integration
             base.ExecuteMethod("ProcessListingInvalidation", delegate ()
             {
                 
+				
                 this.API.Direct.LineItems.InvalidateForListingId(listing_id, " changed");
+                Listing item = this.API.Direct.Listings.GetById(listing_id);
                 
                 this.API.Integration.Synchronization.AgitateSyncDaemon();
             });
@@ -114,26 +124,35 @@ namespace Stencil.Primary.Business.Integration
             base.ExecuteMethod("ProcessOrderInvalidation", delegate ()
             {
                 
+				
                 this.API.Direct.LineItems.InvalidateForOrderId(order_id, " changed");
                 
+				
                 this.API.Direct.Invoices.InvalidateForOrderId(order_id, " changed");
                 
+				
                 this.API.Direct.Payments.InvalidateForOrderId(order_id, " changed");
                 
+				
                 this.API.Direct.Shipments.InvalidateForOrderId(order_id, " changed");
                 
+				
                 this.API.Direct.PaymentTransactions.InvalidateForOrderId(order_id, " changed");
                 Order item = this.API.Direct.Orders.GetById(order_id);
+                
+                
                 if (item != null && item.invoice_id.HasValue)
                 {
                     this.API.Direct.Invoices.Invalidate(item.invoice_id.Value, "Order changed");
                 }
-                //Order item = this.API.Direct.Orders.GetById(order_id);
+                
+                
                 if (item != null && item.payment_id.HasValue)
                 {
                     this.API.Direct.Payments.Invalidate(item.payment_id.Value, "Order changed");
                 }
-                //Order item = this.API.Direct.Orders.GetById(order_id);
+                
+                
                 if (item != null && item.shipment_id.HasValue)
                 {
                     this.API.Direct.Shipments.Invalidate(item.shipment_id.Value, "Order changed");
@@ -154,6 +173,8 @@ namespace Stencil.Primary.Business.Integration
             base.ExecuteMethod("ProcessLineItemInvalidation", delegate ()
             {
                 LineItem item = this.API.Direct.LineItems.GetById(lineitem_id);
+                
+                
                 if (item != null)
                 {
                     this.API.Direct.Orders.Invalidate(item.order_id, "LineItem changed");
@@ -174,6 +195,8 @@ namespace Stencil.Primary.Business.Integration
             base.ExecuteMethod("ProcessInvoiceInvalidation", delegate ()
             {
                 Invoice item = this.API.Direct.Invoices.GetById(invoice_id);
+                
+                
                 if (item != null)
                 {
                     this.API.Direct.Orders.Invalidate(item.order_id, "Invoice changed");
@@ -194,10 +217,14 @@ namespace Stencil.Primary.Business.Integration
             base.ExecuteMethod("ProcessPaymentInvalidation", delegate ()
             {
                 
+				
                 this.API.Direct.Orders.InvalidateForPaymentId(payment_id, " changed");
                 
+				
                 this.API.Direct.PaymentTransactions.InvalidateForPaymentId(payment_id, " changed");
                 Payment item = this.API.Direct.Payments.GetById(payment_id);
+                
+                
                 if (item != null)
                 {
                     this.API.Direct.Orders.Invalidate(item.order_id, "Payment changed");
@@ -218,8 +245,11 @@ namespace Stencil.Primary.Business.Integration
             base.ExecuteMethod("ProcessShipmentInvalidation", delegate ()
             {
                 
+				
                 this.API.Direct.Orders.InvalidateForShipmentId(shipment_id, " changed");
                 Shipment item = this.API.Direct.Shipments.GetById(shipment_id);
+                
+                
                 if (item != null)
                 {
                     this.API.Direct.Orders.Invalidate(item.order_id, "Shipment changed");
@@ -240,11 +270,14 @@ namespace Stencil.Primary.Business.Integration
             base.ExecuteMethod("ProcessPaymentTransactionInvalidation", delegate ()
             {
                 PaymentTransaction item = this.API.Direct.PaymentTransactions.GetById(paymenttransaction_id);
+                
+                
                 if (item != null)
                 {
                     this.API.Direct.Orders.Invalidate(item.order_id, "PaymentTransaction changed");
                 }
-                //PaymentTransaction item = this.API.Direct.PaymentTransactions.GetById(paymenttransaction_id);
+                
+                
                 if (item != null)
                 {
                     this.API.Direct.Payments.Invalidate(item.payment_id, "PaymentTransaction changed");
@@ -265,6 +298,8 @@ namespace Stencil.Primary.Business.Integration
             base.ExecuteMethod("ProcessPaymentDetailInvalidation", delegate ()
             {
                 PaymentDetail item = this.API.Direct.PaymentDetails.GetById(paymentdetail_id);
+                
+                
                 if (item != null)
                 {
                     this.API.Direct.Accounts.Invalidate(item.account_id, "PaymentDetail changed");
@@ -284,6 +319,7 @@ namespace Stencil.Primary.Business.Integration
         {
             base.ExecuteMethod("ProcessSubscriptionInvalidation", delegate ()
             {
+                Subscription item = this.API.Direct.Subscriptions.GetById(subscription_id);
                 
             });
         }
@@ -299,9 +335,12 @@ namespace Stencil.Primary.Business.Integration
             base.ExecuteMethod("ProcessAccountInvalidation", delegate ()
             {
                 
+				
                 this.API.Direct.Orders.InvalidateForAccountId(account_id, " changed");
                 
+				
                 this.API.Direct.PaymentDetails.InvalidateForAccountId(account_id, " changed");
+                Account item = this.API.Direct.Accounts.GetById(account_id);
                 
                 this.API.Integration.Synchronization.AgitateSyncDaemon();
             });
@@ -318,7 +357,9 @@ namespace Stencil.Primary.Business.Integration
             base.ExecuteMethod("ProcessAssetInvalidation", delegate ()
             {
                 
+				
                 this.API.Direct.Invoices.InvalidateForAssetId(asset_id, " changed");
+                Asset item = this.API.Direct.Assets.GetById(asset_id);
                 
                 this.API.Integration.Synchronization.AgitateSyncDaemon();
             });

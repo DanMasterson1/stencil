@@ -149,26 +149,6 @@ namespace Stencil.Primary.Business.Index.Implementation
             });
         }
         
-        public int GetCount(Guid brand_id)
-        {
-            return base.ExecuteFunction("GetCount", delegate ()
-            {
-                QueryContainer query = Query<Listing>.Term(w => w.brand_id, brand_id);
-                
-                query &= Query<Listing>.Exists(f => f.Field(x => x.brand_id));
-               
-                ElasticClient client = this.ClientFactory.CreateClient();
-                ISearchResponse<sdk.Listing> response = client.Search<sdk.Listing>(s => s
-                    .Query(q => query)
-                    .Skip(0)
-                    .Take(0)
-                    .Type(this.DocumentType));
-
-                 
-                return (int)response.GetTotalHit();
-            });
-        }
-        
         public ListResult<sdk.Listing> Find(int skip, int take, string keyword = "", string order_by = "", bool descending = false, Guid? brand_id = null, Guid? product_id = null, Guid? promotion_id = null)
         {
             return base.ExecuteFunction("Find", delegate ()

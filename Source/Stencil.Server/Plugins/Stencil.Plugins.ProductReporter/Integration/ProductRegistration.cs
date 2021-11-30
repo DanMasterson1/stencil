@@ -4,10 +4,9 @@ using System.Linq;
 using System.Web;
 using Codeable.Foundation.Common;
 using Codeable.Foundation.Common.Aspect;
-using Stencil.Plugins.ProductReporter.Controllers;
 using Stencil.Primary.Integration;
 
-namespace Stencil.Plugins.ProductReporter.Integration
+namespace Stencil.Plugins.ProductInformant.Integration
 {
     public class ProductRegistration : ChokeableClass
     {
@@ -15,17 +14,17 @@ namespace Stencil.Plugins.ProductReporter.Integration
         public  ProductRegistration(IFoundation iFoundation)
             : base(iFoundation)
         {
-            this.ProductSubscription = iFoundation.Resolve<IProductSubscription>();
-            this.ProductNotify = iFoundation.Resolve<IProductNotify>();
+            this.ProductSubscription = iFoundation.Resolve<IWorkerSubscription>();
+            this.Plugin = iFoundation.Resolve<IWorkerSubscriber>();
         }
 
-        public IProductSubscription ProductSubscription { get; private set; }
-        public IProductNotify ProductNotify { get; private set; }
+        public IWorkerSubscription ProductSubscription { get; private set; }
+        public IWorkerSubscriber Plugin { get; private set; }
         public void RegisterSelf()
         {
             base.ExecuteMethod(nameof(RegisterSelf), delegate ()
             {
-                this.ProductSubscription.AddSubscriber(ProductNotify);
+                this.ProductSubscription.AddSubscriber(Plugin);
             });
   
         }

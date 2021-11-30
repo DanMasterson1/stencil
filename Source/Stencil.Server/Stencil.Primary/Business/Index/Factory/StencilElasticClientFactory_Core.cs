@@ -269,6 +269,16 @@ namespace Stencil.Primary.Business.Index
                                     .Analyzer("case_insensitive"))
                                 
                         )
+                    ).String(m => m
+                        .Name(t => t.products)
+                        .Fields(f => f
+                                .String(s => s.Name(n => n.products)
+                                .Index(FieldIndexOption.Analyzed))
+                                .String(s => s
+                                    .Name(n => n.products.Suffix("sort"))
+                                    .Analyzer("case_insensitive"))
+                                
+                        )
                     )
                 )
             ));

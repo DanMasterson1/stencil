@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Stencil.Primary.Workers
 {
-    public interface IQueryReportWorker
+    public interface INotifyPlugin
     {
         StencilAPI API { get; set; }
-        List<IProductNotify> Subscribers { get; }
+        List<IWorkerSubscriber> WorkerSubscribers { get; }
     }
 }

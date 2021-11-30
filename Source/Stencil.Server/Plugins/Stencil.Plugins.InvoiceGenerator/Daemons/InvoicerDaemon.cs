@@ -20,6 +20,7 @@ using Stencil.Primary.Business.Direct.Implementation;
 using Stencil.Plugins.InvoiceGenerator.Integration;
 using Stencil.SDK;
 using Stencil.SDK.Models;
+using PdfSharp;
 
 namespace Stencil.Plugins.InvoiceGenerator.Daemons
 {
@@ -126,6 +127,16 @@ namespace Stencil.Plugins.InvoiceGenerator.Daemons
 
                     sdk.Order shapedOrder = this.API.Index.Orders.GetById(order_id);
                     List<sdk.LineItem> lineItems = this.API.Index.LineItems.GetByOrderId(order_id, 0, 10).items;
+
+                    foreach(sdk.LineItem lineItem in lineItems)
+                    {
+
+                        sdk.Listing listing = this.API.Index.Listings.GetById(lineItem.listing_id);
+                        sdk.Product product = this.API.Index.Products.GetById(listing.product_id);
+
+                        //product.brand_id
+                    }
+
 
                     byte[] file = pdfCreator.GenerateInvoicePDF(shapedOrder, lineItems);
 

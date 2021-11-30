@@ -71,8 +71,8 @@ namespace Stencil.Primary.Business.Direct.Implementation
 
                     var result = (from n in db.dbOrders
                                   where (n.order_id == order_id && n.order_status == 2 
-                                  && n.invoice_id != null && n.order_shipped == false 
-                                  && n.order_paid == false)
+                                  && n.invoice_id != null && n.order_shipped == true 
+                                  && n.order_paid == true)
                                   select n);
 
                     bool closeable = (result.Count() > 0) ? true : false;

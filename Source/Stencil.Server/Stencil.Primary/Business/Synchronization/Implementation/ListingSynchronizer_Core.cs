@@ -138,25 +138,6 @@ namespace Stencil.Primary.Synchronization.Implementation
 					sdkModel.product_name = referenceDomainProduct.product_name;
 				}
 			}		
-
-            if(sdkModel.promotion_id != null)
-            {
-                sdk.Promotion referencePromotion = this.API.Index.Promotions.GetById((Guid)sdkModel.promotion_id);
-                if (referencePromotion != null)
-                {
-                    sdkModel.promotion_description = referencePromotion.promotion_description;
-                }
-                else
-                {
-                    Promotion referenceDomainPromotion = this.API.Direct.Promotions.GetById((Guid)sdkModel.promotion_id);
-                    if (referenceDomainPromotion != null)
-                    {
-                        sdkModel.promotion_description = referenceDomainPromotion.promotion_description;
-                    }
-                }
-            }
-            
-			
             
         }
         partial void HydrateSDKModel(Listing domainModel, sdk.Listing sdkModel);

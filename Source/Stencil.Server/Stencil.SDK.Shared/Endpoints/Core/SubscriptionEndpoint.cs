@@ -42,19 +42,6 @@ namespace Stencil.SDK.Endpoints
             return this.Sdk.ExecuteAsync<ListResult<Subscription>>(request);
         }
         
-        public Task<ListResult<Subscription>> GetSubscriptionByProductIdAsync(Guid product_id, int skip = 0, int take = 10, string order_by = "", bool descending = false)
-        {
-            var request = new RestRequest(Method.GET);
-            request.Resource = "subscriptions/by_productid/{product_id}";
-            request.AddUrlSegment("product_id", product_id.ToString());
-            request.AddParameter("skip", skip);
-            request.AddParameter("take", take);
-            request.AddParameter("order_by", order_by);
-            request.AddParameter("descending", descending);
-            
-            return this.Sdk.ExecuteAsync<ListResult<Subscription>>(request);
-        }
-        
 
         public Task<ItemResult<Subscription>> CreateSubscriptionAsync(Subscription subscription)
         {

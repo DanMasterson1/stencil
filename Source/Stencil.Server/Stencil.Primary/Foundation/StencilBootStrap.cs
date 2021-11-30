@@ -43,7 +43,7 @@ namespace Stencil.Primary.Foundation
             foundation.Container.RegisterType<IStencilContextFactory, StencilContextFactory>(new ContainerControlledLifetimeManager());
             foundation.Container.RegisterType<IStencilElasticClientFactory, StencilElasticClientFactory>(new ContainerControlledLifetimeManager());
             foundation.Container.RegisterType<IDependencyCoordinator, DependencyCoordinator>(new ContainerControlledLifetimeManager());
-            foundation.Container.RegisterType<IQueryReportWorker, QueryReportWorker>(new ContainerControlledLifetimeManager());
+            foundation.Container.RegisterType<INotifyPlugin, NotifyPluginWorker>(new ContainerControlledLifetimeManager());
 
 
             this.RegisterDataElements(foundation);

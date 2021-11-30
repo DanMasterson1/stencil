@@ -17,11 +17,11 @@ namespace Stencil.Primary.Synchronization.Implementation
         {
             Order domainOrder = this.API.Direct.Orders.GetById(domainModel.order_id);
 
-            if(domainOrder != null)
+            if (domainOrder != null)
             {
                 domainOrder.payment_id = sdkModel.payment_id;
 
-                if(domainOrder.order_status == OrderStatus.Open)
+                if (domainOrder.order_status == OrderStatus.Open)
                 {
                     domainOrder.order_status = OrderStatus.Processing;
                 }

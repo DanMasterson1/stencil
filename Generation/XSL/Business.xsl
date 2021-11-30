@@ -1118,10 +1118,13 @@ namespace <xsl:value-of select="items/@projectName"/>.Primary.Business.Integrati
                 <xsl:variable name="currentName"><xsl:value-of select="@name"/></xsl:variable>
                 <xsl:variable name="currentField"><xsl:value-of select="field[1]" /></xsl:variable>
                 <xsl:for-each select="../item/field[@foreignKey=$currentName and @foreignKeyInvalidatesMe='true']">
+				
                 this.API.Direct.<xsl:value-of select="../@name"/>s.InvalidateFor<xsl:value-of select="@friendlyName"/>(<xsl:value-of select="$currentField"/>, " changed");
                 </xsl:for-each>
+				
+				<xsl:value-of select="@name"/> item<xsl:value-of select="@foreignKey"/> = this.API.Direct.<xsl:value-of select="@name"/>s.GetById(<xsl:value-of select="$currentField"/>);
                 <xsl:for-each select="field[@iInvalidateforeignKey='true']">
-                <xsl:value-of select="../@name"/> item = this.API.Direct.<xsl:value-of select="../@name"/>s.GetById(<xsl:value-of select="$currentField"/>);
+                
                 if (item != null<xsl:if test="@isNullable='true'"> &amp;&amp; item.<xsl:value-of select="text()"/>.HasValue</xsl:if>)
                 {
                     this.API.Direct.<xsl:value-of select="@foreignKey"/>s.Invalidate(item.<xsl:value-of select="text()"/><xsl:if test="@isNullable='true'">.Value</xsl:if>, "<xsl:value-of select="../@name"/> changed");

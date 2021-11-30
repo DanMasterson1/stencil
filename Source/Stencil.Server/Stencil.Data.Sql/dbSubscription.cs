@@ -16,7 +16,9 @@ namespace Stencil.Data.Sql
     {
         public System.Guid subscription_id { get; set; }
         public System.Guid brand_id { get; set; }
-        public System.Guid product_id { get; set; }
-        public System.DateTime timestamp { get; set; }
+        public string event_name { get; set; }
+        public string url { get; set; }
+    
+        public virtual dbBrand Brand { get; set; }
     }
 }

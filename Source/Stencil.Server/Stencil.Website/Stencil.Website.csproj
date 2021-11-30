@@ -211,10 +211,11 @@
     <Content Include="Plugins\InvoiceGenerator\Stencil.Plugins.InvoiceGenerator.dll" />
     <Content Include="Plugins\MasterCard\PluginConfig.txt" />
     <Content Include="Plugins\MasterCard\Stencil.Plugins.MasterCard.dll" />
+    <Content Include="Plugins\OrderInformant\PluginConfig.txt" />
     <Content Include="Plugins\OrderProcessor\PluginConfig.txt" />
     <Content Include="Plugins\OrderProcessor\Stencil.Plugins.OrderProcessor.dll" />
-    <Content Include="Plugins\ProductReporter\PluginConfig.txt" />
-    <Content Include="Plugins\ProductReporter\Stencil.Plugins.ProductReporter.dll" />
+    <Content Include="Plugins\ProductInformant\PluginConfig.txt" />
+    <Content Include="Plugins\ProductInformant\Stencil.Plugins.ProductInformant.dll" />
     <Content Include="Plugins\RestAPI\PluginConfig.txt" />
     <Content Include="Plugins\RestAPI\Stencil.Plugins.RestAPI.dll" />
     <Content Include="Plugins\SystemMonitor\PluginConfig.txt" />

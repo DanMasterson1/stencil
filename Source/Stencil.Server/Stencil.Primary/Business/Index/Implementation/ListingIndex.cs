@@ -122,5 +122,25 @@ namespace Stencil.Primary.Business.Index.Implementation
 
         // if it has a promotion do something special if not dont
 
+        public int GetCount(Guid brand_id)
+        {
+            return base.ExecuteFunction("GetCount", delegate ()
+            {
+                QueryContainer query = Query<sdk.Listing>.Term(w => w.brand_id, brand_id);
+
+                query &= Query<sdk.Listing>.Exists(f => f.Field(x => x.brand_id));
+
+                ElasticClient client = this.ClientFactory.CreateClient();
+                ISearchResponse<sdk.Listing> response = client.Search<sdk.Listing>(s => s
+                    .Query(q => query)
+                    .Skip(0)
+                    .Take(0)
+                    .Type(this.DocumentType));
+
+
+                return (int)response.GetTotalHit();
+            });
+        }
+
     }
 }

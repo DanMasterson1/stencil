@@ -54,7 +54,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stencil.Plugins.OrderProces
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stencil.Plugins.MasterCard", "Plugins\Stencil.Plugins.MasterCard\Stencil.Plugins.MasterCard.csproj", "{FF91217C-9A65-4A40-BFDB-CCE790042038}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stencil.Plugins.ProductReporter", "Plugins\Stencil.Plugins.ProductReporter\Stencil.Plugins.ProductReporter.csproj", "{549DB75D-A83C-4A65-BB61-A92ED3A05532}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stencil.Plugins.ProductInformant", "Plugins\Stencil.Plugins.ProductReporter\Stencil.Plugins.ProductInformant.csproj", "{549DB75D-A83C-4A65-BB61-A92ED3A05532}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stencil.Plugins.OrderInformant", "Plugins\Stencil.Plugins.OrderReporter\Stencil.Plugins.OrderInformant.csproj", "{0C54A6F5-906B-4ECF-A0AA-C5752870FA55}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -143,6 +145,10 @@ Global
 		{549DB75D-A83C-4A65-BB61-A92ED3A05532}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{549DB75D-A83C-4A65-BB61-A92ED3A05532}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{549DB75D-A83C-4A65-BB61-A92ED3A05532}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C54A6F5-906B-4ECF-A0AA-C5752870FA55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C54A6F5-906B-4ECF-A0AA-C5752870FA55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C54A6F5-906B-4ECF-A0AA-C5752870FA55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C54A6F5-906B-4ECF-A0AA-C5752870FA55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -168,6 +174,7 @@ Global
 		{0E4021A1-3892-4EC6-BFCF-1CF2C8AAFB3D} = {0390AEAB-CF3E-4D8D-BDF3-606066A7B557}
 		{FF91217C-9A65-4A40-BFDB-CCE790042038} = {0390AEAB-CF3E-4D8D-BDF3-606066A7B557}
 		{549DB75D-A83C-4A65-BB61-A92ED3A05532} = {0390AEAB-CF3E-4D8D-BDF3-606066A7B557}
+		{0C54A6F5-906B-4ECF-A0AA-C5752870FA55} = {0390AEAB-CF3E-4D8D-BDF3-606066A7B557}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E93CDA94-78E4-417F-86D5-26DDEFBA4602}

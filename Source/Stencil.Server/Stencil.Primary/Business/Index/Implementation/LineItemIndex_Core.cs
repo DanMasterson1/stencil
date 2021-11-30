@@ -107,26 +107,6 @@ namespace Stencil.Primary.Business.Index.Implementation
             });
         }
         
-        public int GetCount(Guid order_id)
-        {
-            return base.ExecuteFunction("GetCount", delegate ()
-            {
-                QueryContainer query = Query<LineItem>.Term(w => w.order_id, order_id);
-                
-                query &= Query<LineItem>.Exists(f => f.Field(x => x.order_id));
-               
-                ElasticClient client = this.ClientFactory.CreateClient();
-                ISearchResponse<sdk.LineItem> response = client.Search<sdk.LineItem>(s => s
-                    .Query(q => query)
-                    .Skip(0)
-                    .Take(0)
-                    .Type(this.DocumentType));
-
-                 
-                return (int)response.GetTotalHit();
-            });
-        }
-        
 
     }
 }

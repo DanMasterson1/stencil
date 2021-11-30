@@ -2,17 +2,17 @@
 using Codeable.Foundation.Core;
 using Codeable.Foundation.UI.Web.Common.Plugins;
 using Codeable.Foundation.UI.Web.Core;
-using Stencil.Plugins.ProductReporter.Integration;
+using Stencil.Plugins.OrderInformant.Integration;
 using Stencil.Primary.Integration;
 using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.Practices.Unity;
 
-namespace Stencil.Plugins.ProductReporter
+namespace Stencil.Plugins.OrderReporter
 {
-    public class ProductReporterPlugin : ChokeableClass, IWebPlugin
+    public class OrderInformantPlugin : ChokeableClass, IWebPlugin
     {
-        public ProductReporterPlugin()
+        public OrderInformantPlugin()
             : base(CoreFoundation.Current)
         {
         }
@@ -42,14 +42,15 @@ namespace Stencil.Plugins.ProductReporter
         {
             base.ExecuteMethod("RegisterCustomRouting", delegate ()
             {
-                 //Am i registering these in the right place
-                 this.IFoundation.Container.RegisterInstance<IProductNotify>(new ProductNotify(this.IFoundation));
-                 this.IFoundation.Container.RegisterInstance<IProductSubscription>(new ProductSubscription(this.IFoundation));
+                //Am i registering these in the right place
+                this.IFoundation.Container.RegisterInstance<IInform>(new OrderInformer(this.IFoundation));
+                this.IFoundation.Container.RegisterInstance<IWorkerSubscriber>(new WorkRecipient(this.IFoundation));
+                this.IFoundation.Container.RegisterInstance<IWorkerSubscription>(new WorkerSubscription(this.IFoundation));
+                this.IFoundation.Container.RegisterInstance<IProcessNotification>(new ProcessNotify(this.IFoundation));
 
-                 ProductRegistration productRegistration = new ProductRegistration(this.IFoundation);
-                 //this is where i register the plugin to the primary interface
-                 productRegistration.RegisterSelf();
-
+                OrderRegistration orderRegistration = new OrderRegistration(this.IFoundation);
+                //this is where i register the plugin to the primary interface
+                orderRegistration.RegisterSelf();
             });
         }
 
@@ -68,12 +69,13 @@ namespace Stencil.Plugins.ProductReporter
         public bool WebInitialize(Codeable.Foundation.Common.IFoundation foundation, IDictionary<string, string> pluginConfig)
         {
             this.IFoundation = foundation;
+         
             return true;
         }
 
         public string DisplayName
         {
-            get { return "ProductReporterPlugin"; }
+            get { return "OrderInformantPlugin"; }
         }
 
         public string DisplayVersion

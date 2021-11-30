@@ -17,6 +17,9 @@ namespace Stencil.Primary.Business.Index
 
         ItemResult<double> GetTotalSalesForProduct(Guid product_id);
 
-        
+        int GetCount(Guid brand_id);
+
+        ItemResult<double> GetTotalSalesOnOrder(Guid product_id, Guid order_id);
+
     }
 }

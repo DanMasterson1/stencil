@@ -19,6 +19,7 @@ namespace Stencil.Data.Sql
         {
             this.Listings = new HashSet<dbListing>();
             this.Products = new HashSet<dbProduct>();
+            this.Subscriptions = new HashSet<dbSubscription>();
         }
     
         public System.Guid brand_id { get; set; }
@@ -37,5 +38,7 @@ namespace Stencil.Data.Sql
         public virtual ICollection<dbListing> Listings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<dbProduct> Products { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<dbSubscription> Subscriptions { get; set; }
     }
 }

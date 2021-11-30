@@ -1,7 +1,0 @@
-﻿AssemblyFileName: Stencil.Plugins.ProductReporter.dll
-SystemName: ProductReporter
-FriendlyName: Stencil - ProductReporter
-Description: webhooks
-Version: 1.0 
-Author: daniel.masterson@suzy.com
-Feature: Unknown

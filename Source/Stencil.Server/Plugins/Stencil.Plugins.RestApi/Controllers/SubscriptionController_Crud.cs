@@ -60,20 +60,6 @@ namespace Stencil.Plugins.RestAPI.Controllers
         //    });
         //}
         
-        //[HttpGet]
-        //[Route("by_productid/{product_id}")]
-        //public object GetByProductId(Guid product_id, int skip = 0, int take = 10, string order_by = "", bool descending = false)
-        //{
-        //    return base.ExecuteFunction<object>("GetByProductId", delegate ()
-        //    {
-                
-                
-        //        ListResult<sdk.Subscription> result = this.API.Index.Subscriptions.GetByProductId(product_id, skip, take, order_by, descending);
-        //        result.success = true;
-        //        return base.Http200(result);
-        //    });
-        //}
-        
         
         
        

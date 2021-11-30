@@ -16,5 +16,7 @@ namespace Stencil.Primary.Business.Index
         ListResult<Listing> GetCloseOutDeals(Guid brand_id, Guid promotion_id, int max_price);
         
         ListResult<Listing> GetAssociatedListings(Guid brand_id);
+
+        int GetCount(Guid brand_id);
     }
 }

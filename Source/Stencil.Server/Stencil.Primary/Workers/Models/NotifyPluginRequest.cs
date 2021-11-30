@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 
 namespace Stencil.Primary.Models
 {
-    public class QueryReportRequest
+    public class NotifyPluginRequest
     {
-        public QueryReportRequest()
+        public NotifyPluginRequest()
         {
 
         }
-        public string entity { get; set; }
+        public string eventName { get; set; }
 
         public string query_context { get; set; }
 
         public string response { get; set; }
+
+        public Guid brand_id { get; set; }
     }
 }

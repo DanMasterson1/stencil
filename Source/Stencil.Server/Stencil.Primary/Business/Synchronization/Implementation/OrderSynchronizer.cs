@@ -36,27 +36,55 @@ namespace Stencil.Primary.Synchronization.Implementation
             
             sdkModel.status = domainModel.order_status.ToString();
             sdkModel.created_utc = domainModel.created_utc;
-            
 
-            foreach(LineItem item in lineItems)
+
+            //foreach (LineItem item in lineItems)
+            //{
+            //    Listing referenceListing = this.API.Direct.Listings.GetById(item.listing_id);
+
+            //    Product referenceProduct = this.API.Direct.Products.GetById(referenceListing.product_id);
+
+
+
+            //    if (referenceListing.promotion_id != null)
+            //    {
+            //        Promotion referencePromotion = this.API.Direct.Promotions.GetById((Guid)referenceListing.promotion_id);
+            //        decimal listingPrice = referenceProduct.baseprice - (referencePromotion.percent * referenceProduct.baseprice);
+
+            //        sdkModel.order_total += listingPrice * item.lineitem_quantity;
+            //    }
+            //    else
+            //    {
+            //        decimal listingPrice = referenceProduct.baseprice;
+            //        sdkModel.order_total += listingPrice * item.lineitem_quantity;
+            //    }
+
+            // }
+
+            sdkModel.lineitem_count = lineItems.Count;
+
+            for (int i = 0; i < lineItems.Count; i++)
             {
-                Listing referenceListing = this.API.Direct.Listings.GetById(item.listing_id);
+                sdkModel.products = new sdk.Product[lineItems.Count];
+
+                Listing referenceListing = this.API.Direct.Listings.GetById(lineItems[i].listing_id);
 
                 Product referenceProduct = this.API.Direct.Products.GetById(referenceListing.product_id);
 
-                if(referenceListing.promotion_id != null)
+                sdkModel.products[i] = this.API.Index.Products.GetById(referenceProduct.product_id);
+
+                if (referenceListing.promotion_id != null)
                 {
                     Promotion referencePromotion = this.API.Direct.Promotions.GetById((Guid)referenceListing.promotion_id);
                     decimal listingPrice = referenceProduct.baseprice - (referencePromotion.percent * referenceProduct.baseprice);
 
-                    sdkModel.order_total += listingPrice * item.lineitem_quantity;
+                    sdkModel.order_total += listingPrice * lineItems[i].lineitem_quantity;
                 }
                 else
                 {
                     decimal listingPrice = referenceProduct.baseprice;
-                    sdkModel.order_total += listingPrice * item.lineitem_quantity;
+                    sdkModel.order_total += listingPrice * lineItems[i].lineitem_quantity;
                 }
-
             }
 
         }

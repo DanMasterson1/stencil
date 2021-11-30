@@ -9,8 +9,8 @@
   <item name="Brand" friendlyName="Brand" useIndex="true" indexPriority="15" indexForSearchable="true">
 		<field type="Guid" dbType="uniqueidentifier" isNullable="false" friendlyName="BrandId">brand_id</field>
 		<field type="string" dbType="nvarchar(100)" isNullable="false" friendlyName="BrandName" searchable="true" sortable="true">brand_name</field>
-    <indexfield type="int" isNullable="false" sortable="true" computedFrom="Product" computedReferenceField="brand_id" computedBy="Count" friendlyName="ProductCount">product_count</indexfield>
-    <indexfield type="int" isNullable="false" sortable="true" computedFrom="Listing" computedReferenceField="listing_id" computedBy="Count" friendlyName="ListingCount">listing_count</indexfield>
+    <indexfield type="int" isNullable="false" sortable="true" friendlyName="ProductCount">product_count</indexfield>
+    <indexfield type="int" isNullable="false" sortable="true" friendlyName="ListingCount">listing_count</indexfield>
 	</item>
 
 	<item name="Product" friendlyName="Product" useIndex="true" indexPriority="20" indexForSearchable="true">
@@ -41,7 +41,7 @@
     <indexfield type="decimal" isNullable="true" friendlyName="PromotionPercent">promotion_percent</indexfield>
     <indexfield type="string" isNullable="false" sortable="true" computedFrom="Brand" computedReferenceField="brand_id" computedBy="Extra" friendlyName="BrandName">brand_name</indexfield> 
     <indexfield type="string" isNullable="false" sortable="true" computedFrom="Product" computedReferenceField="product_id" computedBy="Extra" friendlyName="ProductName">product_name</indexfield>
-    <indexfield type="string" isNullable="true" sortable="true"  computedFrom="Promotion" computedReferenceField="promotion_id" computedBy="Extra" friendlyName="PromotionDescription">promotion_description</indexfield>
+    <indexfield type="string" isNullable="true" sortable="true"  friendlyName="PromotionDescription">promotion_description</indexfield>
   </item>
 
   <item name="Order" friendlyName="Order" useIndex="true" indexPriority="35" indexForSearchable="true">
@@ -60,7 +60,8 @@
     <indexfield type="string" isNullable="false" sortable="true" friendlyName="ShipmentAddress">shipment_address</indexfield>
     <indexfield type="string" isNullable="false" sortable="true" friendlyName="PaymentCardType">payment_cardtype</indexfield>
     <indexfield type="string" isNullable="false" sortable="true" friendlyName="Status">status</indexfield>
-    <indexfield type="int" isNullable="false" sortable="true" computedFrom="LineItem" computedReferenceField="lineitem_id" computedBy="Count" friendlyName="LineItemCount">lineitem_count</indexfield>
+    <indexfield type="int" isNullable="false" sortable="true" friendlyName="LineItemCount">lineitem_count</indexfield>
+    <indexfield type="Product[]" isNullable="false" sortable="true" friendlyName="Products">products</indexfield>
   </item>
 
   <item name="LineItem" friendlyName="LineItem" useIndex="true" indexPriority="40" indexForSearchable="true">
@@ -118,11 +119,11 @@
     <field type="int" dbType="int">cvv</field>
   </item>
   
-  <item name="Subscription" friendlyName="Subscription" useIndex="false" indexPriority="70" indexForSearchable="false">
+  <item name="Subscription" friendlyName="Subscription" useIndex="false" indexForSearchable="false">
     <field type="Guid"  dbType="uniqueidentifier" isNullable="false" friendlyName="BrandId">subscription_id</field>
     <field type="Guid" dbType="uniqueidentifier" isNullable="false" foreignKey="Brand" foreignKeyField="brand_id" friendlyName="BrandId" iInvalidateforeignKey="false" foreignKeyInvalidatesMe="false">brand_id</field>
-    <field type="Guid" dbType="uniqueidentifier" isNullable="false" foreignKey="Product" foreignKeyField="product_id" friendlyName="ProductId" iInvalidateforeignKey="false" foreignKeyInvalidatesMe="false">product_id</field>
-    <field type="DateTime" dbType="DateTime" isNullable="false">timestamp</field>
+    <field type="string" dbType="nvarchar(50)" isNullable="false" friendlyName="EventName">event_name</field>
+    <field type="string" dbType="nvarchar(50)" isNullable="false" friendlyName="Url">url</field>
   </item>
   
   <item name="Account" friendlyName="Account" uiDisplayField="first_name" useIndex="true" indexPriority="10" >

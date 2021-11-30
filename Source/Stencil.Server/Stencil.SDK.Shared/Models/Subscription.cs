@@ -13,8 +13,8 @@ namespace Stencil.SDK.Models
     
         public virtual Guid subscription_id { get; set; }
         public virtual Guid brand_id { get; set; }
-        public virtual Guid product_id { get; set; }
-        public virtual DateTime timestamp { get; set; }
+        public virtual string event_name { get; set; }
+        public virtual string url { get; set; }
         
 	}
 }

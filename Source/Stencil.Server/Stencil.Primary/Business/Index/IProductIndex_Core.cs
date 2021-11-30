@@ -17,7 +17,6 @@ namespace Stencil.Primary.Business.Index
         ListResult<Product> GetByBrandId(Guid brand_id, int skip, int take, string order_by = "", bool descending = false);
         
         ListResult<Product> Find(int skip, int take, string keyword = "", string order_by = "", bool descending = false, Guid? brand_id = null);
-       int GetCount(Guid brand_id);
-        
+       
     }
 }

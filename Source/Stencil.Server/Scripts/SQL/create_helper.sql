@@ -286,8 +286,8 @@ GO
 CREATE TABLE [dbo].[Subscription] (
 	 [subscription_id] uniqueidentifier NOT NULL
     ,[brand_id] uniqueidentifier NOT NULL
-    ,[product_id] uniqueidentifier NOT NULL
-    ,[timestamp] DateTime NOT NULL
+    ,[event_name] nvarchar(50) NOT NULL
+    ,[url] nvarchar(50) NOT NULL
     
   ,CONSTRAINT [PK_Subscription] PRIMARY KEY CLUSTERED 
   (
@@ -441,8 +441,6 @@ GO
 CREATE PROCEDURE [dbo].[spIndex_InvalidateAggregates]
 AS
 
-	UPDATE [dbo].[Brand] SET [sync_success_utc] = NULL
-	UPDATE [dbo].[Order] SET [sync_success_utc] = NULL
 
 GO
 
@@ -450,8 +448,6 @@ GO
 CREATE PROCEDURE [dbo].[spIndexHydrate_InvalidateAggregates]
 AS
 
-	UPDATE [dbo].[Brand] SET [sync_hydrate_utc] = NULL
-	UPDATE [dbo].[Order] SET [sync_hydrate_utc] = NULL
 
 GO
 
@@ -1599,10 +1595,6 @@ GO
 
 ALTER TABLE [dbo].[Subscription] WITH CHECK ADD  CONSTRAINT [FK_Subscription_Brand_brand_id] FOREIGN KEY([brand_id])
 REFERENCES [dbo].[Brand] ([brand_id])
-GO
-
-ALTER TABLE [dbo].[Subscription] WITH CHECK ADD  CONSTRAINT [FK_Subscription_Product_product_id] FOREIGN KEY([product_id])
-REFERENCES [dbo].[Product] ([product_id])
 GO
 
 ALTER TABLE [dbo].[PaymentDetail] WITH CHECK ADD  CONSTRAINT [FK_PaymentDetail_Account_account_id] FOREIGN KEY([account_id])

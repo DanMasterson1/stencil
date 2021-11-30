@@ -154,6 +154,7 @@
     <Compile Include="Business\Direct\Implementation\PromotionBusiness_Crud.cs" />
     <Compile Include="Business\Direct\Implementation\ShipmentBusiness.cs" />
     <Compile Include="Business\Direct\Implementation\ShipmentBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\Implementation\SubscriptionBusiness.cs" />
     <Compile Include="Business\Direct\Implementation\SubscriptionBusiness_Crud.cs" />
     <Compile Include="Business\Direct\IOrderBusiness.cs" />
     <Compile Include="Business\Direct\IOrderBusiness_Crud.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="Business\Direct\IProductBusiness_Crud.cs" />
     <Compile Include="Business\Direct\IPromotionBusiness_Crud.cs" />
     <Compile Include="Business\Direct\IShipmentBusiness_Crud.cs" />
+    <Compile Include="Business\Direct\ISubscriptionBusiness.cs" />
     <Compile Include="Business\Direct\ISubscriptionBusiness_Crud.cs" />
     <Compile Include="Business\Direct\_DirectExtensions.cs" />
     <Compile Include="Business\Index\Factory\DocumentNames.cs" />
@@ -285,9 +287,9 @@
     <Compile Include="Health\_HealthExtensions.cs" />
     <Compile Include="Integration\IGeneratePDFs.cs" />
     <Compile Include="Integration\IProcessImage.cs" />
-    <Compile Include="Integration\IProductNotify.cs" />
-    <Compile Include="Integration\IProductSubscription.cs" />
-    <Compile Include="Integration\ProductSubscription.cs" />
+    <Compile Include="Integration\IWorkerSubscriber.cs" />
+    <Compile Include="Integration\IWorkerSubscription.cs" />
+    <Compile Include="Integration\WorkerSubscription.cs" />
     <Compile Include="Mapping\PrimaryMappingProfile.cs" />
     <Compile Include="Mapping\PrimaryMappingProfile_Core.cs">
       <DependentUpon>PrimaryMappingProfile.cs</DependentUpon>
@@ -304,12 +306,12 @@
     <Compile Include="StencilAPIIndex.cs" />
     <Compile Include="StencilAPIIntegration.cs" />
     <Compile Include="Workers\AccountLoggedInWorker.cs" />
-    <Compile Include="Workers\IQueryReportWorker.cs" />
+    <Compile Include="Workers\INotifyPlugin.cs" />
     <Compile Include="Workers\Models\LoggedInRequest.cs" />
     <Compile Include="Workers\Models\PaymentDetailRequest.cs" />
-    <Compile Include="Workers\Models\QueryReportRequest.cs" />
+    <Compile Include="Workers\Models\NotifyPluginRequest.cs" />
     <Compile Include="Workers\PaymentDetailPersistanceWorker.cs" />
-    <Compile Include="Workers\QueryReportWorker.cs" />
+    <Compile Include="Workers\NotifyPluginWorker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

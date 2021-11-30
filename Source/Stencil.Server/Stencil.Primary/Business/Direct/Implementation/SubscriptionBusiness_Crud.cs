@@ -151,20 +151,6 @@ namespace Stencil.Primary.Business.Direct.Implementation
             });
         }
         
-        public List<Subscription> GetByProductId(Guid product_id)
-        {
-            return base.ExecuteFunction("GetByProductId", delegate()
-            {
-                using (var db = this.CreateSQLContext())
-                {
-                    var result = (from n in db.dbSubscriptions
-                                     where (n.product_id == product_id)
-                                     select n);
-                    return result.ToDomainModel();
-                }
-            });
-        }
-        
         
         
 
