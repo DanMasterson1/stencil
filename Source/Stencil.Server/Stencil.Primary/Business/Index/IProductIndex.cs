@@ -21,5 +21,9 @@ namespace Stencil.Primary.Business.Index
 
         ItemResult<double> GetTotalSalesOnOrder(Guid product_id, Guid order_id);
 
+        ListResult<Product> FindPromotionalProductsByBrand(Guid brand_id, string keyword, bool is_promotional, string order_by = "", bool descending = false);
+
+        ListResult<Product> GetRelatedProducts(Guid product_id, int skip, int take, string order_by = "", bool descending = false);
+
     }
 }

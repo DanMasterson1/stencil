@@ -82,6 +82,8 @@ namespace Stencil.Primary.Mapping
             am.Mapper.CreateMap<SDK.Models.OrderStatus, Domain.OrderStatus>().ConvertUsing(x => (Domain.OrderStatus)(int)x);
             am.Mapper.CreateMap<Domain.CardType, SDK.Models.CardType>().ConvertUsing(x => (SDK.Models.CardType)(int)x);
             am.Mapper.CreateMap<SDK.Models.CardType, Domain.CardType>().ConvertUsing(x => (Domain.CardType)(int)x);
+            am.Mapper.CreateMap<Domain.PromotionType, SDK.Models.PromotionType>().ConvertUsing(x => (SDK.Models.PromotionType)(int)x);
+            am.Mapper.CreateMap<SDK.Models.PromotionType, Domain.PromotionType>().ConvertUsing(x => (Domain.PromotionType)(int)x);
             am.Mapper.CreateMap<Domain.CarrierType, SDK.Models.CarrierType>().ConvertUsing(x => (SDK.Models.CarrierType)(int)x);
             am.Mapper.CreateMap<SDK.Models.CarrierType, Domain.CarrierType>().ConvertUsing(x => (Domain.CarrierType)(int)x);
             am.Mapper.CreateMap<Domain.TransactionOutcome, SDK.Models.TransactionOutcome>().ConvertUsing(x => (SDK.Models.TransactionOutcome)(int)x);

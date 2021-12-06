@@ -42,14 +42,12 @@ namespace Stencil.Plugins.ProductInformant
         {
             base.ExecuteMethod("RegisterCustomRouting", delegate ()
             {
-                //Am i registering these in the right place
                 this.IFoundation.Container.RegisterInstance<IInform>(new ProductInformer(this.IFoundation));
-                this.IFoundation.Container.RegisterInstance<IWorkerSubscriber>(new WorkRecipient(this.IFoundation)); // i dont want this to be a singleton?
+                this.IFoundation.Container.RegisterInstance<IWorkerSubscriber>(new WorkRecipient(this.IFoundation));
                 this.IFoundation.Container.RegisterInstance<IWorkerSubscription>(new WorkerSubscription(this.IFoundation));
-                this.IFoundation.Container.RegisterInstance<IProcessNotification>(new ProcessNotify(this.IFoundation));
+                this.IFoundation.Container.RegisterInstance<IDispatchNotifications>(new HttpDispatcher(this.IFoundation));
 
                 ProductRegistration productRegistration = new ProductRegistration(this.IFoundation);
-                //this is where i register the plugin to the primary interface
                 productRegistration.RegisterSelf();
             });
         }
@@ -75,7 +73,7 @@ namespace Stencil.Plugins.ProductInformant
 
         public string DisplayName
         {
-            get { return "ProductReporterPlugin"; }
+            get { return "ProductInformantPlugin"; }
         }
 
         public string DisplayVersion

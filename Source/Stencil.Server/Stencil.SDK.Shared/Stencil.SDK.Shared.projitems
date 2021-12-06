@@ -53,6 +53,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\PaymentTransaction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Product.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Promotion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\PromotionType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Requests\AuthLoginInput.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Requests\PasswordResetInput.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Requests\PushTokenInput.cs" />

@@ -2,8 +2,8 @@
 
 namespace Stencil.Plugins.ProductInformant
 {
-    public interface IProcessNotification
+    public interface IDispatchNotifications
     {
-        void Send(ProductNotification notification);
+        void Dispatch(ProductNotification notification);
     }
 }

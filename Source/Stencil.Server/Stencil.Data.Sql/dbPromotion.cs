@@ -14,13 +14,8 @@ namespace Stencil.Data.Sql
     
     public partial class dbPromotion
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public dbPromotion()
-        {
-            this.Listings = new HashSet<dbListing>();
-        }
-    
         public System.Guid promotion_id { get; set; }
+        public int promotion_type { get; set; }
         public string promotion_description { get; set; }
         public decimal percent { get; set; }
         public System.DateTimeOffset created_utc { get; set; }
@@ -32,8 +27,5 @@ namespace Stencil.Data.Sql
         public Nullable<System.DateTimeOffset> sync_attempt_utc { get; set; }
         public string sync_agent { get; set; }
         public string sync_log { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<dbListing> Listings { get; set; }
     }
 }

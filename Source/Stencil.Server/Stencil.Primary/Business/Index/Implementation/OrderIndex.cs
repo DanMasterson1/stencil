@@ -18,28 +18,28 @@ namespace Stencil.Primary.Business.Index.Implementation
         {
             return base.ExecuteFunction(nameof(GetOutstandingOrders), delegate ()
             {
-                QueryContainer query = Query<sdk.Order>.Bool(b => b
-                            .Must(
-                                m => m.Bool(o => o
-                                            .Must( 
-                                                v => v.MultiMatch(u => u
-                                                                    .Fields(d => d.Field(f => f.order_paid).Field("order_shipped"))
-                                                                    .Query("false")
-                                                                )
-                                            )
-                                            .Should( // think about using &=
-                                                h => h.Range(x => x.Field(f => f.order_total).GreaterThanOrEquals((double)min_total)),
-                                                h => h.Range(x => x.Field(f => f.lineitem_count).GreaterThanOrEquals((double)min_lineitemcount))
-                                            )
-                                            .MinimumShouldMatch(1)
-                                         ),
-                                m => m.DateRange(x => x.Field(f => f.created_utc).GreaterThanOrEquals(DateTime.UtcNow.AddDays(-created_daysback)))
-                            )
-                      );
+                // Query -> ((OrderPaid = false AND OrderShipped = false) AND (OrderTotal >= min_total OR LineItemCount >= min_lineitemcount)) AND created >= (-)daysback
 
+                //QueryContainer query = Query<sdk.Order>.Bool(b => b
+                //            .Must(
+                //                m => m.Bool(o => o
+                //                            .Must( 
+                //                                v => v.MultiMatch(u => u
+                //                                                    .Fields(d => d.Field(f => f.order_paid).Field("order_shipped"))
+                //                                                    .Query("false")
+                //                                                )
+                //                            )
+                //                            .Should( // think about using &=
+                //                                h => h.Range(x => x.Field(f => f.order_total).GreaterThanOrEquals((double)min_total)),
+                //                                h => h.Range(x => x.Field(f => f.lineitem_count).GreaterThanOrEquals((double)min_lineitemcount))
+                //                            )
+                //                            .MinimumShouldMatch(1)
+                //                         ),
+                //                m => m.DateRange(x => x.Field(f => f.created_utc).GreaterThanOrEquals(DateTime.UtcNow.AddDays(-created_daysback)))
+                //            )
+                //      );
 
-
-                QueryContainer query2 = Query<sdk.Order>.Bool(o => o
+                QueryContainer query = Query<sdk.Order>.Bool(o => o
                                             .Must(
                                                 v => v.MultiMatch(u => u
                                                                     .Fields(d => d.Field(f => f.order_paid).Field("order_shipped"))
@@ -48,15 +48,15 @@ namespace Stencil.Primary.Business.Index.Implementation
                                             )
                                          );
 
-                query2 &= Query<sdk.Order>.Bool(o => o
-                                            .Should( // think about using &=
+                query &= Query<sdk.Order>.Bool(o => o
+                                            .Should(
                                                 h => h.Range(x => x.Field(f => f.order_total).GreaterThanOrEquals((double)min_total)),
                                                 h => h.Range(x => x.Field(f => f.lineitem_count).GreaterThanOrEquals((double)min_lineitemcount))
                                             )
                                             .MinimumShouldMatch(1)
                                          );
 
-                query2 &= Query<sdk.Order>.DateRange(x => x.Field(f => f.created_utc).GreaterThanOrEquals(DateTime.UtcNow.AddDays(-created_daysback)));
+                query &= Query<sdk.Order>.DateRange(x => x.Field(f => f.created_utc).GreaterThanOrEquals(DateTime.UtcNow.AddDays(-created_daysback)));
 
                 int takePlus = take;
                 if (take != int.MaxValue)
@@ -88,13 +88,33 @@ namespace Stencil.Primary.Business.Index.Implementation
                     .Type(this.DocumentType)
                     );
 
-                //string queryJson = System.Text.UTF8Encoding.Default.GetString(searchResponse.ApiCall.RequestBodyInBytes);
-
                 ListResult<sdk.Order> result = searchResponse.Documents.ToSteppedListResult(skip,take,searchResponse.GetTotalHit());
 
                 return result;
             });
         }
 
+        public ListResult<sdk.Order> GetOrdersForProduct(Guid product_id)
+        {
+            return base.ExecuteFunction(nameof(GetOrdersForProduct), delegate ()
+            {
+                //sdk.Product referenceProduct = this.API.Index.Products.GetById(product_id);
+                //List<sdk.Product> productList = new List<Product>();
+
+                //productList.Add(referenceProduct);
+
+                QueryContainer query = Query<sdk.Order>.Term("products.product_id",product_id);
+
+                ElasticClient client = this.ClientFactory.CreateClient();
+                ISearchResponse<sdk.Order> response = client.Search<sdk.Order>(s => s
+                .Query(q => query)
+                .Type(DocumentNames.Order)
+                );
+
+                ListResult<sdk.Order> result = response.Documents.ToSteppedListResult(0, int.MaxValue);
+
+                return result;
+            });
+        }
     }
 }

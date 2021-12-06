@@ -20,6 +20,7 @@ namespace Stencil.SDK.Models
         //<IndexOnly>
         
         public string brand_name { get; set; }
+        public bool promotional { get; set; }
         
         //</IndexOnly>
 	}

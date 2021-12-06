@@ -15,6 +15,16 @@ namespace Stencil.Plugins.RestAPI.Controllers
 {
     public partial class LineItemController 
     {
-      
+        [HttpGet]
+        [Route("average_lineitem_quantity")]
+        public object GetAverageLineItemQuantity()
+        {
+            return base.ExecuteFunction<object>(nameof(GetAverageLineItemQuantity), delegate ()
+            {
+                ItemResult<int> result = this.API.Index.LineItems.GetAverageQuantity();
+                result.success = true;
+                return base.Http200(result);
+            });
+        }
     }
 }

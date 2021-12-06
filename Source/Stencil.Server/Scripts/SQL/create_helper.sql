@@ -62,6 +62,7 @@ GO
 
 CREATE TABLE [dbo].[Promotion] (
 	 [promotion_id] uniqueidentifier NOT NULL
+    ,[promotion_type] int NOT NULL
     ,[promotion_description] nvarchar(500) NOT NULL
     ,[percent] decimal(5,2) NOT NULL
     ,[created_utc] DATETIMEOFFSET(0) NOT NULL

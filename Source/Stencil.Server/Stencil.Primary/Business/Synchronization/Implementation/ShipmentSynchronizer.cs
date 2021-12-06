@@ -17,7 +17,7 @@ namespace Stencil.Primary.Synchronization.Implementation
         {
             Order domainOrder = this.API.Direct.Orders.GetById(domainModel.order_id);
 
-            if (domainOrder != null)
+            if (domainOrder != null && domainOrder.shipment_id != sdkModel.shipment_id)
             {
                 domainOrder.shipment_id = sdkModel.shipment_id;
                 

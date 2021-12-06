@@ -152,6 +152,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="aurelia\" />
     <Folder Include="Models\" />
+    <Folder Include="Plugins\OrderInformant\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -211,10 +212,8 @@
     <Content Include="Plugins\InvoiceGenerator\Stencil.Plugins.InvoiceGenerator.dll" />
     <Content Include="Plugins\MasterCard\PluginConfig.txt" />
     <Content Include="Plugins\MasterCard\Stencil.Plugins.MasterCard.dll" />
-    <Content Include="Plugins\OrderInformant\PluginConfig.txt" />
     <Content Include="Plugins\OrderProcessor\PluginConfig.txt" />
     <Content Include="Plugins\OrderProcessor\Stencil.Plugins.OrderProcessor.dll" />
-    <Content Include="Plugins\ProductInformant\PluginConfig.txt" />
     <Content Include="Plugins\ProductInformant\Stencil.Plugins.ProductInformant.dll" />
     <Content Include="Plugins\RestAPI\PluginConfig.txt" />
     <Content Include="Plugins\RestAPI\Stencil.Plugins.RestAPI.dll" />

@@ -174,5 +174,113 @@ namespace Stencil.Primary.Business.Index.Implementation
             });
         }
 
+        public ListResult<sdk.Product> FindPromotionalProductsByBrand(Guid brand_id, string keyword, bool is_promotional, string order_by = "", bool descending = false)
+        {
+            return base.ExecuteFunction(nameof(Find), delegate ()
+            {
+                QueryContainer query = Query<sdk.Product>.Term(x => x.brand_id, brand_id);
+
+                if (!string.IsNullOrEmpty(keyword))
+                {
+                    query &= Query<sdk.Product>.Match(x => x.Field(f => f.product_name).Query(keyword));
+                }
+
+                if (is_promotional)
+                {
+                    query &= Query<sdk.Product>.Bool(b => b
+                           .Must(m => m
+                               .Match(v => v
+                                       .Field(f => f.promotional).Query("true")
+                                       )
+                               )
+                            );
+                }
+
+                List<SortFieldDescriptor<sdk.Product>> sortFields = new List<SortFieldDescriptor<sdk.Product>>();
+                if (!string.IsNullOrEmpty(order_by))
+                {
+                    SortFieldDescriptor<sdk.Product> item = new SortFieldDescriptor<sdk.Product>()
+                        .Field(order_by)
+                        .Order(descending ? SortOrder.Descending : SortOrder.Ascending);
+
+                    sortFields.Add(item);
+                }
+                SortFieldDescriptor<sdk.Product> defaultSort = new SortFieldDescriptor<sdk.Product>()
+                    .Field(r => r.baseprice)
+                    .Ascending();
+
+                sortFields.Add(defaultSort);
+
+                ElasticClient client = this.ClientFactory.CreateClient();
+
+                ISearchResponse<sdk.Product> response = client.Search<sdk.Product>(s => s
+                .Query(q => query)
+                .Type(DocumentNames.Product)
+                .Sort(r => r.Multi(sortFields))
+                );
+
+                ListResult<sdk.Product> result = response.Documents.ToSteppedListResult(0,int.MaxValue);
+
+                return result;
+
+            });
+
+
+        }
+
+        public ListResult<sdk.Product> GetRelatedProducts(Guid product_id, int skip, int take, string order_by = "", bool descending = false)
+        {
+
+            sdk.Product referenceProduct = this.API.Index.Products.GetById(product_id);
+
+            ListResult<sdk.Order> referenceOrders = this.API.Index.Orders.GetOrdersForProduct(product_id);
+
+            List<sdk.Product> orderedProducts = new List<Product>();
+
+            foreach(sdk.Order order in referenceOrders.items)
+            {
+                orderedProducts.AddRange(order.products);
+            }
+
+            QueryContainer query = Query<sdk.Product>.Bool(b => b
+                                    .Should(
+                                            s => s.Match(m => m.Field(f => f.product_name).Query(referenceProduct.product_name).Boost(3)),
+                                            s => s.Term(t => t.brand_id, referenceProduct.brand_id, .25),
+                                            s => s.Terms(x => x.Field(f => f.product_id).Terms(orderedProducts).Boost(.25))
+                                    )
+                                    .MinimumShouldMatch(1)
+
+            );
+
+            query &= Query<sdk.Product>.Bool(b => b
+                                            .MustNot(m => m.Term(t => t.product_id,product_id))
+                                            );
+
+            List<SortFieldDescriptor<sdk.Product>> sortFields = new List<SortFieldDescriptor<sdk.Product>>();
+            if (!string.IsNullOrEmpty(order_by))
+            {
+                SortFieldDescriptor<sdk.Product> item = new SortFieldDescriptor<sdk.Product>()
+                    .Field(order_by)
+                    .Order(descending ? SortOrder.Descending : SortOrder.Ascending);
+
+                sortFields.Add(item);
+            }
+            SortFieldDescriptor<sdk.Product> defaultSort = new SortFieldDescriptor<sdk.Product>()
+                .Field(r => r.product_name)
+                .Ascending();
+
+            sortFields.Add(defaultSort);
+
+            ElasticClient client = this.ClientFactory.CreateClient();
+            ISearchResponse<sdk.Product> response = client.Search<sdk.Product>(s => s
+                .Query(q => query)
+                .Type(DocumentNames.Product)
+                .Skip(skip)
+                .Take(take)
+                .Sort(r => r.Multi(sortFields))
+            );
+
+            return response.Documents.ToSteppedListResult(skip, take);
+        }
     }
 }

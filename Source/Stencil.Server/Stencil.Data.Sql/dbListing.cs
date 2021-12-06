@@ -41,6 +41,5 @@ namespace Stencil.Data.Sql
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<dbLineItem> LineItems { get; set; }
         public virtual dbProduct Product { get; set; }
-        public virtual dbPromotion Promotion { get; set; }
     }
 }

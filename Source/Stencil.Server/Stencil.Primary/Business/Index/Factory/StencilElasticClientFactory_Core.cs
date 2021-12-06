@@ -72,6 +72,16 @@ namespace Stencil.Primary.Business.Index
                                 
                         )
                     ).String(m => m
+                        .Name(t => t.promotional)
+                        .Fields(f => f
+                                .String(s => s.Name(n => n.promotional)
+                                .Index(FieldIndexOption.Analyzed))
+                                .String(s => s
+                                    .Name(n => n.promotional.Suffix("sort"))
+                                    .Analyzer("case_insensitive"))
+                                
+                        )
+                    ).String(m => m
                         .Name(t => t.product_name)
                         .Fields(f => f
                                 .String(s => s.Name(n => n.product_name)
@@ -100,6 +110,16 @@ namespace Stencil.Primary.Business.Index
                     .String(s => s
                         .Name(n => n.promotion_id)
                         .Index(FieldIndexOption.NotAnalyzed)
+                    ).String(m => m
+                        .Name(t => t.promotion_name)
+                        .Fields(f => f
+                                .String(s => s.Name(n => n.promotion_name)
+                                .Index(FieldIndexOption.Analyzed))
+                                .String(s => s
+                                    .Name(n => n.promotion_name.Suffix("sort"))
+                                    .Analyzer("case_insensitive"))
+                                
+                        )
                     )
                 )
             ));

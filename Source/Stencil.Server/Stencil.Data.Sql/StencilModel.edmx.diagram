@@ -13,14 +13,12 @@
         <EntityTypeShape EntityType="Stencil.Data.Sql.dbListing" Width="1.5" PointX="14.25" PointY="9.125" />
         <EntityTypeShape EntityType="Stencil.Data.Sql.dbOrder" Width="1.5" PointX="6" PointY="0.5" />
         <EntityTypeShape EntityType="Stencil.Data.Sql.dbProduct" Width="1.5" PointX="15.75" PointY="2.5" />
-        <EntityTypeShape EntityType="Stencil.Data.Sql.dbPromotion" Width="1.5" PointX="17" PointY="7.25" />
         <AssociationConnector Association="Stencil.Data.Sql.FK_Order_Account_account_id" />
         <AssociationConnector Association="Stencil.Data.Sql.FK_Listing_Brand_brand_id" />
         <AssociationConnector Association="Stencil.Data.Sql.FK_Product_Brand_brand_id" />
         <AssociationConnector Association="Stencil.Data.Sql.FK_LineItem_Listing_listing_id" />
         <AssociationConnector Association="Stencil.Data.Sql.FK_LineItem_Order_order_id" />
         <AssociationConnector Association="Stencil.Data.Sql.FK_Listing_Product_product_id" />
-        <AssociationConnector Association="Stencil.Data.Sql.FK_Listing_Promotion_promotion_id" />
         <EntityTypeShape EntityType="Stencil.Data.Sql.dbInvoice" Width="1.5" PointX="12.5" PointY="2.5" />
         <AssociationConnector Association="Stencil.Data.Sql.FK_Invoice_Asset_asset_id" />
         <AssociationConnector Association="Stencil.Data.Sql.FK_Invoice_Order_order_id" />
@@ -38,6 +36,7 @@
         <AssociationConnector Association="Stencil.Data.Sql.FK_PaymentTransaction_Payment_payment_id" />
         <EntityTypeShape EntityType="Stencil.Data.Sql.dbSubscription" Width="1.5" PointX="13.75" PointY="15.5" />
         <AssociationConnector Association="Stencil.Data.Sql.FK_Subscription_Brand_brand_id" />
+        <EntityTypeShape EntityType="Stencil.Data.Sql.dbPromotion" Width="1.5" PointX="5.375" PointY="7.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

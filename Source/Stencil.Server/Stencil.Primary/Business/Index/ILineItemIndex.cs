@@ -11,6 +11,7 @@ namespace Stencil.Primary.Business.Index
 {
     partial interface ILineItemIndex
     {
-       // LineItem GetActiveById(Guid id);
+        // LineItem GetActiveById(Guid id);
+        ItemResult<int> GetAverageQuantity();
     }
 }

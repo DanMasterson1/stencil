@@ -54,12 +54,21 @@ namespace Stencil.Primary.Synchronization.Implementation
             // listing price set by above 2
             if (sdkModel.promotion_percent != null)
             {
-                sdkModel.listing_price = sdkModel.product_baseprice - ((decimal)sdkModel.promotion_percent * sdkModel.product_baseprice);
+                sdk.Promotion referencePromotion = this.API.Index.Promotions.GetById((Guid)sdkModel.promotion_id);
+                if(referencePromotion.promotion_type == sdk.PromotionType.Discount)
+                {
+                    sdkModel.listing_price = sdkModel.product_baseprice - ((decimal)sdkModel.promotion_percent * sdkModel.product_baseprice);
+                }
+                else
+                {
+                    sdkModel.listing_price = sdkModel.product_baseprice;
+                }
             }
             else
             {
                 sdkModel.listing_price = sdkModel.product_baseprice;
             }
+
 
 
         }

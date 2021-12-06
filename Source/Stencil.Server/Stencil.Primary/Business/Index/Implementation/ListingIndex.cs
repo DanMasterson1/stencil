@@ -142,5 +142,24 @@ namespace Stencil.Primary.Business.Index.Implementation
             });
         }
 
+        public ListResult<sdk.Listing> GetAssociatedProductListings(Guid product_id)
+        {
+            return base.ExecuteFunction(nameof(GetAssociatedListings), delegate ()
+            {
+                QueryContainer query = Query<sdk.Listing>.Term(x => x.product_id, product_id);
+
+                ElasticClient client = base.ClientFactory.CreateClient();
+                ISearchResponse<sdk.Listing> searchResponse = client.Search<sdk.Listing>(s => s
+                    .Query(q => query)
+                    .Type(base.DocumentType)
+                    );
+
+                ListResult<sdk.Listing> result = searchResponse.Documents.ToSteppedListResult(0, searchResponse.GetTotalHit(), searchResponse.GetTotalHit());
+
+                return result;
+
+            });
+        }
+
     }
 }

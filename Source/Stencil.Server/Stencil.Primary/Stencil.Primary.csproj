@@ -195,6 +195,7 @@
     <Compile Include="Business\Index\Implementation\IndexerBase.cs" />
     <Compile Include="Business\Index\Implementation\IndexerBaseHealth.cs" />
     <Compile Include="Business\Index\Implementation\InvoiceIndex_Core.cs" />
+    <Compile Include="Business\Index\Implementation\LineItemIndex.cs" />
     <Compile Include="Business\Index\Implementation\LineItemIndex_Core.cs" />
     <Compile Include="Business\Index\Implementation\ListingIndex_Core.cs" />
     <Compile Include="Business\Index\Implementation\OrderIndex.cs" />
@@ -245,7 +246,9 @@
     <Compile Include="Business\Synchronization\Implementation\PaymentSynchronizer.cs" />
     <Compile Include="Business\Synchronization\Implementation\PaymentSynchronizer_Core.cs" />
     <Compile Include="Business\Synchronization\Implementation\PaymentTransactionSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\Implementation\ProductSynchronizer.cs" />
     <Compile Include="Business\Synchronization\Implementation\ProductSynchronizer_Core.cs" />
+    <Compile Include="Business\Synchronization\Implementation\PromotionSynchronizer.cs" />
     <Compile Include="Business\Synchronization\Implementation\PromotionSynchronizer_Core.cs" />
     <Compile Include="Business\Synchronization\Implementation\ShipmentSynchronizer.cs" />
     <Compile Include="Business\Synchronization\Implementation\ShipmentSynchronizer_Core.cs" />

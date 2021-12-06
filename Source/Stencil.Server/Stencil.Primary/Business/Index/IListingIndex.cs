@@ -18,5 +18,7 @@ namespace Stencil.Primary.Business.Index
         ListResult<Listing> GetAssociatedListings(Guid brand_id);
 
         int GetCount(Guid brand_id);
+
+        ListResult<Listing> GetAssociatedProductListings(Guid product_id);
     }
 }

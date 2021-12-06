@@ -1,7 +1,0 @@
-﻿AssemblyFileName: Stencil.Plugins.ProductInformant.dll
-SystemName: ProductInformant
-FriendlyName: Stencil - ProductInformant
-Description: webhooks... kind of
-Version: 1.0 
-Author: daniel.masterson@suzy.com
-Feature: Unknown

@@ -28,6 +28,18 @@ namespace Stencil.Plugins.RestAPI.Controllers
             });
         }
 
+        [HttpGet]
+        [Route("get_byproduct")]
+        public object GetOrdersByProduct(Guid product_id)
+        {
+            return base.ExecuteFunction(nameof(GetOrdersByProduct), delegate ()
+            {
+                ListResult<sdk.Order> result = this.API.Index.Orders.GetOrdersForProduct(product_id);
+
+                result.success = true;
+                return base.Http200(result);
+            });
+        }
        
 
         //[HttpPut]

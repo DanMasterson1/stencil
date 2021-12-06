@@ -23,7 +23,7 @@ namespace Stencil.Primary.Workers
 
         public static void EnqueueRequest(IFoundation foundation, NotifyPluginRequest request)
         {
-            EnqueueRequest<NotifyPluginWorker>(foundation, WORKER_NAME, request, (int)TimeSpan.FromMinutes(2).TotalMilliseconds); // updates every 2 mins
+            EnqueueRequest<NotifyPluginWorker>(foundation, WORKER_NAME, request, (int)TimeSpan.FromMinutes(2).TotalMilliseconds); 
         }
 
         protected override void ProcessRequest(NotifyPluginRequest request)

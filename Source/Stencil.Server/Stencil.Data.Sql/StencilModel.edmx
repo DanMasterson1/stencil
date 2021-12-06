@@ -255,6 +255,7 @@
             <PropertyRef Name="promotion_id" />
           </Key>
           <Property Name="promotion_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="promotion_type" Type="int" Nullable="false" />
           <Property Name="promotion_description" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="percent" Type="decimal" Precision="5" Scale="2" Nullable="false" />
           <Property Name="created_utc" Type="datetimeoffset" Precision="0" Nullable="false" />
@@ -368,18 +369,6 @@
             </Principal>
             <Dependent Role="Listing">
               <PropertyRef Name="product_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Listing_Promotion_promotion_id">
-          <End Role="Promotion" Type="Self.Promotion" Multiplicity="0..1" />
-          <End Role="Listing" Type="Self.Listing" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Promotion">
-              <PropertyRef Name="promotion_id" />
-            </Principal>
-            <Dependent Role="Listing">
-              <PropertyRef Name="promotion_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -805,10 +794,6 @@
             <End Role="Product" EntitySet="Product" />
             <End Role="Listing" EntitySet="Listing" />
           </AssociationSet>
-          <AssociationSet Name="FK_Listing_Promotion_promotion_id" Association="Self.FK_Listing_Promotion_promotion_id">
-            <End Role="Promotion" EntitySet="Promotion" />
-            <End Role="Listing" EntitySet="Listing" />
-          </AssociationSet>
           <AssociationSet Name="FK_Order_Account_account_id" Association="Self.FK_Order_Account_account_id">
             <End Role="Account" EntitySet="Account" />
             <End Role="Order" EntitySet="Order" />
@@ -1034,7 +1019,6 @@
           <EntitySet Name="dbListings" EntityType="Stencil.Data.Sql.dbListing" />
           <EntitySet Name="dbOrders" EntityType="Stencil.Data.Sql.dbOrder" />
           <EntitySet Name="dbProducts" EntityType="Stencil.Data.Sql.dbProduct" />
-          <EntitySet Name="dbPromotions" EntityType="Stencil.Data.Sql.dbPromotion" />
           <AssociationSet Name="FK_Order_Account_account_id" Association="Stencil.Data.Sql.FK_Order_Account_account_id">
             <End Role="dbAccount" EntitySet="dbAccounts" />
             <End Role="Order" EntitySet="dbOrders" />
@@ -1057,10 +1041,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_Listing_Product_product_id" Association="Stencil.Data.Sql.FK_Listing_Product_product_id">
             <End Role="Product" EntitySet="dbProducts" />
-            <End Role="Listing" EntitySet="dbListings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Listing_Promotion_promotion_id" Association="Stencil.Data.Sql.FK_Listing_Promotion_promotion_id">
-            <End Role="Promotion" EntitySet="dbPromotions" />
             <End Role="Listing" EntitySet="dbListings" />
           </AssociationSet>
           <FunctionImport Name="spPayment_HydrateSyncGetInvalid" ReturnType="Collection(Guid)">
@@ -1196,6 +1176,7 @@
             <End Role="dbBrand" EntitySet="dbBrands" />
             <End Role="Subscription" EntitySet="dbSubscriptions" />
           </AssociationSet>
+          <EntitySet Name="dbPromotions" EntityType="Stencil.Data.Sql.dbPromotion" />
           </EntityContainer>
         <EntityType Name="dbAccount">
           <Key>
@@ -1342,7 +1323,6 @@
           <NavigationProperty Name="Brand" Relationship="Stencil.Data.Sql.FK_Listing_Brand_brand_id" FromRole="Listing" ToRole="Brand" />
           <NavigationProperty Name="LineItems" Relationship="Stencil.Data.Sql.FK_LineItem_Listing_listing_id" FromRole="Listing" ToRole="LineItem" />
           <NavigationProperty Name="Product" Relationship="Stencil.Data.Sql.FK_Listing_Product_product_id" FromRole="Listing" ToRole="Product" />
-          <NavigationProperty Name="Promotion" Relationship="Stencil.Data.Sql.FK_Listing_Promotion_promotion_id" FromRole="Listing" ToRole="Promotion" />
         </EntityType>
         <EntityType Name="dbOrder">
           <Key>
@@ -1395,24 +1375,6 @@
           <Property Name="sync_log" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Brand" Relationship="Stencil.Data.Sql.FK_Product_Brand_brand_id" FromRole="Product" ToRole="Brand" />
           <NavigationProperty Name="Listings" Relationship="Stencil.Data.Sql.FK_Listing_Product_product_id" FromRole="Product" ToRole="Listing" />
-        </EntityType>
-        <EntityType Name="dbPromotion">
-          <Key>
-            <PropertyRef Name="promotion_id" />
-          </Key>
-          <Property Name="promotion_id" Type="Guid" Nullable="false" />
-          <Property Name="promotion_description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="percent" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
-          <Property Name="created_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
-          <Property Name="updated_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
-          <Property Name="deleted_utc" Type="DateTimeOffset" Precision="0" />
-          <Property Name="sync_hydrate_utc" Type="DateTimeOffset" Precision="0" />
-          <Property Name="sync_success_utc" Type="DateTimeOffset" Precision="0" />
-          <Property Name="sync_invalid_utc" Type="DateTimeOffset" Precision="0" />
-          <Property Name="sync_attempt_utc" Type="DateTimeOffset" Precision="0" />
-          <Property Name="sync_agent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="sync_log" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Listings" Relationship="Stencil.Data.Sql.FK_Listing_Promotion_promotion_id" FromRole="Promotion" ToRole="Listing" />
         </EntityType>
         <Association Name="FK_Order_Account_account_id">
           <End Type="Stencil.Data.Sql.dbAccount" Role="dbAccount" Multiplicity="1" />
@@ -1483,18 +1445,6 @@
             </Principal>
             <Dependent Role="Listing">
               <PropertyRef Name="product_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Listing_Promotion_promotion_id">
-          <End Type="Stencil.Data.Sql.dbPromotion" Role="Promotion" Multiplicity="0..1" />
-          <End Type="Stencil.Data.Sql.dbListing" Role="Listing" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Promotion">
-              <PropertyRef Name="promotion_id" />
-            </Principal>
-            <Dependent Role="Listing">
-              <PropertyRef Name="promotion_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1751,6 +1701,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="dbPromotion">
+          <Key>
+            <PropertyRef Name="promotion_id" />
+          </Key>
+          <Property Name="promotion_id" Type="Guid" Nullable="false" />
+          <Property Name="promotion_type" Type="Int32" Nullable="false" />
+          <Property Name="promotion_description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="percent" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="created_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="updated_utc" Type="DateTimeOffset" Nullable="false" Precision="0" />
+          <Property Name="deleted_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_hydrate_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_success_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_invalid_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_attempt_utc" Type="DateTimeOffset" Precision="0" />
+          <Property Name="sync_agent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sync_log" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1986,24 +1954,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="dbPromotions">
-            <EntityTypeMapping TypeName="Stencil.Data.Sql.dbPromotion">
-              <MappingFragment StoreEntitySet="Promotion">
-                <ScalarProperty Name="sync_log" ColumnName="sync_log" />
-                <ScalarProperty Name="sync_agent" ColumnName="sync_agent" />
-                <ScalarProperty Name="sync_attempt_utc" ColumnName="sync_attempt_utc" />
-                <ScalarProperty Name="sync_invalid_utc" ColumnName="sync_invalid_utc" />
-                <ScalarProperty Name="sync_success_utc" ColumnName="sync_success_utc" />
-                <ScalarProperty Name="sync_hydrate_utc" ColumnName="sync_hydrate_utc" />
-                <ScalarProperty Name="deleted_utc" ColumnName="deleted_utc" />
-                <ScalarProperty Name="updated_utc" ColumnName="updated_utc" />
-                <ScalarProperty Name="created_utc" ColumnName="created_utc" />
-                <ScalarProperty Name="percent" ColumnName="percent" />
-                <ScalarProperty Name="promotion_description" ColumnName="promotion_description" />
-                <ScalarProperty Name="promotion_id" ColumnName="promotion_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="spPayment_HydrateSyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spPayment_HydrateSyncGetInvalid" />
           <FunctionImportMapping FunctionImportName="spPayment_HydrateSyncUpdate" FunctionName="Stencil.Data.Sql.Store.spPayment_HydrateSyncUpdate" />
           <FunctionImportMapping FunctionImportName="spPayment_SyncGetInvalid" FunctionName="Stencil.Data.Sql.Store.spPayment_SyncGetInvalid" />
@@ -2135,6 +2085,25 @@
                 <ScalarProperty Name="event_name" ColumnName="event_name" />
                 <ScalarProperty Name="brand_id" ColumnName="brand_id" />
                 <ScalarProperty Name="subscription_id" ColumnName="subscription_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dbPromotions">
+            <EntityTypeMapping TypeName="Stencil.Data.Sql.dbPromotion">
+              <MappingFragment StoreEntitySet="Promotion">
+                <ScalarProperty Name="sync_log" ColumnName="sync_log" />
+                <ScalarProperty Name="sync_agent" ColumnName="sync_agent" />
+                <ScalarProperty Name="sync_attempt_utc" ColumnName="sync_attempt_utc" />
+                <ScalarProperty Name="sync_invalid_utc" ColumnName="sync_invalid_utc" />
+                <ScalarProperty Name="sync_success_utc" ColumnName="sync_success_utc" />
+                <ScalarProperty Name="sync_hydrate_utc" ColumnName="sync_hydrate_utc" />
+                <ScalarProperty Name="deleted_utc" ColumnName="deleted_utc" />
+                <ScalarProperty Name="updated_utc" ColumnName="updated_utc" />
+                <ScalarProperty Name="created_utc" ColumnName="created_utc" />
+                <ScalarProperty Name="percent" ColumnName="percent" />
+                <ScalarProperty Name="promotion_description" ColumnName="promotion_description" />
+                <ScalarProperty Name="promotion_type" ColumnName="promotion_type" />
+                <ScalarProperty Name="promotion_id" ColumnName="promotion_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

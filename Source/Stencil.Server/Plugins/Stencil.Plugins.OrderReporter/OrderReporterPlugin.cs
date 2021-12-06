@@ -43,14 +43,14 @@ namespace Stencil.Plugins.OrderReporter
             base.ExecuteMethod("RegisterCustomRouting", delegate ()
             {
                 //Am i registering these in the right place
-                this.IFoundation.Container.RegisterInstance<IInform>(new OrderInformer(this.IFoundation));
-                this.IFoundation.Container.RegisterInstance<IWorkerSubscriber>(new WorkRecipient(this.IFoundation));
-                this.IFoundation.Container.RegisterInstance<IWorkerSubscription>(new WorkerSubscription(this.IFoundation));
-                this.IFoundation.Container.RegisterInstance<IProcessNotification>(new ProcessNotify(this.IFoundation));
+                //this.IFoundation.Container.RegisterInstance<IInform>(new OrderInformer(this.IFoundation));
+                //this.IFoundation.Container.RegisterInstance<IWorkerSubscriber>(new WorkRecipient(this.IFoundation));
+                //this.IFoundation.Container.RegisterInstance<IWorkerSubscription>(new WorkerSubscription(this.IFoundation));
+                //this.IFoundation.Container.RegisterInstance<IDispatchNotifications>(new ProcessNotify(this.IFoundation));
 
-                OrderRegistration orderRegistration = new OrderRegistration(this.IFoundation);
-                //this is where i register the plugin to the primary interface
-                orderRegistration.RegisterSelf();
+                //OrderRegistration orderRegistration = new OrderRegistration(this.IFoundation);
+                ////this is where i register the plugin to the primary interface
+                //orderRegistration.RegisterSelf();
             });
         }
 

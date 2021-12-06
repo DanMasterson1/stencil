@@ -2,8 +2,8 @@
 
 namespace Stencil.Plugins.OrderInformant.Integration
 {
-    public interface IProcessNotification
+    public interface IDispatchNotifications
     {
-        void Send(OrderNotification notification);
+        void Dispatch(OrderNotification notification);
     }
 }

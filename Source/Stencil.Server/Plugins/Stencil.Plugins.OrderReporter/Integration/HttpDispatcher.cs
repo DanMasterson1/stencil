@@ -4,27 +4,27 @@ using System.Text;
 using Codeable.Foundation.Common;
 using Codeable.Foundation.Common.Aspect;
 using Stencil.Domain;
-using Stencil.Plugins.ProductInformant.Models;
+using Stencil.Plugins.OrderInformant.Models;
 
-namespace Stencil.Plugins.ProductInformant.Integration
+namespace Stencil.Plugins.OrderInformant.Integration
 {
-    public class ProcessNotify : ChokeableClass, IProcessNotification
+    public class HttpDispatcher : ChokeableClass, IDispatchNotifications
     {
-        public ProcessNotify(IFoundation foundation)
+        public HttpDispatcher(IFoundation foundation)
         : base(foundation)
         {
         }
 
-        public void Send(ProductNotification notification)
+        public void Dispatch(OrderNotification notification)
         {
-            base.ExecuteMethod(nameof(Send), delegate ()
+            base.ExecuteMethod(nameof(Dispatch), delegate ()
             {
                 HttpClient client = new HttpClient();
 
                 foreach (Subscription subscription in notification.subscriptions)
                 {
                     var data = new StringContent(notification.payload, Encoding.UTF8, "application/json");
-                    client.PostAsync(new Uri(subscription.url), data);
+                    HttpResponseMessage response =  client.PostAsync(new Uri(subscription.url), data).Result;
                 }
             });
 

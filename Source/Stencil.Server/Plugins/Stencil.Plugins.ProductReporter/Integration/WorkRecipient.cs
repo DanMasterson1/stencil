@@ -15,7 +15,7 @@ namespace Stencil.Plugins.ProductInformant.Integration
          : base(iFoundation)
         {
             this.ProductInformer = iFoundation.Resolve<IInform>();
-            this.SubscribingEvent = "ProductQueried";
+            this.SubscribingEvent = "ProductQueried"; //TODO: Replace string
          
         }
        
@@ -24,6 +24,7 @@ namespace Stencil.Plugins.ProductInformant.Integration
 
         public void NotifyPlugin(NotifyPluginRequest request)
         {
+            // cant I just send this to the dispatcher
             ProductInformer.Inform(request);
         }
     }

@@ -20,12 +20,15 @@
     <field type="string" dbType="nvarchar(4000)" isNullable="false" friendlyName="ProductDescription" searchable="true">product_description</field>
     <field type="decimal" dbType="decimal(5,2)" isNullable="false" friendlyName="BasePrice" sortable="true">baseprice</field>
     <indexfield type="string" isNullable="false" sortable="true" computedFrom="Brand" computedReferenceField="brand_id" computedBy="Extra" friendlyName="BrandName">brand_name</indexfield>
+    <indexfield type="bool" isNullable="false" sortable="true" friendlyName="Promotional">promotional</indexfield>
 	</item>
 
   <item name="Promotion" friendlyName="Promotion" useIndex="true" indexPriority="25" indexForSearchable="true">
     <field type="Guid" dbType="uniqueidentifier" isNullable="false" friendlyName="PromotionId">promotion_id</field>
+    <field type="PromotionType" dbType="int" isNullable="false" friendlyName="PromotionType">promotion_type</field>
     <field type="string" dbType="nvarchar(500)" isNullable="false" friendlyName="PromotionDescription">promotion_description</field>
     <field type="decimal" dbType="decimal(5,2)" isNullable="false" friendlyName="PromotionPercent">percent</field> 
+    <indexfield type="string" isNullable="false" sortable="true" friendlyName="PromotionName">promotion_name</indexfield>
   </item>
 
   <item name="Listing" friendlyName="Listing" useIndex="true" indexPriority="30" indexForSearchable="true">
@@ -77,7 +80,6 @@
     <field type="Guid" dbType="uniqueidentifier" isNullable="false" friendlyName="InvoiceId">invoice_id</field>
     <field type="Guid" dbType="uniqueidentifier" isNullable="false" foreignKey="Order" foreignKeyField="order_id" friendlyName="OrderId" iInvalidateforeignKey="true" foreignKeyInvalidatesMe="true">order_id</field>
     <field type="Guid" dbType="uniqueidentifier" isNullable="false" foreignKey="Asset" foreignKeyField="asset_id" friendlyName="AssetId" iInvalidateforeignKey="false" foreignKeyInvalidatesMe="true">asset_id</field>
-    
   </item>
 
   <item name="Payment" friendlyName="Payment" useIndex="true" indexPriority="50" indexForSearchable="true">
@@ -189,6 +191,12 @@
   <enum name="CardType">
     <field value="0">Mastercard</field>
     <field value="1">Visa</field>
+  </enum>
+
+  <enum name="PromotionType">
+    <field value="0">Discount</field>
+    <field value="1">Bogo</field>
+    <field value="2">FreeShipping</field>
   </enum>
 
   <enum name="CarrierType">

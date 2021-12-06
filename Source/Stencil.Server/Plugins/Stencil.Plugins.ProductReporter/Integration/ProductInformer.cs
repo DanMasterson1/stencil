@@ -14,12 +14,12 @@ namespace Stencil.Plugins.ProductInformant.Integration
         public ProductInformer(IFoundation foundation)
           : base(foundation)
         {
-            this.API = foundation.Resolve<StencilAPI>();
-            this.ProcessNotification = foundation.Resolve<ProcessNotify>();
+            this.API = new StencilAPI(foundation);
+            this.Dispatcher = foundation.Resolve<IDispatchNotifications>();
         }
 
         public StencilAPI API { get; private set; }
-        public ProcessNotify ProcessNotification { get; set; }
+        public IDispatchNotifications Dispatcher { get; set; }
 
         public void Inform(NotifyPluginRequest request)
         {
@@ -33,7 +33,7 @@ namespace Stencil.Plugins.ProductInformant.Integration
                     subscriptions = eventSubscriptions
                 };
 
-                ProcessNotification.Send(notification);
+                Dispatcher.Dispatch(notification);
             });
         }
     }

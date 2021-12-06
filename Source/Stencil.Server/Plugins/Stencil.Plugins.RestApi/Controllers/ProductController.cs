@@ -58,15 +58,15 @@ namespace Stencil.Plugins.RestAPI.Controllers
 
                     NotifyPluginRequest request = new NotifyPluginRequest()
                     {
-                        eventName = "ProductQueried",
+                        eventName = "ProductQueried", // dont use a string
                         query_context = "Product was queried and returned",
                         brand_id = result.brand_id
                     };
 
                     if (result == null)
                     {
-                        request.response = JsonConvert.SerializeObject(Http404(this.TrackPrefix));
-
+                        request.response = JsonConvert.SerializeObject(Http404("Product"));
+                        request.query_context = "Product was not found in system";
                         NotifyPluginWorker.EnqueueRequest(base.IFoundation, request);
                         
                         return Http404("Product");
@@ -88,6 +88,30 @@ namespace Stencil.Plugins.RestAPI.Controllers
                 }
 
                 
+            });
+        }
+
+        [HttpGet]
+        [Route("promotional_products/{brand_id}")]
+        public object FindPromotionalProductsByBrand(Guid brand_id, string keyword, bool is_promotional , string order_by = "", bool descending = false)
+        {
+            return base.ExecuteFunction<object>(nameof(FindPromotionalProductsByBrand), delegate ()
+            {
+                ListResult<sdk.Product> result = this.API.Index.Products.FindPromotionalProductsByBrand(brand_id, keyword, is_promotional);
+                result.success = true;
+                return base.Http200(result);
+            });
+        }
+
+        [HttpGet]
+        [Route("related_products/{product_id}")]
+        public object GetRelatedProducts(Guid product_id, int take = 10)
+        {
+            return base.ExecuteFunction(nameof(GetRelatedProducts), delegate ()
+            {
+                ListResult<sdk.Product> result = this.API.Index.Products.GetRelatedProducts(product_id,0,take);
+                result.success = true;
+                return base.Http200(result);
             });
         }
     }

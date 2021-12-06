@@ -128,8 +128,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Integration\IInform.cs" />
-    <Compile Include="Integration\IProcessNotification.cs" />
-    <Compile Include="Integration\ProcessNotify.cs" />
+    <Compile Include="Integration\IDispatchNotifications.cs" />
+    <Compile Include="Integration\HttpDispatcher.cs" />
     <Compile Include="Integration\ProductInformer.cs" />
     <Compile Include="Models\ProductNotification.cs" />
     <Compile Include="Integration\ProductRegistration.cs" />

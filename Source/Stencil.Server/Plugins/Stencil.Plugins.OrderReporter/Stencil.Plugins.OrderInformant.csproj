@@ -107,9 +107,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Integration\IInform.cs" />
-    <Compile Include="Integration\IProcessNotification.cs" />
+    <Compile Include="Integration\IDispatchNotifications.cs" />
     <Compile Include="Integration\OrderRegistration.cs" />
-    <Compile Include="Integration\ProcessNotify.cs" />
+    <Compile Include="Integration\HttpDispatcher.cs" />
     <Compile Include="Models\OrderNotification.cs" />
     <Compile Include="Integration\OrderInformer.cs" />
     <Compile Include="Integration\WorkRecipient.cs" />

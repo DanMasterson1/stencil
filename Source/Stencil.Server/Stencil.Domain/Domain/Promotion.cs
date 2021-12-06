@@ -14,6 +14,7 @@ namespace Stencil.Domain
         }
     
         public Guid promotion_id { get; set; }
+        public PromotionType promotion_type { get; set; }
         public string promotion_description { get; set; }
         public decimal percent { get; set; }
         public DateTime created_utc { get; set; }

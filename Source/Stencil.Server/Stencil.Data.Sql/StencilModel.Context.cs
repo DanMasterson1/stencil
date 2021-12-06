@@ -35,13 +35,13 @@ namespace Stencil.Data.Sql
         public virtual DbSet<dbListing> dbListings { get; set; }
         public virtual DbSet<dbOrder> dbOrders { get; set; }
         public virtual DbSet<dbProduct> dbProducts { get; set; }
-        public virtual DbSet<dbPromotion> dbPromotions { get; set; }
         public virtual DbSet<dbInvoice> dbInvoices { get; set; }
         public virtual DbSet<dbShipment> dbShipments { get; set; }
         public virtual DbSet<dbPaymentTransaction> dbPaymentTransactions { get; set; }
         public virtual DbSet<dbPayment> dbPayments { get; set; }
         public virtual DbSet<dbPaymentDetail> dbPaymentDetails { get; set; }
         public virtual DbSet<dbSubscription> dbSubscriptions { get; set; }
+        public virtual DbSet<dbPromotion> dbPromotions { get; set; }
     
         public virtual ObjectResult<Nullable<System.Guid>> spAccount_HydrateSyncGetInvalid(Nullable<int> allowableSecondsToProcessIndex, string sync_agent)
         {
