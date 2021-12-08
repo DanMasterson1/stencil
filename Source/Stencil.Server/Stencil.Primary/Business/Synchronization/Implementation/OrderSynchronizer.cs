@@ -62,29 +62,43 @@ namespace Stencil.Primary.Synchronization.Implementation
             // }
 
             sdkModel.lineitem_count = lineItems.Count;
+            sdkModel.products = new sdk.Product[lineItems.Count];
 
             for (int i = 0; i < lineItems.Count; i++)
             {
-                sdkModel.products = new sdk.Product[lineItems.Count];
-
                 Listing referenceListing = this.API.Direct.Listings.GetById(lineItems[i].listing_id);
 
                 Product referenceProduct = this.API.Direct.Products.GetById(referenceListing.product_id);
 
+                sdk.LineItem referenceLineItem = this.API.Index.LineItems.GetById(lineItems[i].lineitem_id);
+
                 sdkModel.products[i] = this.API.Index.Products.GetById(referenceProduct.product_id);
 
-                if (referenceListing.promotion_id != null)
-                {
-                    Promotion referencePromotion = this.API.Direct.Promotions.GetById((Guid)referenceListing.promotion_id);
-                    decimal listingPrice = referenceProduct.baseprice - (referencePromotion.percent * referenceProduct.baseprice);
+                sdkModel.order_total += referenceLineItem.lineitem_total;
 
-                    sdkModel.order_total += listingPrice * lineItems[i].lineitem_quantity;
-                }
-                else
-                {
-                    decimal listingPrice = referenceProduct.baseprice;
-                    sdkModel.order_total += listingPrice * lineItems[i].lineitem_quantity;
-                }
+                //if (referenceListing.promotion_id != null)
+                //{
+                //    Promotion referencePromotion = this.API.Direct.Promotions.GetById((Guid)referenceListing.promotion_id);
+                //    decimal listingPrice = referenceProduct.baseprice - (referencePromotion.percent * referenceProduct.baseprice);
+
+                //    sdkModel.order_total += listingPrice * lineItems[i].lineitem_quantity;
+                //}
+                //else
+                //{
+                //    decimal listingPrice = referenceProduct.baseprice;
+                //    sdkModel.order_total += listingPrice * lineItems[i].lineitem_quantity;
+                //}                //if (referenceListing.promotion_id != null)
+                //{
+                //    Promotion referencePromotion = this.API.Direct.Promotions.GetById((Guid)referenceListing.promotion_id);
+                //    decimal listingPrice = referenceProduct.baseprice - (referencePromotion.percent * referenceProduct.baseprice);
+
+                //    sdkModel.order_total += listingPrice * lineItems[i].lineitem_quantity;
+                //}
+                //else
+                //{
+                //    decimal listingPrice = referenceProduct.baseprice;
+                //    sdkModel.order_total += listingPrice * lineItems[i].lineitem_quantity;
+                //}
             }
 
         }

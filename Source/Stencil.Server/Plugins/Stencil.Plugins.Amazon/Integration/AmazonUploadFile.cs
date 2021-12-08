@@ -45,6 +45,7 @@ namespace Stencil.Plugins.Amazon.Integration
         {
             get
             {
+                
                 return this.Cache15.PerLifetime("EnvironmentName", delegate ()
                 {
                     return this.API.Integration.SettingsResolver.GetSetting(CommonAssumptions.APP_KEY_ENVIRONMENT);

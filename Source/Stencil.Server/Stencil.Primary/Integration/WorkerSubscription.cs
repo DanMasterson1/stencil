@@ -15,7 +15,7 @@ namespace Stencil.Primary.Integration
             : base(iFoundation)
         {
             this.NotifyPluginWorker = iFoundation.Resolve<INotifyPlugin>();
-
+            
         }
 
         public INotifyPlugin NotifyPluginWorker { get; private set; }

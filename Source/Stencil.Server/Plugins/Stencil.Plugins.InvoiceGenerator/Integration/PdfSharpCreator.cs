@@ -86,7 +86,16 @@ namespace Stencil.Plugins.InvoiceGenerator.Integration
                     
                     if (listing.promotion_id != null)
                     {
-                        gfx.DrawString(listing.promotion_description, lineitemFont, XBrushes.Black, new XRect(350, y, page.Width, 0));
+                        
+                        if(listing.promotion_description.Length > 12)
+                        {
+                            gfx.DrawString(listing.promotion_description.Substring(0, 12), lineitemFont, XBrushes.Black, new XRect(350, y, page.Width, 0));
+                            gfx.DrawString(listing.promotion_description.Substring(12, listing.promotion_description.Length - 12), lineitemFont, XBrushes.Black, new XRect(350, y + 10, page.Width, 0));
+                        }
+                        else
+                        {
+                            gfx.DrawString(listing.promotion_description, lineitemFont, XBrushes.Black, new XRect(350, y, page.Width, 0));
+                        }
                         
                     }
 

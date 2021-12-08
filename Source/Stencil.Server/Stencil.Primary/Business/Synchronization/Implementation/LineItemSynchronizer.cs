@@ -26,7 +26,7 @@ namespace Stencil.Primary.Synchronization.Implementation
                     {
                         Promotion referencePromotion = this.API.Direct.Promotions.GetById((Guid)referenceListing.promotion_id);
 
-                        if(referencePromotion.promotion_type == PromotionType.Bogo && sdkModel.lineitem_quantity > 2)
+                        if(referencePromotion.promotion_type == PromotionType.Bogo && sdkModel.lineitem_quantity >= 2)
                         {
                             sdkModel.lineitem_total = referenceListing.listing_price * (sdkModel.lineitem_quantity - 1);
                         }

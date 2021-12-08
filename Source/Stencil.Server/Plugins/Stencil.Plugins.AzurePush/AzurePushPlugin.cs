@@ -54,7 +54,7 @@ namespace Stencil.Plugins.AzurePush
             base.ExecuteMethod("RegisterCustomRouting", delegate ()
             {
                 this.IFoundation.Container.RegisterInstance<IPushNotifications>(new AzurePushNotifier(this.IFoundation));
-
+                
             });
         }
         public void UnRegisterCustomRouting(System.Web.Routing.RouteCollection routes)
